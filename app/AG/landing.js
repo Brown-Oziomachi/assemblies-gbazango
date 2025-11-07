@@ -589,7 +589,7 @@ const AGChurchLanding = () => {
                                 whileTap={{ scale: 0.95 }}
                                 className="bg-white text-amber-900 px-10 py-5 rounded-full font-bold text-xl shadow-2xl hover:shadow-white/50 transition-all flex items-center justify-center gap-2 group"
                             >
-                                <Link href="/visitors">
+                                <Link href="/AG/visitors">
                                 Plan Your Visit
                                 </Link>
                                 <ChevronRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
