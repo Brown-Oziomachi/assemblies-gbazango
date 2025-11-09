@@ -30,7 +30,7 @@ export default function EventsPage() {
             try {
                 const eventsQuery = query(
                     collection(db, 'events'),
-                    orderBy('date', 'desc')
+                    // orderBy('date', 'desc')
                 );
                 const querySnapshot = await getDocs(eventsQuery);
                 const eventsData = querySnapshot.docs.map(doc => ({
@@ -52,11 +52,11 @@ export default function EventsPage() {
         if (!dateString) return 'No date';
         try {
             const date = new Date(dateString);
-            return date.toLocaleDateString('en-US', {
+            return date.toLocaleDateString('en-US', { 
                 weekday: 'long',
-                year: 'numeric',
-                month: 'long',
-                day: 'numeric'
+                year: 'numeric', 
+                month: 'long', 
+                day: 'numeric' 
             });
         } catch {
             return dateString;
@@ -152,10 +152,11 @@ export default function EventsPage() {
                             <button
                                 key={filterOption}
                                 onClick={() => setFilter(filterOption)}
-                                className={`px-6 py-3 rounded-lg font-semibold transition-all ${filter === filterOption
+                                className={`px-6 py-3 rounded-lg font-semibold transition-all ${
+                                    filter === filterOption
                                         ? 'bg-amber-600 text-white shadow-lg'
                                         : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
-                                    }`}
+                                }`}
                             >
                                 {filterOption.charAt(0).toUpperCase() + filterOption.slice(1)} Events
                                 <span className="ml-2 bg-white bg-opacity-20 px-2 py-1 rounded-full text-sm">
@@ -182,11 +183,11 @@ export default function EventsPage() {
                             <Calendar className="w-20 h-20 text-gray-400 mx-auto mb-4" />
                             <h3 className="text-2xl font-bold text-gray-900 mb-2">No Events Found</h3>
                             <p className="text-gray-600">
-                                {filter === 'upcoming'
-                                    ? 'No upcoming events at the moment. Check back soon!'
+                                {filter === 'upcoming' 
+                                    ? 'No upcoming events at the moment. Check back soon!' 
                                     : filter === 'past'
-                                        ? 'No past events to display.'
-                                        : 'Events will appear here once posted from the admin dashboard.'}
+                                    ? 'No past events to display.'
+                                    : 'Events will appear here once posted from the admin dashboard.'}
                             </p>
                         </div>
                     ) : (
@@ -246,7 +247,7 @@ export default function EventsPage() {
                                                 <Calendar className="w-5 h-5 text-amber-600 flex-shrink-0 mt-0.5" />
                                                 <span className="text-sm font-medium">{formatDate(event.date)}</span>
                                             </div>
-
+                                            
                                             {event.time && (
                                                 <div className="flex items-start gap-3 text-gray-600">
                                                     <Clock className="w-5 h-5 text-amber-600 flex-shrink-0 mt-0.5" />

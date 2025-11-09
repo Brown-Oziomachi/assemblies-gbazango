@@ -143,7 +143,7 @@ const AGChurchLanding = () => {
                                     {item.label}
                                 </Link>
                             ))}
-                            <Link href="/AG/give">
+                            <Link href="/give-online">
                                 <motion.button
                                     whileHover={{ scale: 1.05 }}
                                     whileTap={{ scale: 0.95 }}

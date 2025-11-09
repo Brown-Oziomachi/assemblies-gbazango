@@ -32,7 +32,7 @@ export default function SermonsPage() {
             try {
                 const sermonsQuery = query(
                     collection(db, 'sermons'),
-                    orderBy('date', 'desc'),
+                    // orderBy('date', 'desc'),
                     limit(50)
                 );
                 const querySnapshot = await getDocs(sermonsQuery);
