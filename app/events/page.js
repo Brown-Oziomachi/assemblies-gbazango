@@ -30,7 +30,7 @@ export default function EventsPage() {
             try {
                 const eventsQuery = query(
                     collection(db, 'events'),
-                    // orderBy('date', 'desc')
+                    orderBy('date', 'desc')
                 );
                 const querySnapshot = await getDocs(eventsQuery);
                 const eventsData = querySnapshot.docs.map(doc => ({
