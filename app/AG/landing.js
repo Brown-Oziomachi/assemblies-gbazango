@@ -55,9 +55,9 @@ const AGChurchLanding = () => {
                             className="flex items-center gap-3 cursor-pointer"
                         >
                                <img
-                                    src="AG.jpeg"
+                                    src="/logo.png"
                                     alt="Church Community"
-                                    className="rounded-full w-20 h-20 mt-5"
+                                    className="rounded-full w-20 h-40 mt-5"
                                 />
                             <div className="hidden sm:block">
                                 <span className={`font-bold text-lg ${scrolled ? 'text-amber-900' : 'text-white'}`}>
@@ -70,26 +70,40 @@ const AGChurchLanding = () => {
                         </motion.div>
 
                         <div className="hidden md:flex items-center space-x-8">
-                            {['Home', 'About', 'Ministries', 'Events', 'Sermons', 'Contact'].map((item) => (
-                                <motion.a
-                                    key={item}
-                                    href={`#${item.toLowerCase()}`}
+                            {[
+                                { label: 'Home', href: '/' },
+                                { label: 'About', href: '/about' },
+                                { label: 'Ministries', href: '/AG/ministries' },
+                                { label: 'Events', href: '/AG/events' },
+                                { label: 'Sermons', href: '/AG/sermons' },
+                                { label: 'Contact', href: '/AG/contact' }
+                            ].map((item) => (
+                                <motion.div
+                                    key={item.label}
                                     whileHover={{ scale: 1.1 }}
-                                    className={`font-semibold transition-colors duration-300 ${scrolled
+                                >
+                                    <Link
+                                        href={item.href}
+                                        className={`font-semibold transition-colors duration-300 ${scrolled
                                             ? 'text-gray-700 hover:text-amber-600'
                                             : 'text-white hover:text-amber-400'
-                                        }`}
-                                >
-                                    {item}
-                                </motion.a>
+                                            }`}
+                                    >
+                                        {item.label}
+                                    </Link>
+                                </motion.div>
                             ))}
-                            <motion.button
-                                whileHover={{ scale: 1.05 }}
-                                whileTap={{ scale: 0.95 }}
-                                className="bg-gradient-to-r from-amber-500 to-amber-600 text-white px-6 py-2 rounded-full font-bold shadow-lg hover:shadow-xl transition-all"
-                            >
-                                Give Online
-                            </motion.button>
+
+                            {/* Give Online Button */}
+                            <Link href="/give-online">
+                                <motion.button
+                                    whileHover={{ scale: 1.05 }}
+                                    whileTap={{ scale: 0.95 }}
+                                    className="bg-gradient-to-r from-amber-500 to-amber-600 text-white px-6 py-2 rounded-full font-bold shadow-lg hover:shadow-xl transition-all"
+                                >
+                                    Give Online
+                                </motion.button>
+                            </Link>
                         </div>
 
                         <button
@@ -104,6 +118,7 @@ const AGChurchLanding = () => {
                 </div>
 
                 {/* Mobile Menu */}
+                {/* Mobile Menu */}
                 {isMenuOpen && (
                     <motion.div
                         initial={{ opacity: 0, height: 0 }}
@@ -111,22 +126,36 @@ const AGChurchLanding = () => {
                         className="md:hidden bg-white shadow-lg"
                     >
                         <div className="px-4 py-6 space-y-4">
-                            {['Home', 'About', 'Ministries', 'Events', 'Sermons', 'Contact'].map((item) => (
-                                <a
-                                    key={item}
-                                    href={`#${item.toLowerCase()}`}
+                            {[
+                                { label: 'Home', href: '/' },
+                                { label: 'About', href: '/AG/about' },
+                                { label: 'Ministries', href: '/AG/ministries' },
+                                { label: 'Events', href: '/AG/events' },
+                                { label: 'Sermons', href: '/AG/sermons' },
+                                { label: 'Contact', href: '/AG/contact' }
+                            ].map((item) => (
+                                <Link
+                                    key={item.label}
+                                    href={item.href}
                                     className="block text-gray-700 hover:text-amber-600 font-semibold"
                                     onClick={() => setIsMenuOpen(false)}
                                 >
-                                    {item}
-                                </a>
+                                    {item.label}
+                                </Link>
                             ))}
-                            <button className="w-full bg-gradient-to-r from-amber-500 to-amber-600 text-white px-6 py-2 rounded-full font-bold">
-                                Give Online
-                            </button>
+                            <Link href="/AG/give">
+                                <motion.button
+                                    whileHover={{ scale: 1.05 }}
+                                    whileTap={{ scale: 0.95 }}
+                                    className="bg-gradient-to-r from-amber-500 to-amber-600 text-white px-6 py-2 rounded-full font-bold shadow-lg hover:shadow-xl transition-all"
+                                >
+                                    Give Online
+                                </motion.button>
+                            </Link>
                         </div>
                     </motion.div>
                 )}
+
             </motion.nav>
 
             {/* Hero Section with Video */}
@@ -176,15 +205,15 @@ const AGChurchLanding = () => {
                             variants={scaleIn}
                         >
                                 <img
-                                    src="AG.jpeg"
+                                    src="/logo.png"
                                     alt="Church Community"
-                                    className="rounded-full w-30 h-30 mt-20 mx-auto"
-                                />                        </motion.div>
+                                    className="rounded-full w-40 h-60 mt-5 mx-auto"
+                                />                       </motion.div>
 
                         {/* Main Heading */}
                         <motion.div variants={fadeInUp} className="space-y-4">
-                            <h1 className="text-5xl md:text-7xl lg:text-8xl font-bold text-white drop-shadow-2xl leading-tight">
-                                Welcome Home to
+                            <h1 className="text-5xl md:text-7xl lg:text-8xl lg:-mt-20 font-bold text-white drop-shadow-2xl leading-tight">
+                                Welcome to
                                 <br />
                                 <span className="text-transparent bg-clip-text bg-gradient-to-r from-amber-300 to-yellow-400">
                                     Assemblies of God
@@ -322,7 +351,7 @@ const AGChurchLanding = () => {
                                 whileTap={{ scale: 0.95 }}
                                 className="flex items-center gap-2 bg-linear-to-r from-amber-500 to-amber-600 text-white px-8 py-4 rounded-full font-bold shadow-lg hover:shadow-xl transition-all group"
                             >
-                                Learn More About Us
+                               <Link href="/about">Learn More About Us</Link>
                                 <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
                             </motion.button>
                         </motion.div>
@@ -330,7 +359,7 @@ const AGChurchLanding = () => {
                         <motion.div variants={scaleIn} className="relative">
                             <div className="relative rounded-2xl overflow-hidden shadow-2xl">
                                 <img
-                                    src="https://images.unsplash.com/photo-1501612780327-45045538702b?w=800"
+                                    src="pst Asuata.jpg"
                                     alt="Church Community"
                                     className="w-full h-[600px] object-cover"
                                 />
@@ -390,21 +419,21 @@ const AGChurchLanding = () => {
                         {[
                             {
                                 day: 'Sunday Service',
-                                time: '9:00 AM & 11:00 AM',
+                                time: '8:00 AM & 12:00 AM',
                                 type: 'Main Worship Service',
                                 icon: '⛪',
                                 description: 'Join us for powerful worship and inspiring messages'
                             },
                             {
                                 day: 'Tuesday Bible Study',
-                                time: '7:00 PM',
+                                time: '6:00 PM',
                                 type: 'Mid-Week Service',
                                 icon: '📖',
                                 description: 'Deep dive into God\'s word together'
                             },
                             {
                                 day: 'Thursday Youth Service',
-                                time: '7:00 PM',
+                                time: '6:00 PM',
                                 type: 'Youth & Teens Ministry',
                                 icon: '🎸',
                                 description: 'Dynamic worship for the next generation'

@@ -87,7 +87,7 @@ const JoinUsThisSunday = () => {
             We can't wait to worship with you
           </motion.p>
           <motion.p variants={fadeInUp} className="text-lg text-amber-600 font-semibold">
-            Sunday, November 10, 2025
+            Sunday Services at 8:00 AM & 12:00 PM
           </motion.p>
         </motion.div>
 
@@ -101,16 +101,16 @@ const JoinUsThisSunday = () => {
           <div className="grid md:grid-cols-2 gap-4">
             {[
               { 
-                time: '9:00 AM', 
-                id: '9am',
-                label: 'Early Morning Service', 
+                time: '8:00 AM', 
+                id: '8am',
+                label: 'Sunday School Service', 
                 attendees: '~300 people', 
                 vibe: 'Traditional & Reflective',
-                description: 'Perfect for early risers who love hymns and a contemplative atmosphere'
+                description: 'Join our sunday school for a time of learning and fellowship'
               },
               { 
-                time: '11:00 AM',
-                id: '11am', 
+                time: '9:30 AM',
+                id: '9am', 
                 label: 'Main Service', 
                 attendees: '~600 people', 
                 vibe: 'Contemporary & Energetic',
