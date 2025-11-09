@@ -58,23 +58,9 @@ export default function LiveStream() {
       </div>
     );
 
-  // Function to clean embed links (removes branding)
+  // Function to get embed URL directly
   const getEmbedUrl = (video) => {
-    if (video.platform === "youtube") {
-      return `${video.url}?autoplay=1&modestbranding=1&showinfo=0&rel=0&controls=0`;
-    }
-    if (video.platform === "facebook") {
-      return `https://www.facebook.com/plugins/video.php?href=${encodeURIComponent(
-        video.url
-      )}&show_text=false&autoplay=true`;
-    }
-    if (video.platform === "vimeo") {
-      return `${video.url}?autoplay=1&title=0&byline=0&portrait=0`;
-    }
-    if (video.platform === "twitch") {
-      return `https://player.twitch.tv/?channel=${video.url}&autoplay=true&parent=yourdomain.com`;
-    }
-    return video.url;
+    return video.url || "";
   };
 
   return (
