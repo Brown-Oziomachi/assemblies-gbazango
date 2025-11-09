@@ -40,7 +40,7 @@ const JoinUsThisSunday = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-amber-50 to-white">
+    <div className="min-h-screen bg-linear-to-b from-amber-50 to-white">
       {/* Header */}
       <div className="bg-white shadow-md sticky top-0 z-50">
         <div className="max-w-7xl mx-auto px-4 py-4">
@@ -76,7 +76,7 @@ const JoinUsThisSunday = () => {
           className="text-center mb-12"
         >
           <motion.div variants={fadeInUp} className="inline-block mb-6">
-            <div className="w-20 h-20 bg-gradient-to-br from-amber-400 to-amber-600 rounded-full flex items-center justify-center mx-auto shadow-xl">
+            <div className="w-20 h-20 bg-linear-to-br from-amber-400 to-amber-600 rounded-full flex items-center justify-center mx-auto shadow-xl">
               <Calendar className="w-10 h-10 text-white" />
             </div>
           </motion.div>
@@ -87,7 +87,7 @@ const JoinUsThisSunday = () => {
             We can't wait to worship with you
           </motion.p>
           <motion.p variants={fadeInUp} className="text-lg text-amber-600 font-semibold">
-            Sunday Services at 8:00 AM & 12:00 PM
+            Sunday Services at 8:00 AM - 12:00 PM
           </motion.p>
         </motion.div>
 
@@ -173,7 +173,7 @@ const JoinUsThisSunday = () => {
                   required
                   value={formData.name}
                   onChange={(e) => setFormData({...formData, name: e.target.value})}
-                  className="w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:border-amber-500 focus:outline-none transition-colors"
+                  className="w-full px-4 py-3 border-2 text-black border-gray-200 rounded-lg focus:border-amber-500 focus:outline-none transition-colors"
                   placeholder="John Doe"
                 />
               </div>
@@ -184,7 +184,7 @@ const JoinUsThisSunday = () => {
                   required
                   value={formData.email}
                   onChange={(e) => setFormData({...formData, email: e.target.value})}
-                  className="w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:border-amber-500 focus:outline-none transition-colors"
+                  className="w-full px-4 py-3 border-2 text-black border-gray-200 rounded-lg focus:border-amber-500 focus:outline-none transition-colors"
                   placeholder="john@example.com"
                 />
               </div>
@@ -197,7 +197,7 @@ const JoinUsThisSunday = () => {
                   type="tel"
                   value={formData.phone}
                   onChange={(e) => setFormData({...formData, phone: e.target.value})}
-                  className="w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:border-amber-500 focus:outline-none transition-colors"
+                  className="w-full px-4 py-3 border-2 text-black border-gray-200 rounded-lg focus:border-amber-500 focus:outline-none transition-colors"
                   placeholder="+234 803 456 7890"
                 />
               </div>
@@ -206,7 +206,7 @@ const JoinUsThisSunday = () => {
                 <select
                   value={formData.attendees}
                   onChange={(e) => setFormData({...formData, attendees: e.target.value})}
-                  className="w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:border-amber-500 focus:outline-none transition-colors"
+                  className="w-full px-4 py-3 border-2 text-black border-gray-200 rounded-lg focus:border-amber-500 focus:outline-none transition-colors"
                 >
                   {[1,2,3,4,5,6,7,8].map(num => (
                     <option key={num} value={num}>{num} {num === 1 ? 'person' : 'people'}</option>
@@ -221,7 +221,7 @@ const JoinUsThisSunday = () => {
                 <select
                   value={formData.firstTime}
                   onChange={(e) => setFormData({...formData, firstTime: e.target.value})}
-                  className="w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:border-amber-500 focus:outline-none transition-colors"
+                  className="w-full px-4 py-3 border-2 text-black border-gray-200 rounded-lg focus:border-amber-500 focus:outline-none transition-colors"
                 >
                   <option value="yes">Yes, first time!</option>
                   <option value="no">No, I've been before</option>
@@ -232,7 +232,7 @@ const JoinUsThisSunday = () => {
                 <select
                   value={formData.childcare}
                   onChange={(e) => setFormData({...formData, childcare: e.target.value})}
-                  className="w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:border-amber-500 focus:outline-none transition-colors"
+                  className="w-full px-4 py-3 border-2 text-black border-gray-200 rounded-lg focus:border-amber-500 focus:outline-none transition-colors"
                 >
                   <option value="no">No, thanks</option>
                   <option value="yes">Yes, please</option>
@@ -246,7 +246,7 @@ const JoinUsThisSunday = () => {
                 value={formData.prayer}
                 onChange={(e) => setFormData({...formData, prayer: e.target.value})}
                 rows={4}
-                className="w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:border-amber-500 focus:outline-none transition-colors resize-none"
+                className="w-full px-4 py-3 border-2 text-black border-gray-200 rounded-lg focus:border-amber-500 focus:outline-none transition-colors resize-none"
                 placeholder="Is there anything we can pray about for you?"
               />
             </div>
@@ -255,7 +255,7 @@ const JoinUsThisSunday = () => {
               whileHover={{ scale: 1.02 }}
               whileTap={{ scale: 0.98 }}
               type="submit"
-              className="w-full bg-gradient-to-r from-amber-500 to-amber-600 text-white py-4 rounded-xl font-bold text-lg shadow-xl hover:shadow-2xl transition-all flex items-center justify-center gap-2"
+              className="w-full bg-linear-to-r from-amber-500 to-amber-600 text-white py-4 rounded-xl font-bold text-lg shadow-xl hover:shadow-2xl transition-all flex items-center justify-center gap-2"
             >
               Confirm My Visit for {formData.service}
               <ChevronRight className="w-5 h-5" />
@@ -268,7 +268,7 @@ const JoinUsThisSunday = () => {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.4 }}
-          className="bg-gradient-to-br from-amber-500 to-amber-600 rounded-2xl p-8 text-white"
+          className="bg-linear-to-br from-amber-500 to-amber-600 rounded-2xl p-8 text-white"
         >
           <h3 className="text-2xl font-bold mb-6">What Happens Next?</h3>
           <div className="space-y-4">
@@ -279,7 +279,7 @@ const JoinUsThisSunday = () => {
               { icon: Gift, text: "Expect a warm welcome and a special first-time visitor gift when you arrive!" }
             ].map((item, i) => (
               <div key={i} className="flex items-start gap-4">
-                <div className="w-10 h-10 bg-white/20 backdrop-blur-sm rounded-full flex items-center justify-center flex-shrink-0">
+                <div className="w-10 h-10 bg-white/20 backdrop-blur-sm rounded-full flex items-center justify-center shrink-0">
                   <item.icon className="w-5 h-5" />
                 </div>
                 <p className="text-lg pt-2">{item.text}</p>

@@ -1,7 +1,7 @@
 "use client"
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { Play, Pause, Volume2, VolumeX, ChevronRight, Calendar, MapPin, Phone, Mail, Facebook, Instagram, Twitter, Youtube, Clock, Users, Heart, Book, ArrowRight } from 'lucide-react';
+import { Play, Pause, Users, Heart, Sparkles, Zap, Baby, Music, HandHeart, Church, ChevronRight, Volume2, VolumeX, Calendar, MapPin, Phone, Mail, Facebook, Instagram, Twitter, Youtube, Clock, Book, ArrowRight } from 'lucide-react';
 import Link from 'next/link';
 
 const AGChurchLanding = () => {
@@ -44,8 +44,8 @@ const AGChurchLanding = () => {
                 animate={{ y: 0 }}
                 transition={{ duration: 0.5 }}
                 className={`fixed top-0 w-full z-50 transition-all duration-300 ${scrolled
-                        ? 'bg-white shadow-lg'
-                        : 'bg-gradient-to-b from-black/60 to-transparent'
+                    ? 'bg-white shadow-lg'
+                    : 'bg-linear-to-b from-black/60 to-transparent'
                     }`}
             >
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -54,13 +54,13 @@ const AGChurchLanding = () => {
                             whileHover={{ scale: 1.05 }}
                             className="flex items-center gap-3 cursor-pointer"
                         >
-                               <img
-                                    src="/logo.png"
-                                    alt="Church Community"
-                                    className="rounded-full w-20 h-40 mt-5"
-                                />
+                            <img
+                                src="/logo.png"
+                                alt="Church Community"
+                                className="rounded-full w-20 h-40 mt-5"
+                            />
                             <div className="hidden sm:block">
-                                <span className={`font-bold text-lg ${scrolled ? 'text-amber-900' : 'text-white'}`}>
+                                <span className={`font-extrabold text-lg ${scrolled ? 'text-amber-900' : 'text-white'}`}>
                                     Assemblies of God
                                 </span>
                                 <p className={`text-xs ${scrolled ? 'text-amber-600' : 'text-amber-200'}`}>
@@ -73,10 +73,10 @@ const AGChurchLanding = () => {
                             {[
                                 { label: 'Home', href: '/' },
                                 { label: 'About', href: '/about' },
-                                { label: 'Ministries', href: '/AG/ministries' },
-                                { label: 'Events', href: '/AG/events' },
-                                { label: 'Sermons', href: '/AG/sermons' },
-                                { label: 'Contact', href: '/AG/contact' }
+                                { label: 'Ministers', href: '/ministers' },
+                                { label: 'Events', href: '/events' },
+                                { label: 'Sermons', href: '/sermons' },
+                                { label: 'Contact', href: '/contact' }
                             ].map((item) => (
                                 <motion.div
                                     key={item.label}
@@ -99,7 +99,7 @@ const AGChurchLanding = () => {
                                 <motion.button
                                     whileHover={{ scale: 1.05 }}
                                     whileTap={{ scale: 0.95 }}
-                                    className="bg-gradient-to-r from-amber-500 to-amber-600 text-white px-6 py-2 rounded-full font-bold shadow-lg hover:shadow-xl transition-all"
+                                    className="bg-linear-to-r from-amber-500 to-amber-600 text-white px-6 py-2 rounded-full font-bold shadow-lg hover:shadow-xl transition-all"
                                 >
                                     Give Online
                                 </motion.button>
@@ -128,11 +128,11 @@ const AGChurchLanding = () => {
                         <div className="px-4 py-6 space-y-4">
                             {[
                                 { label: 'Home', href: '/' },
-                                { label: 'About', href: '/AG/about' },
-                                { label: 'Ministries', href: '/AG/ministries' },
-                                { label: 'Events', href: '/AG/events' },
-                                { label: 'Sermons', href: '/AG/sermons' },
-                                { label: 'Contact', href: '/AG/contact' }
+                                { label: 'About', href: '/about' },
+                                { label: 'Ministers', href: '/ministers' },
+                                { label: 'Events', href: '/events' },
+                                { label: 'Sermons', href: '/sermons' },
+                                { label: 'Contact', href: '/contact' }
                             ].map((item) => (
                                 <Link
                                     key={item.label}
@@ -147,7 +147,7 @@ const AGChurchLanding = () => {
                                 <motion.button
                                     whileHover={{ scale: 1.05 }}
                                     whileTap={{ scale: 0.95 }}
-                                    className="bg-gradient-to-r from-amber-500 to-amber-600 text-white px-6 py-2 rounded-full font-bold shadow-lg hover:shadow-xl transition-all"
+                                    className="bg-linear-to-r from-amber-500 to-amber-600 text-white px-6 py-2 rounded-full font-bold shadow-lg hover:shadow-xl transition-all"
                                 >
                                     Give Online
                                 </motion.button>
@@ -161,7 +161,7 @@ const AGChurchLanding = () => {
             {/* Hero Section with Video */}
             <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
                 <div className="absolute inset-0 z-0">
-                    <div className="relative w-full h-full bg-gradient-to-br from-amber-900 via-amber-800 to-amber-700">
+                    <div className="relative w-full h-full bg-linear-to-br from-amber-900 via-amber-800 to-amber-700">
                         {/* Video would go here */}
                         <video
                             className="w-full h-full object-cover opacity-40"
@@ -176,7 +176,7 @@ const AGChurchLanding = () => {
                         </video>
 
                         {/* Animated overlay pattern */}
-                        <div className="absolute inset-0 bg-gradient-to-b from-black/50 via-transparent to-black/70" />
+                        <div className="absolute inset-0 bg-linear-to-b from-black/50 via-transparent to-black/70" />
                     </div>
 
                     {/* Video Controls */}
@@ -204,18 +204,31 @@ const AGChurchLanding = () => {
                         <motion.div
                             variants={scaleIn}
                         >
-                                <img
-                                    src="/logo.png"
-                                    alt="Church Community"
-                                    className="rounded-full w-40 h-60 mt-5 mx-auto"
-                                />                       </motion.div>
+                            <img
+                                src="/logo.png"
+                                alt="Church Community"
+                                className="rounded-full w-40 h-60 mt-5 mx-auto"
+                            />                       </motion.div>
 
                         {/* Main Heading */}
                         <motion.div variants={fadeInUp} className="space-y-4">
-                            <h1 className="text-5xl md:text-7xl lg:text-8xl lg:-mt-20 font-bold text-white drop-shadow-2xl leading-tight">
+                            <h1
+                                className="text-5xl md:text-7xl lg:text-8xl lg:-mt-20 font-bold text-white drop-shadow-2xl leading-tight"
+                                style={{
+                                    fontFamily: "'Cormorant Garamond', 'Georgia', serif",
+                                    fontWeight: 600,
+                                    letterSpacing: '-0.01em'
+                                }}
+                            >
                                 Welcome to
                                 <br />
-                                <span className="text-transparent bg-clip-text bg-gradient-to-r from-amber-300 to-yellow-400">
+                                <span
+                                    className="text-transparent bg-clip-text bg-linear-to-r from-amber-300 to-yellow-400"
+                                    style={{
+                                        fontFamily: "'Cormorant Garamond', 'Georgia', serif",
+                                        fontWeight: 700
+                                    }}
+                                >
                                     Assemblies of God
                                 </span>
                             </h1>
@@ -233,6 +246,7 @@ const AGChurchLanding = () => {
                         <motion.p
                             variants={fadeInUp}
                             className="text-xl md:text-2xl text-white max-w-3xl mx-auto leading-relaxed drop-shadow-lg"
+                            style={{ fontFamily: "'Crimson Text', 'Times New Roman', serif", fontWeight: 400 }}
                         >
                             Experience the transforming power of God's presence.
                             Join us for worship, fellowship, and spiritual growth in Christ.
@@ -246,12 +260,12 @@ const AGChurchLanding = () => {
                             <motion.button
                                 whileHover={{ scale: 1.05, y: -5 }}
                                 whileTap={{ scale: 0.95 }}
-                                className="group bg-gradient-to-r from-amber-500 to-amber-600 text-white px-10 py-5 rounded-full font-bold text-lg shadow-2xl hover:shadow-amber-500/50 transition-all flex items-center justify-center gap-2"
+                                className="group bg-linear-to-r from-amber-500 to-amber-600 text-white px-10 py-5 rounded-full font-bold text-lg shadow-2xl hover:shadow-amber-500/50 transition-all flex items-center justify-center gap-2"
                             >
-                        
+
                                 <Link href="/AG/join-us">
-                               Join Us This Sunday
-                              </Link> 
+                                    Join Us This Sunday
+                                </Link>
                                 <ChevronRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
                             </motion.button>
 
@@ -261,9 +275,9 @@ const AGChurchLanding = () => {
                                 className="group bg-white/10 backdrop-blur-md border-2 border-white text-white px-10 py-5 rounded-full font-bold text-lg hover:bg-white hover:text-amber-900 transition-all flex items-center justify-center gap-2"
                             >
                                 <Play className="w-5 h-5" />
-                              <Link href="/AG/live-stream">
-                                Watch Live Stream
-                              </Link>  
+                                <Link href="/AG/live-stream">
+                                    Sunday Live Stream
+                                </Link>
                             </motion.button>
                         </motion.div>
 
@@ -273,7 +287,7 @@ const AGChurchLanding = () => {
                             className="flex flex-wrap justify-center gap-6 pt-8"
                         >
                             {[
-                                { icon: Calendar, text: 'Sunday 8AM & 12AM' },
+                                { icon: Calendar, text: 'Sunday 8AM - 12AM' },
                                 { icon: MapPin, text: 'Abuja, Nigeria' },
                                 { icon: Users, text: '900+ Members' }
                             ].map((item, index) => (
@@ -317,7 +331,7 @@ const AGChurchLanding = () => {
                         <motion.div variants={fadeInUp} className="space-y-6">
                             <div className="inline-block">
                                 <span className="text-amber-600 font-bold text-sm tracking-wider uppercase">About Our Church</span>
-                                <div className="h-1 bg-gradient-to-r from-amber-500 to-amber-600 mt-2" />
+                                <div className="h-1 bg-linear-to-r from-amber-500 to-amber-600 mt-2" />
                             </div>
                             <h2 className="text-4xl md:text-5xl font-bold text-gray-900 leading-tight">
                                 A Place Where Faith Comes Alive
@@ -351,7 +365,7 @@ const AGChurchLanding = () => {
                                 whileTap={{ scale: 0.95 }}
                                 className="flex items-center gap-2 bg-linear-to-r from-amber-500 to-amber-600 text-white px-8 py-4 rounded-full font-bold shadow-lg hover:shadow-xl transition-all group"
                             >
-                               <Link href="/about">Learn More About Us</Link>
+                                <Link href="/about">Learn More About Us</Link>
                                 <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
                             </motion.button>
                         </motion.div>
@@ -363,7 +377,7 @@ const AGChurchLanding = () => {
                                     alt="Church Community"
                                     className="w-full h-[600px] object-cover"
                                 />
-                                <div className="absolute inset-0 bg-linear-to-t from-black/50 to-transparent" />
+                                <div className="absolute inset-0 bg-linear-to-t from-black to-transparent" />
                             </div>
                             {/* Floating Card */}
                             <motion.div
@@ -373,7 +387,7 @@ const AGChurchLanding = () => {
                                 className="absolute -bottom-8 -left-8 bg-white rounded-2xl shadow-2xl p-6 max-w-xs"
                             >
                                 <div className="flex items-center gap-4">
-                                    <div className="w-16 h-16 bg-gradient-to-br from-amber-400 to-amber-600 rounded-full flex items-center justify-center">
+                                    <div className="w-16 h-16 bg-linear-to-br from-amber-400 to-amber-600 rounded-full flex items-center justify-center">
                                         <span className="text-2xl">✝️</span>
                                     </div>
                                     <div>
@@ -388,7 +402,7 @@ const AGChurchLanding = () => {
             </section>
 
             {/* Service Times */}
-            <section className="py-24 bg-gradient-to-b from-amber-50 to-white">
+            <section className="py-24 bg-linear-to-b from-amber-50 to-white">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                     <motion.div
                         initial="hidden"
@@ -399,7 +413,7 @@ const AGChurchLanding = () => {
                     >
                         <motion.div variants={fadeInUp}>
                             <span className="text-amber-600 font-bold text-sm tracking-wider uppercase">Service Schedule</span>
-                            <div className="w-24 h-1 bg-gradient-to-r from-amber-500 to-amber-600 mx-auto mt-2 mb-4" />
+                            <div className="w-24 h-1 bg-linear-to-r from-amber-500 to-amber-600 mx-auto mt-2 mb-4" />
                         </motion.div>
                         <motion.h2
                             variants={fadeInUp}
@@ -419,7 +433,7 @@ const AGChurchLanding = () => {
                         {[
                             {
                                 day: 'Sunday Service',
-                                time: '8:00 AM & 12:00 AM',
+                                time: '8:00 AM - 12:00 AM',
                                 type: 'Main Worship Service',
                                 icon: '⛪',
                                 description: 'Join us for powerful worship and inspiring messages'
@@ -459,6 +473,7 @@ const AGChurchLanding = () => {
                 </div>
             </section>
             {/* Ministries */}
+
             <section className="py-24 bg-white">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                     <motion.div
@@ -469,7 +484,7 @@ const AGChurchLanding = () => {
                     >
                         <motion.div variants={fadeInUp} className="text-center mb-16">
                             <span className="text-amber-600 font-bold text-sm tracking-wider uppercase">Get Involved</span>
-                            <div className="w-24 h-1 bg-gradient-to-r from-amber-500 to-amber-600 mx-auto mt-2 mb-4" />
+                            <div className="w-24 h-1 bg-linear-to-r from-amber-500 to-amber-600 mx-auto mt-2 mb-4" />
                             <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
                                 Our Ministries
                             </h2>
@@ -481,85 +496,93 @@ const AGChurchLanding = () => {
                         <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
                             {[
                                 {
-                                    icon: '👨',
+                                    icon: Users,
                                     title: 'Men\'s Fellowship',
                                     desc: 'Building strong men of faith and leadership',
                                     color: 'from-blue-500 to-blue-600',
                                     link: '/AG/mens-department'
                                 },
                                 {
-                                    icon: '👩',
+                                    icon: Heart,
                                     title: 'Women\'s Fellowship',
                                     desc: 'Empowering women in faith and purpose',
                                     color: 'from-pink-500 to-pink-600',
                                     link: '/AG/womens-department'
                                 },
                                 {
-                                    icon: '🙋',
+                                    icon: Sparkles,
                                     title: 'Youth Ministry',
                                     desc: 'Empowering the next generation for Christ',
                                     color: 'from-green-500 to-green-600',
                                     link: '/AG/youth-department'
                                 },
                                 {
-                                    icon: '🧒',
+                                    icon: Zap,
                                     title: 'Teens Ministry',
                                     desc: 'Guiding teenagers in their faith journey',
                                     color: 'from-purple-500 to-purple-600',
                                     link: '/AG/teens-department'
                                 },
                                 {
-                                    icon: '👶',
+                                    icon: Baby,
                                     title: 'Children Ministry',
                                     desc: 'Nurturing young hearts for Jesus',
                                     color: 'from-yellow-500 to-yellow-600',
                                     link: '/AG/children-department'
                                 },
                                 {
-                                    icon: '🎵',
+                                    icon: Music,
                                     title: 'Worship Team',
                                     desc: 'Leading the congregation in praise',
                                     color: 'from-indigo-500 to-indigo-600',
                                     link: '/AG/worship-team'
                                 },
                                 {
-                                    icon: '🤝',
+                                    icon: HandHeart,
                                     title: 'Community Outreach',
                                     desc: 'Serving our neighbors with love',
                                     color: 'from-red-500 to-red-600',
                                     link: '/AG/outreach'
                                 },
                                 {
-                                    icon: '🙏',
+                                    icon: Church,
                                     title: 'Prayer Ministry',
                                     desc: 'Interceding for our church and community',
                                     color: 'from-teal-500 to-teal-600',
                                     link: '/AG/ministries/prayer'
                                 }
-                            ].map((ministry, index) => (
-                                <Link key={index} href={ministry.link}>
-                                    <motion.div
-                                        variants={fadeInUp}
-                                        whileHover={{ scale: 1.05, y: -5 }}
-                                        className="group bg-white p-6 rounded-xl shadow-lg border-2 border-gray-100 hover:border-amber-300 transition-all cursor-pointer h-full"
-                                    >
-                                        <div className={`w-16 h-16 bg-gradient-to-br ${ministry.color} rounded-xl flex items-center justify-center text-3xl mb-4 group-hover:scale-110 transition-transform`}>
-                                            {ministry.icon}
-                                        </div>
-                                        <h3 className="text-xl font-bold text-gray-900 mb-2">{ministry.title}</h3>
-                                        <p className="text-gray-600 mb-4">{ministry.desc}</p>
-                                        <span className="text-amber-600 font-semibold flex items-center gap-1 group-hover:gap-2 transition-all">
-                                            Learn More <ChevronRight className="w-4 h-4" />
-                                        </span>
-                                    </motion.div>
-                                </Link>
-                            ))}
+                            ].map((ministry, index) => {
+                                const IconComponent = ministry.icon;
+                                return (
+                                    <Link key={index} href={ministry.link}>
+                                        <motion.div
+                                            variants={fadeInUp}
+                                            whileHover={{ scale: 1.05, y: -5 }}
+                                            className="group relative bg-linear-to-b from-[#B8860B] via-[#FFD700] to-[#B8860B] p-6 rounded-xl shadow-lg border-2 border-[#B8860B] hover:border-[#FFD700] transition-all cursor-pointer h-full overflow-hidden"
+                                        >
+                                            {/* Diagonal divide effect */}
+                                            <div className="absolute inset-0 bg-linear-to-br from-[#B8860B] via-[#DAA520] to-[#FFD700] opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+
+                                            <div className="relative z-10">
+                                                <div className={`w-16 h-16 bg-linear-to-br ${ministry.color} rounded-xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform shadow-md`}>
+                                                    <IconComponent className="w-8 h-8 text-white" />
+                                                </div>
+                                                <h3 className="text-xl font-bold text-gray-900 mb-2">{ministry.title}</h3>
+                                                <p className="text-gray-800 mb-4">{ministry.desc}</p>
+                                                <span className="text-[#8B4513] font-semibold flex items-center gap-1 group-hover:gap-2 transition-all">
+                                                    Learn More <ChevronRight className="w-4 h-4" />
+                                                </span>
+                                            </div>
+                                        </motion.div>
+                                    </Link>
+                                );
+                            })}
                         </div>
                     </motion.div>
                 </div>
             </section>
             {/* Call to Action */}
-            <section className="py-24 bg-gradient-to-r from-amber-900 via-amber-800 to-amber-700 relative overflow-hidden">
+            <section className="py-24 bg-linear-to-r from-amber-900 via-amber-800 to-amber-700 relative overflow-hidden">
                 {/* Animated Background */}
                 <div className="absolute inset-0 opacity-10">
                     {[...Array(30)].map((_, i) => (
@@ -619,7 +642,7 @@ const AGChurchLanding = () => {
                                 className="bg-white text-amber-900 px-10 py-5 rounded-full font-bold text-xl shadow-2xl hover:shadow-white/50 transition-all flex items-center justify-center gap-2 group"
                             >
                                 <Link href="/AG/visitors">
-                                Plan Your Visit
+                                    Plan Your Visit
                                 </Link>
                                 <ChevronRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
                             </motion.button>
@@ -642,7 +665,7 @@ const AGChurchLanding = () => {
                         {/* About */}
                         <div>
                             <div className="flex items-center gap-3 mb-6">
-                                <div className="h-12 w-12 bg-gradient-to-br from-amber-400 to-amber-600 rounded-lg flex items-center justify-center">
+                                <div className="h-12 w-12 bg-linear-to-br from-amber-400 to-amber-600 rounded-lg flex items-center justify-center">
                                     <span className="text-xl font-bold text-white">AG</span>
                                 </div>
                                 <span className="text-white font-bold text-lg">Assemblies of God</span>
@@ -689,21 +712,21 @@ const AGChurchLanding = () => {
                             <h3 className="text-white font-bold text-lg mb-6">Contact Us</h3>
                             <ul className="space-y-4">
                                 <li className="flex items-start gap-3">
-                                    <MapPin className="w-5 h-5 text-amber-400 flex-shrink-0 mt-1" />
+                                    <MapPin className="w-5 h-5 text-amber-400 shrink-0 mt-1" />
                                     <div>
                                         <p className="text-white font-semibold">Church Address</p>
                                         <p className="text-gray-400 text-sm">123 Faith Avenue<br />Wuse 2, Abuja, Nigeria</p>
                                     </div>
                                 </li>
                                 <li className="flex items-start gap-3">
-                                    <Phone className="w-5 h-5 text-amber-400 flex-shrink-0 mt-1" />
+                                    <Phone className="w-5 h-5 text-amber-400 shrink-0 mt-1" />
                                     <div>
                                         <p className="text-white font-semibold">Phone</p>
                                         <p className="text-gray-400 text-sm">+234 803 456 7890</p>
                                     </div>
                                 </li>
                                 <li className="flex items-start gap-3">
-                                    <Mail className="w-5 h-5 text-amber-400 flex-shrink-0 mt-1" />
+                                    <Mail className="w-5 h-5 text-amber-400 shrink-0 mt-1" />
                                     <div>
                                         <p className="text-white font-semibold">Email</p>
                                         <p className="text-gray-400 text-sm">info@agchurchng.org</p>
