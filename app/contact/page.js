@@ -220,7 +220,7 @@ export default function ContactPage() {
                             We'd Love to Hear From You
                         </p>
                         <p className="text-lg md:text-xl text-gray-200 leading-relaxed">
-                            Whether you have questions, need prayer, or want to learn more about our church family,
+                            Whether you have questions, need prayer, need to contact a leader or want to learn more about our church family,
                             we're here for you. Reach out and let's connect!
                         </p>
                     </motion.div>

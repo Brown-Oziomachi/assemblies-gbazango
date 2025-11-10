@@ -1,7 +1,8 @@
 "use client";
 import { useState } from 'react';
 import { motion } from 'framer-motion';
-import { Church, ArrowLeft, Mail, Phone, Heart, BookOpen, Users, Award } from 'lucide-react';
+import { Church, ArrowLeft, Mail, Phone, Heart, BookOpen, Users, Award,ArrowRight } from 'lucide-react';
+import Link from 'next/link';
 
 export default function MinistersPage() {
     const fadeInUp = {
@@ -25,7 +26,7 @@ export default function MinistersPage() {
             email: 'pastor.emmanuel@aggbazango.org',
             phone: '+234 XXX XXX XXXX',
             bio: 'Rev. Dr. Emmanuel Adeyemi has been serving as Senior Pastor for over 15 years, leading our congregation with wisdom, compassion, and a deep commitment to biblical teaching. He holds a Doctorate in Theology and has authored several books on Christian leadership.',
-            specialties: ['Biblical Teaching', 'Church Leadership', 'Pastoral Care', 'Youth Mentorship']
+            specialties: []
         },
         {
             name: 'Pastor Grace Okafor',
@@ -175,19 +176,19 @@ export default function MinistersPage() {
 
                                         {/* Specialties */}
                                         <div className="mb-6">
-                                            <h4 className="text-sm font-bold text-gray-900 mb-3 flex items-center gap-2">
+                                            {/* <h4 className="text-sm font-bold text-gray-900 mb-3 flex items-center gap-2">
                                                 <Award className="w-4 h-4 text-amber-600" />
                                                 MINISTRY FOCUS
-                                            </h4>
+                                            </h4> */}
                                             <div className="flex flex-wrap gap-2">
-                                                {minister.specialties.map((specialty, idx) => (
+                                                {/* {minister.specialties.map((specialty, idx) => (
                                                     <span
                                                         key={idx}
                                                         className="px-4 py-2 bg-amber-50 text-amber-700 rounded-full text-sm font-medium border border-amber-200"
                                                     >
                                                         {specialty}
                                                     </span>
-                                                ))}
+                                                ))} */}
                                             </div>
                                         </div>
 
@@ -215,6 +216,20 @@ export default function MinistersPage() {
                     </motion.div>
                 </div>
             </section>
+
+
+                <motion.div
+  variants={fadeInUp}
+  whileHover={{ scale: 1.05 }}
+  whileTap={{ scale: 0.95 }}
+  className="text-center"
+>
+  <Link href="/AG/deacons" className="inline-flex items-center mb-10 gap-3 bg-amber-200 text-black font-semibold py-3 px-6 rounded-full shadow-md hover:bg-amber-300 hover:shadow-lg transition-all duration-300 cursor-pointer">
+    <span className="text-lg">Meet Our Deacon Board</span>
+    <ArrowRight className="w-6 h-6" />
+  </Link>
+</motion.div>
+
 
             {/* Ministry Values */}
             <section className="py-20 bg-linear-to-br from-amber-600 to-amber-700">

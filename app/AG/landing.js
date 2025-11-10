@@ -1,7 +1,7 @@
 "use client"
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { Play, Pause, Users, Heart, Sparkles, Zap, Baby, Music, HandHeart, Church, ChevronRight, Volume2, VolumeX, Calendar, MapPin, Phone, Mail, Facebook, Instagram, Twitter, Youtube, Clock, Book, ArrowRight } from 'lucide-react';
+import { Play, Pause, Users, Heart, Sparkles, Zap, Baby, Music, HandHeart, Church, ChevronRight, Volume2, VolumeX, Calendar, MapPin, Phone, Mail, Facebook, Instagram, Twitter, Youtube, Clock, Book, ArrowRight,ArrowLeft } from 'lucide-react';
 import Link from 'next/link';
 
 const AGChurchLanding = () => {
@@ -130,6 +130,7 @@ const AGChurchLanding = () => {
                                 { label: 'Home', href: '/' },
                                 { label: 'About', href: '/about' },
                                 { label: 'Ministers', href: '/ministers' },
+                                { label: 'Leaders', href: '/AG/deacons' },
                                 { label: 'Events', href: '/events' },
                                 { label: 'Sermons', href: '/sermons' },
                                 { label: 'Contact', href: '/contact' }
@@ -359,6 +360,15 @@ const AGChurchLanding = () => {
                                         <p className="text-sm text-gray-600">Years Serving</p>
                                     </div>
                                 </div>
+                                    <Link href="/direction">
+                                 <div className="flex items-center gap-3 bg-amber-50 px-6 py-4 rounded-xl">
+                                    <ArrowLeft className="w-8 h-8 text-amber-600" />
+                                    <div>
+                                        <p className="font-bold text-gray-900 text-xl">Direction</p>
+                                        <p className="text-sm text-gray-600">Find your way to church</p>
+                                    </div>
+                                </div>
+                                    </Link>
                             </div>
                             <motion.button
                                 whileHover={{ scale: 1.05 }}
@@ -692,20 +702,31 @@ const AGChurchLanding = () => {
                             </div>
                         </div>
 
-                        {/* Quick Links */}
-                        <div>
-                            <h3 className="text-white font-bold text-lg mb-6">Quick Links</h3>
-                            <ul className="space-y-3">
-                                {['About Us', 'Our Beliefs', 'Leadership', 'Ministries', 'Events Calendar', 'Sermons'].map((link, i) => (
-                                    <li key={i}>
-                                        <a href="#" className="text-gray-400 hover:text-amber-400 transition-colors flex items-center gap-2 group">
-                                            <ChevronRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-                                            {link}
-                                        </a>
-                                    </li>
-                                ))}
-                            </ul>
-                        </div>
+
+{/* Quick Links */}
+<div>
+    <h3 className="text-white font-bold text-lg mb-6">Quick Links</h3>
+    <ul className="space-y-3">
+        {[
+            { name: 'About Us', path: '/about' },
+            { name: 'Our Beliefs', path: '/beliefs' },
+            { name: 'Leadership', path: '/AG/deacons' },
+            { name: 'Ministers', path: '/ministers' },
+            { name: 'Events Calendar', path: '/events' },
+            { name: 'Sermons', path: '/sermons' }
+        ].map((link, i) => (
+            <li key={i}>
+                <Link 
+                    href={link.path} 
+                    className="text-gray-400 hover:text-amber-400 transition-colors flex items-center gap-2 group"
+                >
+                    <ChevronRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                    {link.name}
+                </Link>
+            </li>
+        ))}
+    </ul>
+</div>
 
                         {/* Contact Info */}
                         <div>

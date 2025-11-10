@@ -6,6 +6,7 @@ import {
   FaArrowLeft, FaChevronRight, FaCoffee, FaParking, FaBaby, FaWheelchair,
   FaMusic, FaTshirt, FaShieldAlt, FaStar, FaCompass, FaInfoCircle
 } from 'react-icons/fa';
+import Link from 'next/link';
 
 const PlanYourVisit = () => {
   const fadeInUp = {
@@ -152,7 +153,7 @@ const PlanYourVisit = () => {
                 className="w-full bg-gradient-to-r from-amber-500 to-amber-600 text-white py-4 rounded-xl font-semibold hover:shadow-xl transition-all flex items-center justify-center gap-2"
               >
                 <FaCompass className="w-5 h-5" />
-                Get Directions
+                <Link href="/direction">Get Direction</Link>
               </motion.button>
             </div>
           </motion.div>

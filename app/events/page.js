@@ -92,7 +92,7 @@ export default function EventsPage() {
     });
 
     return (
-        <div className="min-h-screen bg-gradient-to-b from-amber-50 to-white">
+        <div className="min-h-screen bg-linear-to-b from-amber-50 to-white">
             {/* Navigation */}
             <nav className="bg-white shadow-sm sticky top-0 z-50 border-b">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -123,7 +123,7 @@ export default function EventsPage() {
                         alt="Events"
                         className="w-full h-full object-cover"
                     />
-                    <div className="absolute inset-0 bg-gradient-to-r from-amber-900/90 to-amber-800/70" />
+                    <div className="absolute inset-0 bg-linear-to-r from-amber-900/90 to-amber-800/70" />
                 </div>
 
                 <div className="relative h-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center">
@@ -171,7 +171,7 @@ export default function EventsPage() {
             </section>
 
             {/* Events Grid */}
-            <section className="py-20 bg-gradient-to-b from-gray-50 to-white">
+            <section className="py-20 bg-linear-to-b from-gray-50 to-white">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                     {loading ? (
                         <div className="text-center py-20">
@@ -207,7 +207,7 @@ export default function EventsPage() {
                                     onClick={() => setSelectedEvent(event)}
                                 >
                                     {/* Event Image */}
-                                    <div className="relative h-56 bg-gradient-to-br from-amber-400 to-amber-600 overflow-hidden">
+                                    <div className="relative h-56 bg-linear-to-br from-amber-400 to-amber-600 overflow-hidden">
                                         {event.imageUrl ? (
                                             <img
                                                 src={event.imageUrl}
@@ -244,20 +244,20 @@ export default function EventsPage() {
 
                                         <div className="space-y-3 mb-4">
                                             <div className="flex items-start gap-3 text-gray-600">
-                                                <Calendar className="w-5 h-5 text-amber-600 flex-shrink-0 mt-0.5" />
+                                                <Calendar className="w-5 h-5 text-amber-600 shrink-0 mt-0.5" />
                                                 <span className="text-sm font-medium">{formatDate(event.date)}</span>
                                             </div>
                                             
                                             {event.time && (
                                                 <div className="flex items-start gap-3 text-gray-600">
-                                                    <Clock className="w-5 h-5 text-amber-600 flex-shrink-0 mt-0.5" />
+                                                    <Clock className="w-5 h-5 text-amber-600 shrink-0 mt-0.5" />
                                                     <span className="text-sm font-medium">{formatTime(event.time)}</span>
                                                 </div>
                                             )}
 
                                             {event.location && (
                                                 <div className="flex items-start gap-3 text-gray-600">
-                                                    <MapPin className="w-5 h-5 text-amber-600 flex-shrink-0 mt-0.5" />
+                                                    <MapPin className="w-5 h-5 text-amber-600 shrink-0 mt-0.5" />
                                                     <span className="text-sm font-medium line-clamp-2">{event.location}</span>
                                                 </div>
                                             )}
@@ -296,7 +296,7 @@ export default function EventsPage() {
                                     className="w-full h-full object-cover rounded-t-2xl"
                                 />
                             ) : (
-                                <div className="w-full h-full bg-gradient-to-br from-amber-400 to-amber-600 flex items-center justify-center rounded-t-2xl">
+                                <div className="w-full h-full bg-linear-to-br from-amber-400 to-amber-600 flex items-center justify-center rounded-t-2xl">
                                     <Calendar className="w-32 h-32 text-white opacity-50" />
                                 </div>
                             )}
@@ -320,7 +320,7 @@ export default function EventsPage() {
                         <div className="p-8">
                             {selectedEvent.category && (
                                 <div className="mb-4">
-                                    <span className="bg-amber-100 text-amber-700 px-3 py-1 rounded-full text-sm font-semibold flex items-center gap-2 inline-flex">
+                                    <span className="bg-amber-100 text-amber-700 px-3 py-1 rounded-full text-sm font-semibold flex items-center gap-2">
                                         <Tag className="w-4 h-4" />
                                         {selectedEvent.category}
                                     </span>
