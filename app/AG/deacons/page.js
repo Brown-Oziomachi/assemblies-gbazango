@@ -72,7 +72,7 @@ export default function LeadershipPage() {
     ];
 
     return (
-        <div className="min-h-screen bg-gradient-to-b from-gray-900 via-gray-800 to-gray-900">
+        <div className="min-h-screen bg-white text-black">
             {/* Back to Home Button */}
             <Link href="/">
                 <motion.button
@@ -140,11 +140,11 @@ export default function LeadershipPage() {
                         <motion.div
                             key={i}
                             variants={fadeInUp}
-                            className="bg-gradient-to-br from-amber-500/10 to-orange-600/10 backdrop-blur-sm p-8 rounded-2xl border border-amber-500/20 hover:border-amber-500/40 transition-all group"
+                            className="bg-linear-to-r from-amber-500 via-orange-500 to-amber-500 backdrop-blur-sm p-8 rounded-2xl border border-amber-500/20 hover:border-amber-500/40 transition-all group"
                         >
-                            <value.icon className="w-12 h-12 text-amber-400 mb-4 group-hover:scale-110 transition-transform" />
+                            <value.icon className="w-12 h-12 text-amber-900 mb-4 group-hover:scale-110 transition-transform" />
                             <h3 className="text-2xl font-bold text-white mb-3">{value.title}</h3>
-                            <p className="text-gray-400">{value.desc}</p>
+                            <p className="text-gray-700">{value.desc}</p>
                         </motion.div>
                     ))}
                 </div>
@@ -159,7 +159,7 @@ export default function LeadershipPage() {
                 className="max-w-7xl mx-auto px-4 pb-20"
             >
                 <motion.div variants={fadeInUp} className="text-center mb-16">
-                    <h2 className="text-4xl md:text-5xl font-bold text-white mb-4">
+                    <h2 className="text-4xl md:text-5xl font-bold text-black mb-4">
                         Meet Our <span className="text-amber-400">Deacon Board</span>
                     </h2>
                     <p className="text-gray-400 text-lg max-w-2xl mx-auto">
@@ -219,17 +219,17 @@ export default function LeadershipPage() {
                 variants={fadeInUp}
                 className="max-w-4xl mx-auto px-4 pb-20 text-center"
             >
-                <div className="bg-gradient-to-r from-amber-500/10 via-orange-500/10 to-amber-500/10 backdrop-blur-sm p-12 rounded-3xl border border-amber-500/20">
+                <div className="bg-linear-to-r from-amber-500 via-orange-500 to-amber-500 backdrop-blur-sm p-12 rounded-3xl border border-amber-500/20">
                     <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
                         Need Guidance or Counseling?
                     </h2>
-                    <p className="text-gray-300 text-lg mb-8 max-w-2xl mx-auto">
+                    <p className="text-gray-700 text-lg mb-8 max-w-2xl mx-auto">
                         Our deacon board members are here to support you. Feel free to reach out to any leader based on their area of expertise and professional background.
                     </p>
-                    <div className="text-gray-300 text-base mb-6 max-w-2xl mx-auto">
+                    <div className="text-gray-700 text-base mb-6 max-w-2xl mx-auto">
                         Whether you need spiritual guidance, professional advice, or personal counseling, our leaders are available to serve you with love and dedication.
                     </div>
-                    <button className="bg-gradient-to-r from-amber-500 to-orange-600 text-white px-8 py-4 rounded-full font-bold text-lg hover:shadow-lg hover:shadow-amber-500/50 transform hover:scale-105 transition-all">
+                    <button className="bg-linear-to-r from-amber-500 to-orange-600 text-white px-8 py-4 rounded-full font-bold text-lg hover:shadow-lg hover:shadow-amber-500/50 transform hover:scale-105 transition-all">
                       <Link href="/contact">Contact a Leader</Link>
                     </button>
                 </div>

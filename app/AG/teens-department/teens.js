@@ -1,13 +1,14 @@
 "use client"
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { 
-  FaUsers, FaCalendarAlt, FaPhone, FaEnvelope, FaMapMarkerAlt, 
-  FaClock, FaHeart, FaBook, FaAward, FaChartLine, FaUserPlus, 
-  FaSearch, FaChevronRight, FaStar, FaBullseye, FaComments, 
-  FaArrowRight, FaCheckCircle, FaTimes, FaUser, FaMobileAlt, 
-  FaBirthdayCake, FaHome, FaGraduationCap, FaGamepad
+import {
+    FaUsers, FaCalendarAlt, FaPhone, FaEnvelope, FaMapMarkerAlt,
+    FaClock, FaHeart, FaBook, FaAward, FaChartLine, FaUserPlus,
+    FaSearch, FaChevronRight, FaStar, FaBullseye, FaComments,
+    FaArrowRight, FaCheckCircle, FaTimes, FaUser, FaMobileAlt,
+    FaBirthdayCake, FaHome, FaGraduationCap, FaGamepad
 } from 'react-icons/fa';
+import Link from 'next/link';
 
 const TeensDepartmentPage = () => {
     const [searchTerm, setSearchTerm] = useState('');
@@ -149,7 +150,7 @@ const TeensDepartmentPage = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        
+
         const membershipRequest = {
             ...formData,
             department: 'Teens Ministry',
@@ -159,7 +160,7 @@ const TeensDepartmentPage = () => {
         };
 
         console.log('Membership Request:', membershipRequest);
-        
+
         alert('Your application has been submitted successfully! Our team will review and contact you soon.');
         setShowJoinModal(false);
         setFormData({
@@ -187,7 +188,7 @@ const TeensDepartmentPage = () => {
                         <div className="hidden md:flex items-center gap-6">
                             <a href="/" className="text-gray-600 hover:text-purple-600 text-sm font-medium transition">Home</a>
                             <a href="/departments" className="text-gray-600 hover:text-purple-600 text-sm font-medium transition">Departments</a>
-                            <button 
+                            <button
                                 onClick={() => setShowJoinModal(true)}
                                 className="bg-purple-600 text-white px-4 py-2 rounded-lg text-sm font-semibold hover:bg-purple-700 transition"
                             >
@@ -204,7 +205,7 @@ const TeensDepartmentPage = () => {
                     <img src={deptInfo.image} alt="Teens Ministry" className="w-full h-full object-cover" />
                     <div className="absolute inset-0 bg-gradient-to-r from-purple-900/90 to-indigo-900/70" />
                 </div>
-                
+
                 <div className="relative h-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center">
                     <motion.div
                         initial={{ opacity: 0, y: 30 }}
@@ -215,17 +216,19 @@ const TeensDepartmentPage = () => {
                         <h1 className="text-5xl md:text-6xl font-bold mb-4">{deptInfo.name}</h1>
                         <p className="text-2xl md:text-3xl font-light mb-6 text-purple-100">{deptInfo.tagline}</p>
                         <p className="text-lg md:text-xl text-gray-200 mb-8 leading-relaxed">{deptInfo.description}</p>
-                        
+
                         <div className="flex flex-wrap gap-4">
-                            <button 
+                            <button
                                 onClick={() => setShowJoinModal(true)}
                                 className="bg-white text-purple-600 px-8 py-3 rounded-lg font-bold hover:bg-purple-50 transition flex items-center gap-2"
                             >
                                 <FaUserPlus /> Join Ministry
                             </button>
-                            <button className="border-2 border-white text-white px-8 py-3 rounded-lg font-bold hover:bg-white hover:text-purple-600 transition">
-                                Learn More
-                            </button>
+                            <Link href="/AG/teens-department/learn-more">
+                                <button className="border-2 border-white text-white px-8 py-3 rounded-lg font-bold hover:bg-white hover:text-blue-600 transition">
+                                    Learn More
+                                </button>
+                            </Link>
                         </div>
                     </motion.div>
                 </div>
@@ -270,11 +273,10 @@ const TeensDepartmentPage = () => {
                             <button
                                 key={tab.id}
                                 onClick={() => setActiveTab(tab.id)}
-                                className={`flex items-center gap-2 px-6 py-4 font-semibold text-sm whitespace-nowrap transition ${
-                                    activeTab === tab.id
+                                className={`flex items-center gap-2 px-6 py-4 font-semibold text-sm whitespace-nowrap transition ${activeTab === tab.id
                                         ? 'text-purple-600 border-b-2 border-purple-600'
                                         : 'text-gray-600 hover:text-gray-900'
-                                }`}
+                                    }`}
                             >
                                 <tab.icon className="w-4 h-4" />
                                 {tab.label}
@@ -320,7 +322,7 @@ const TeensDepartmentPage = () => {
                                             <h3 className="text-2xl font-bold text-gray-900 mb-2">{leader.name}</h3>
                                             <p className="text-lg text-purple-600 font-semibold mb-4">{leader.position}</p>
                                             <p className="text-gray-700 leading-relaxed mb-6">{leader.bio}</p>
-                                            
+
                                             <div className="space-y-3">
                                                 <div className="flex items-center gap-3 text-gray-700">
                                                     <FaEnvelope className="w-5 h-5 text-purple-600" />
@@ -360,18 +362,17 @@ const TeensDepartmentPage = () => {
                                         <div className="relative h-48">
                                             <img src={member.image} alt={member.name} className="w-full h-full object-cover" />
                                             <div className="absolute top-3 right-3">
-                                                <span className={`px-3 py-1 rounded-full text-xs font-bold ${
-                                                    member.attendance >= 90 ? 'bg-green-500 text-white' : 'bg-yellow-500 text-white'
-                                                }`}>
+                                                <span className={`px-3 py-1 rounded-full text-xs font-bold ${member.attendance >= 90 ? 'bg-green-500 text-white' : 'bg-yellow-500 text-white'
+                                                    }`}>
                                                     {member.attendance}%
                                                 </span>
                                             </div>
                                         </div>
-                                        
+
                                         <div className="p-4">
                                             <h3 className="text-lg font-bold text-gray-900 mb-1">{member.name}</h3>
                                             <p className="text-sm text-purple-600 font-semibold mb-3">{member.role}</p>
-                                            
+
                                             <div className="space-y-2 text-sm text-gray-600">
                                                 <div className="flex items-center gap-2">
                                                     <FaEnvelope className="w-3 h-3 flex-shrink-0" />

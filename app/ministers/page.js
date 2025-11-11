@@ -20,12 +20,12 @@ export default function MinistersPage() {
 
     const ministers = [
         {
-            name: 'Rev. Dr. Emmanuel Adeyemi',
+            name: 'Rev. Sunday Asuata',
             title: 'Senior Pastor',
-            image: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=400&fit=crop',
+            image: 'pst Asuata.jpg',
             email: 'pastor.emmanuel@aggbazango.org',
             phone: '+234 XXX XXX XXXX',
-            bio: 'Rev. Dr. Emmanuel Adeyemi has been serving as Senior Pastor for over 15 years, leading our congregation with wisdom, compassion, and a deep commitment to biblical teaching. He holds a Doctorate in Theology and has authored several books on Christian leadership.',
+            bio: 'Rev. Asuata has been serving as Senior Pastor for over 15 years, leading our congregation with wisdom, compassion, and a deep commitment to biblical teaching. He holds a Doctorate in Theology and has authored several books on Christian leadership.',
             specialties: []
         },
         {

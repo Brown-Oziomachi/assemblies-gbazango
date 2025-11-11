@@ -126,7 +126,7 @@ const AboutUsPage = () => {
     ];
 
     return (
-        <div className="min-h-screen bg-gradient-to-b from-amber-50 to-white">
+        <div className="min-h-screen bg-linear-to-b from-amber-50 to-white">
             {/* Navigation */}
             <nav className="bg-white shadow-sm sticky top-0 z-50 border-b">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -228,14 +228,14 @@ const AboutUsPage = () => {
 
                         <div className="relative">
                             {/* Timeline Line */}
-                            <div className="hidden md:block absolute left-1/2 transform -translate-x-1/2 w-1 h-full bg-amber-200" />
+                            <div className=" absolute lg:left-1/2 max-md:left-1 transform -translate-x-1/2 w-1 h-full bg-amber-200" />
 
-                            <div className="space-y-12">
+                            <div className="space-y-10">
                                 {milestones.map((milestone, index) => (
                                     <motion.div
                                         key={index}
                                         variants={fadeInUp}
-                                        className={`flex items-center gap-8 ${index % 2 === 0 ? 'md:flex-row' : 'md:flex-row-reverse'
+                                        className={`lg:flex items-center gap-8 ${index % 2 === 0 ? 'md:flex-row' : 'md:flex-row-reverse'
                                             }`}
                                     >
                                         <div className={`flex-1 ${index % 2 === 0 ? 'md:text-right' : 'md:text-left'}`}>
@@ -248,7 +248,7 @@ const AboutUsPage = () => {
                                             </div>
                                         </div>
 
-                                        <div className="hidden md:flex w-12 h-12 bg-amber-600 rounded-full flex-shrink-0 items-center justify-center border-4 border-white shadow-lg z-10">
+                                        <div className="hidden md:flex w-12 h-12 bg-amber-600 rounded-full shrink-0 items-center justify-center border-4 border-white shadow-lg z-10">
                                             <FaStar className="w-6 h-6 text-white" />
                                         </div>
 

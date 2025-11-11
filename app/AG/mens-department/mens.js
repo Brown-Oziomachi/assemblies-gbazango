@@ -8,6 +8,7 @@ import {
   FaArrowRight, FaCheckCircle, FaTimes, FaUser, FaMobileAlt, 
   FaBirthdayCake, FaHome, FaBriefcase, FaChurch
 } from 'react-icons/fa';
+import Link from 'next/link';
 
 const MensDepartmentPage = () => {
     const [searchTerm, setSearchTerm] = useState('');
@@ -226,9 +227,11 @@ const MensDepartmentPage = () => {
                             >
                                 <FaUserPlus /> Join Fellowship
                             </button>
-                            <button className="border-2 border-white text-white px-8 py-3 rounded-lg font-bold hover:bg-white hover:text-blue-600 transition">
-                                Learn More
-                            </button>
+                            <Link href="/AG/mens-department/learn-more">
+                                <button className="border-2 border-white text-white px-8 py-3 rounded-lg font-bold hover:bg-white hover:text-blue-600 transition">
+                                    Learn More
+                                </button>
+                            </Link>
                         </div>
                     </motion.div>
                 </div>
