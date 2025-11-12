@@ -3,6 +3,7 @@ import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { Church, ArrowLeft, Mail, Phone, Heart, BookOpen, Users, Award,ArrowRight } from 'lucide-react';
 import Link from 'next/link';
+import Footer from '@/components/Footer/page';
 
 export default function MinistersPage() {
     const fadeInUp = {
@@ -285,6 +286,7 @@ export default function MinistersPage() {
                     <p className="text-amber-400 font-semibold">A Community of Faith, Hope, and Love</p>
                 </div>
             </footer>
+            <Footer />
         </div>
     );
 }

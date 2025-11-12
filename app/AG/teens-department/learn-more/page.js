@@ -1,6 +1,7 @@
 import React from 'react';
 import { Users, Zap, Music, Heart, Award, Calendar, MapPin, Star } from 'lucide-react';
 import Link from 'next/link';
+import Footer from '@/components/Footer/page';
 
 export default function TeensDepartment() {
     return (
@@ -282,6 +283,7 @@ export default function TeensDepartment() {
                     <p className="mt-4 text-sm text-purple-300">&copy; 2025 All Rights Reserved</p>
                 </div>
             </footer>
+            <Footer />
         </div>
     );
 }

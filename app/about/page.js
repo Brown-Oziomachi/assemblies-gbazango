@@ -6,6 +6,7 @@ import {
     FaPray, FaHandsHelping, FaCross, FaHistory, FaBullseye, FaStar,
     FaQuoteLeft, FaPhone, FaEnvelope, FaMapMarkerAlt, FaChevronRight
 } from 'react-icons/fa';
+import Footer from '@/components/Footer/page';
 
 const AboutUsPage = () => {
     const fadeInUp = {
@@ -139,8 +140,11 @@ const AboutUsPage = () => {
                             Back to Home
                         </a>
                         <div className="flex items-center gap-3">
-                            <FaChurch className="w-8 h-8 text-amber-600" />
-                            <div className="hidden sm:block">
+                            <img
+                                src="/AG.jpeg"
+                                alt="AG Church"
+                                className="w-10 h-10"
+                            />                            <div className="hidden sm:block">
                                 <p className="text-sm font-bold text-gray-900">Assemblies of God</p>
                                 <p className="text-xs text-amber-600">Gbazango District</p>
                             </div>
@@ -157,7 +161,7 @@ const AboutUsPage = () => {
                         alt="Church Building"
                         className="w-full h-full object-cover"
                     />
-                    <div className="absolute inset-0 bg-gradient-to-r from-amber-900/90 to-amber-800/70" />
+                    <div className="absolute inset-0 bg-linear-to-r from-amber-900/90 to-amber-800/70" />
                 </div>
 
                 <div className="relative h-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center">
@@ -210,7 +214,7 @@ const AboutUsPage = () => {
             </section>
 
             {/* History Timeline */}
-            <section className="py-20 bg-gradient-to-b from-gray-50 to-white">
+            <section className="py-20 bg-linear-to-b from-gray-50 to-white">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                     <motion.div
                         initial="hidden"
@@ -271,8 +275,8 @@ const AboutUsPage = () => {
                         variants={staggerContainer}
                         className="grid md:grid-cols-2 gap-12"
                     >
-                        <motion.div variants={fadeInUp} className="bg-gradient-to-br from-blue-50 to-blue-100 p-10 rounded-2xl shadow-xl border-2 border-blue-200">
-                            <div className="w-20 h-20 bg-gradient-to-br from-blue-600 to-blue-700 rounded-xl flex items-center justify-center mb-6">
+                        <motion.div variants={fadeInUp} className="bg-linear-to-br from-blue-50 to-blue-100 p-10 rounded-2xl shadow-xl border-2 border-blue-200">
+                            <div className="w-20 h-20 bg-linear-to-br from-blue-600 to-blue-700 rounded-xl flex items-center justify-center mb-6">
                                 <FaBullseye className="w-10 h-10 text-white" />
                             </div>
                             <h3 className="text-3xl font-bold text-gray-900 mb-4">Our Vision</h3>
@@ -283,8 +287,8 @@ const AboutUsPage = () => {
                             </p>
                         </motion.div>
 
-                        <motion.div variants={fadeInUp} className="bg-gradient-to-br from-amber-50 to-amber-100 p-10 rounded-2xl shadow-xl border-2 border-amber-200">
-                            <div className="w-20 h-20 bg-gradient-to-br from-amber-600 to-amber-700 rounded-xl flex items-center justify-center mb-6">
+                        <motion.div variants={fadeInUp} className="bg-linear-to-br from-amber-50 to-amber-100 p-10 rounded-2xl shadow-xl border-2 border-amber-200">
+                            <div className="w-20 h-20 bg-linear-to-br from-amber-600 to-amber-700 rounded-xl flex items-center justify-center mb-6">
                                 <FaStar className="w-10 h-10 text-white" />
                             </div>
                             <h3 className="text-3xl font-bold text-gray-900 mb-4">Our Mission</h3>
@@ -299,7 +303,7 @@ const AboutUsPage = () => {
             </section>
 
             {/* Core Values */}
-            <section className="py-20 bg-gradient-to-b from-gray-50 to-white">
+            <section className="py-20 bg-linear-to-b from-gray-50 to-white">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                     <motion.div
                         initial="hidden"
@@ -322,7 +326,7 @@ const AboutUsPage = () => {
                                     whileHover={{ y: -10, boxShadow: "0 20px 40px rgba(0,0,0,0.1)" }}
                                     className="bg-white p-8 rounded-xl shadow-md border-2 border-gray-100 hover:border-amber-300 transition-all"
                                 >
-                                    <div className={`w-16 h-16 bg-gradient-to-br from-${value.color}-400 to-${value.color}-600 rounded-xl flex items-center justify-center mb-6`}>
+                                    <div className={`w-16 h-16 bg-linear-to-br from-${value.color}-400 to-${value.color}-600 rounded-xl flex items-center justify-center mb-6`}>
                                         <value.icon className="w-8 h-8 text-white" />
                                     </div>
                                     <h3 className="text-xl font-bold text-gray-900 mb-3">{value.title}</h3>
@@ -359,7 +363,7 @@ const AboutUsPage = () => {
                                     className="bg-amber-50 p-6 rounded-xl border-2 border-amber-100 hover:border-amber-300 transition"
                                 >
                                     <div className="flex items-start gap-4">
-                                        <div className="w-10 h-10 bg-amber-600 rounded-full flex items-center justify-center flex-shrink-0">
+                                        <div className="w-10 h-10 bg-amber-600 rounded-full flex items-center justify-center shrink-0">
                                             <FaCross className="w-5 h-5 text-white" />
                                         </div>
                                         <div>
@@ -375,7 +379,7 @@ const AboutUsPage = () => {
             </section>
 
             {/* Leadership Team */}
-            <section className="py-20 bg-gradient-to-b from-gray-50 to-white">
+            <section className="py-20 bg-linear-to-b from-gray-50 to-white">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                     <motion.div
                         initial="hidden"
@@ -419,7 +423,7 @@ const AboutUsPage = () => {
             </section>
 
             {/* Contact CTA */}
-            <section className="py-20 bg-gradient-to-r from-amber-600 to-amber-700">
+            <section className="py-20 bg-linear-to-r from-amber-600 to-amber-700">
                 <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
                     <motion.div
                         initial="hidden"
@@ -479,6 +483,7 @@ const AboutUsPage = () => {
                     <p className="text-amber-400 font-semibold">A Community of Faith, Hope, and Love</p>
                 </div>
             </footer>
+            <Footer />
         </div>
     );
 };

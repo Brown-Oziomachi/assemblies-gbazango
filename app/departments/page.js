@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { Users, Heart, Sparkles, Zap, Baby, Music, HandHeart, Church, ChevronRight, ArrowRight, CheckCircle, Calendar, Clock, MapPin, Mail, Phone } from 'lucide-react';
 import Link from 'next/link';
+import Footer from '@/components/Footer/page';
 
 const MinistriesPage = () => {
     const [selectedMinistry, setSelectedMinistry] = useState(null);
@@ -174,7 +175,7 @@ const MinistriesPage = () => {
             color: 'from-teal-500 to-teal-600',
             bgColor: 'bg-teal-50',
             borderColor: 'border-teal-200',
-            link: '/AG/ministries/prayer',
+            link: '/prayer-ministry',
             meetingTime: 'Daily 5:00 AM & Wednesday 11:00 PM',
             leader: 'Elder Margaret Eze',
             activities: [
@@ -184,14 +185,14 @@ const MinistriesPage = () => {
                 'Intercessory Prayer Meetings',
                 'Deliverance & Healing Services'
             ],
-            image: '/prayer-ministry.jpg'
+            image: '/AG.jpeg'
         }
     ];
 
     return (
-        <div className="min-h-screen bg-gradient-to-b from-amber-50 via-white to-amber-50">
+        <div className="min-h-screen bg-linear-to-b from-amber-50 via-white to-amber-50">
             {/* Hero Section */}
-            <section className="relative bg-gradient-to-r from-amber-900 via-amber-800 to-amber-700 py-32 overflow-hidden">
+            <section className="relative bg-linear-to-r from-amber-900 via-amber-800 to-amber-700 py-32 overflow-hidden">
                 {/* Animated Background */}
                 <div className="absolute inset-0 opacity-10">
                     {[...Array(30)].map((_, i) => (
@@ -224,9 +225,12 @@ const MinistriesPage = () => {
                         variants={staggerContainer}
                         className="space-y-6"
                     >
-                        <motion.div variants={scaleIn} className="mx-auto w-24 h-24 bg-white/20 backdrop-blur-md rounded-full flex items-center justify-center mb-6">
-                            <Church className="w-12 h-12 text-white" />
-                        </motion.div>
+                        <motion.div variants={scaleIn} className="mx-auto w-24 h-24  backdrop-blur-md rounded-full flex items-center justify-center mb-6">
+                            <img
+                                src="/logo.png"
+                                alt="AG Church"
+                                className="w-80 h-70"
+                            />                        </motion.div>
                         <motion.h1
                             variants={fadeInUp}
                             className="text-5xl md:text-7xl font-bold text-white mb-6 leading-tight"
@@ -470,7 +474,7 @@ const MinistriesPage = () => {
                                 <motion.button
                                     whileHover={{ scale: 1.05, y: -5 }}
                                     whileTap={{ scale: 0.95 }}
-                                    className="bg-white text-amber-900 px-10 py-5 rounded-full font-bold text-xl shadow-2xl hover:shadow-white/50 transition-all flex items-center justify-center gap-2 group"
+                                    className="bg-white text-amber-900 px-10 py-5 max-md:mx-auto rounded-full font-bold text-xl shadow-2xl hover:shadow-white/50 transition-all flex items-center justify-center gap-2 group"
                                 >
                                     Join a Ministry
                                     <ChevronRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
@@ -489,6 +493,7 @@ const MinistriesPage = () => {
                     </motion.div>
                 </div>
             </section>
+            <Footer />
         </div>
     );
 };

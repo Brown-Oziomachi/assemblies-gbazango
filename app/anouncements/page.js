@@ -5,6 +5,7 @@ import {
     ChevronRight, Search, Filter, X, Eye,
     ChevronLeft, Share2, Heart, Bookmark
 } from 'lucide-react';
+import Footer from '@/components/Footer/page';
 
 export default function AnnouncementsPage() {
     const [announcements, setAnnouncements] = useState([]);
@@ -450,6 +451,7 @@ export default function AnnouncementsPage() {
                     <p className="mt-4 text-sm" style={{ color: '#DAA520' }}>&copy; 2025 All Rights Reserved</p>
                 </div>
             </footer>
+            <Footer />
         </div>
     );
 }

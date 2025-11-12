@@ -23,7 +23,7 @@ const PlanYourVisit = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-amber-50 to-white">
+    <div className="min-h-screen bg-linear-to-b from-amber-50 to-white">
       {/* Header */}
       <div className="bg-white shadow-md sticky top-0 z-50">
         <div className="max-w-7xl mx-auto px-4 py-4">
@@ -39,7 +39,7 @@ const PlanYourVisit = () => {
               <img
                 src="/AG.jpeg"
                 alt="AG Church"
-                className="w-10 h-10 rounded-full"
+                className="w-10 h-10"
               />
               <div className="hidden sm:block">
                 <p className="text-sm font-bold text-gray-900">Assemblies of God</p>
@@ -59,7 +59,7 @@ const PlanYourVisit = () => {
           className="text-center mb-16"
         >
           <motion.div variants={fadeInUp} className="inline-block mb-6">
-            <div className="w-20 h-20 bg-gradient-to-br from-amber-400 to-amber-600 rounded-full flex items-center justify-center mx-auto shadow-xl">
+            <div className="w-20 h-20 bg-linear-to-br from-amber-400 to-amber-600 rounded-full flex items-center justify-center mx-auto shadow-xl">
               <FaMapMarkerAlt className="w-10 h-10 text-white" />
             </div>
           </motion.div>
@@ -100,7 +100,7 @@ const PlanYourVisit = () => {
               }
             ].map((item) => (
               <div key={item.step} className="text-center">
-                <div className="w-16 h-16 bg-gradient-to-br from-amber-400 to-amber-600 rounded-full flex items-center justify-center mx-auto mb-4 shadow-lg">
+                <div className="w-16 h-16 bg-linear-to-br from-amber-400 to-amber-600 rounded-full flex items-center justify-center mx-auto mb-4 shadow-lg">
                   <item.icon className="w-8 h-8 text-white" />
                 </div>
                 <div className="w-10 h-10 bg-amber-100 rounded-full flex items-center justify-center mx-auto mb-4">
@@ -150,7 +150,7 @@ const PlanYourVisit = () => {
               <motion.button
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
-                className="w-full bg-gradient-to-r from-amber-500 to-amber-600 text-white py-4 rounded-xl font-semibold hover:shadow-xl transition-all flex items-center justify-center gap-2"
+                className="w-full bg-linear-to-r from-amber-500 to-amber-600 text-white py-4 rounded-xl font-semibold hover:shadow-xl transition-all flex items-center justify-center gap-2"
               >
                 <FaCompass className="w-5 h-5" />
                 <Link href="/direction">Get Direction</Link>
@@ -196,7 +196,7 @@ const PlanYourVisit = () => {
                   key={i}
                   className={`p-5 rounded-xl transition-all ${
                     service.highlight 
-                      ? 'bg-gradient-to-r from-amber-50 to-amber-100 border-2 border-amber-300' 
+                      ? 'bg-linear-to-r from-amber-50 to-amber-100 border-2 border-amber-300' 
                       : 'bg-gray-50 border-2 border-gray-200'
                   }`}
                 >
@@ -263,7 +263,7 @@ const PlanYourVisit = () => {
                 whileHover={{ y: -5 }}
                 className="flex items-start gap-4 p-5 rounded-xl hover:bg-amber-50 transition-all border-2 border-gray-100"
               >
-                <div className="w-14 h-14 bg-amber-100 rounded-xl flex items-center justify-center flex-shrink-0">
+                <div className="w-14 h-14 bg-amber-100 rounded-xl flex items-center justify-center shrink-0">
                   <item.icon className="w-7 h-7 text-amber-600" />
                 </div>
                 <div>
@@ -320,7 +320,7 @@ const PlanYourVisit = () => {
             ].map((faq, i) => (
               <div key={i} className="border-b border-gray-200 pb-6 last:border-0">
                 <h3 className="text-lg font-bold text-gray-900 mb-3 flex items-start gap-3">
-                  <FaStar className="w-5 h-5 text-amber-500 flex-shrink-0 mt-1" />
+                  <FaStar className="w-5 h-5 text-amber-500 shrink-0 mt-1" />
                   {faq.q}
                 </h3>
                 <p className="text-gray-600 ml-8 leading-relaxed">{faq.a}</p>
@@ -334,7 +334,7 @@ const PlanYourVisit = () => {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.5 }}
-          className="bg-gradient-to-br from-amber-500 to-amber-600 rounded-2xl p-8 md:p-12 text-white text-center shadow-2xl"
+          className="bg-linear-to-br from-amber-500 to-amber-600 rounded-2xl p-8 md:p-12 text-white text-center shadow-2xl"
         >
           <FaInfoCircle className="w-16 h-16 mx-auto mb-6 opacity-80" />
           <h2 className="text-3xl md:text-4xl font-bold mb-4">Still Have Questions?</h2>
@@ -374,7 +374,7 @@ const PlanYourVisit = () => {
             href="/AG/join-us"
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
-            className="inline-flex items-center gap-2 bg-gradient-to-r from-amber-500 to-amber-600 text-white px-10 py-5 rounded-full font-bold text-lg shadow-xl hover:shadow-2xl transition-all"
+            className="inline-flex items-center gap-2 bg-linear-to-r from-amber-500 to-amber-600 text-white px-10 py-5 rounded-full font-bold text-lg shadow-xl hover:shadow-2xl transition-all"
           >
             Register for This Sunday
             <FaChevronRight className="w-5 h-5" />

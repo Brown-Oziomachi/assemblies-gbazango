@@ -56,7 +56,7 @@ const JoinUsThisSunday = () => {
               <img
                 src="/AG.jpeg"
                 alt="AG Church"
-                className="w-10 h-10 rounded-full"
+                className="w-10 h-10"
               />
               <div className="hidden sm:block">
                 <p className="text-sm font-bold text-gray-900">Assemblies of God</p>

@@ -4,6 +4,7 @@ import { motion } from 'framer-motion';
 import { MapPin, Phone, Mail, Clock, Send, Church, Facebook, Instagram, Twitter, Youtube, ArrowLeft } from 'lucide-react';
 import { collection, addDoc, serverTimestamp } from 'firebase/firestore';
 import { db } from '@/lib/firebaseConfig';
+import Footer from '@/components/Footer/page';
 
 export default function ContactPage() {
     const [formData, setFormData] = useState({
@@ -187,8 +188,11 @@ export default function ContactPage() {
                             Back to Home
                         </a>
                         <div className="flex items-center gap-3">
-                            <Church className="w-8 h-8 text-amber-600" />
-                            <div className="hidden sm:block">
+                            <img
+                                src="/AG.jpeg"
+                                alt="AG Church"
+                                className="w-10 h-10"
+                            />                            <div className="hidden sm:block">
                                 <p className="text-sm font-bold text-gray-900">Assemblies of God</p>
                                 <p className="text-xs text-amber-600">Gbazango District</p>
                             </div>
@@ -557,6 +561,7 @@ export default function ContactPage() {
                     <p className="text-amber-400 font-semibold">A Community of Faith, Hope, and Love</p>
                 </div>
             </footer>
+            <Footer />
         </div>
     );
 }

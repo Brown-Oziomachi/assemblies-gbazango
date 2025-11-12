@@ -12,7 +12,7 @@ import {
 } from "firebase/firestore";
 import { db } from "@/lib/firebaseConfig";
 
-export default function NotificationBell({ setShowNav, scrolled, setScrolled }) {
+export default function NotificationBell({ setShowNav, scrolled }) {
   const [isOpen, setIsOpen] = useState(false);
   const [notifications, setNotifications] = useState([]);
   const [viewedPosts, setViewedPosts] = useState([]);
@@ -27,13 +27,7 @@ export default function NotificationBell({ setShowNav, scrolled, setScrolled }) 
     return viewed ? JSON.parse(viewed) : [];
   };
 
-  useEffect(() => {
-    const handleScroll = () => {
-      setScrolled(window.scrollY > 50);
-    };
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
+
 
   // 🧠 Mark post as viewed
   const markAsViewed = (postId) => {

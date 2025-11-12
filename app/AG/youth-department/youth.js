@@ -188,20 +188,23 @@ const YouthDepartmentPage = () => {
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                     <div className="flex justify-between items-center h-16">
                         <div className="flex items-center gap-3">
-                            <div className="h-10 w-10 bg-gradient-to-br from-blue-600 to-indigo-700 rounded-lg flex items-center justify-center">
-                                <span className="text-lg font-bold text-white">AG</span>
-                            </div>
+                            <div className="h-10 w-10 bg-linear-to-br from-blue-600 to-indigo-700 flex items-center justify-center">
+                                <img
+                                    src="/AG.jpeg"
+                                    alt="AG Church"
+                                    className="w-10 h-10"
+                                />                            </div>
                             <div>
                                 <p className="font-bold text-gray-900 text-sm">Assemblies of God</p>
                                 <p className="text-xs text-blue-600">Youth Ministry</p>
                             </div>
                         </div>
-                        <div className="hidden md:flex items-center gap-6">
-                            <a href="/" className="text-gray-600 hover:text-blue-600 text-sm font-medium transition">Home</a>
-                            <a href="/departments" className="text-gray-600 hover:text-blue-600 text-sm font-medium transition">Departments</a>
+                        <div className=" md:flex items-center gap-6">
+                            <a href="/" className="text-gray-600 hover:text-blue-600 text-sm font-medium transition max-md:hidden">Home</a>
+                            <a href="/departments" className="text-gray-600 hover:text-blue-600 text-sm font-medium transition max-md:text-blue-600">Departments</a>
                             <button 
                                 onClick={() => setShowJoinModal(true)}
-                                className="bg-blue-600 text-white px-4 py-2 rounded-lg text-sm font-semibold hover:bg-blue-700 transition"
+                                className="bg-blue-600 text-white px-4 py-2 rounded-lg text-sm font-semibold hover:bg-blue-700 transition max-md:hidden"
                             >
                                 Join Us
                             </button>
@@ -218,7 +221,7 @@ const YouthDepartmentPage = () => {
                         alt="Youth Ministry" 
                         className="w-full h-full object-cover"
                     />
-                    <div className="absolute inset-0 bg-gradient-to-r from-blue-900/90 to-indigo-900/70" />
+                    <div className="absolute inset-0 bg-linear-to-r from-blue-900/90 to-indigo-900/70" />
                 </div>
                 
                 <div className="relative h-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center">
@@ -419,15 +422,15 @@ const YouthDepartmentPage = () => {
                                             
                                             <div className="space-y-2 text-sm text-gray-600">
                                                 <div className="flex items-center gap-2">
-                                                    <FaEnvelope className="w-3 h-3 flex-shrink-0" />
+                                                    <FaEnvelope className="w-3 h-3 shrink-0" />
                                                     <span className="truncate">{member.email}</span>
                                                 </div>
                                                 <div className="flex items-center gap-2">
-                                                    <FaPhone className="w-3 h-3 flex-shrink-0" />
+                                                    <FaPhone className="w-3 h-3 shrink-0" />
                                                     <span>{member.phone}</span>
                                                 </div>
                                                 <div className="flex items-center gap-2">
-                                                    <FaCalendarAlt className="w-3 h-3 flex-shrink-0" />
+                                                    <FaCalendarAlt className="w-3 h-3 shrink-0" />
                                                     <span className="text-xs">Joined: {member.joinDate}</span>
                                                 </div>
                                             </div>
@@ -450,7 +453,7 @@ const YouthDepartmentPage = () => {
                                 {upcomingEvents.map((event) => (
                                     <div key={event.id} className="bg-white rounded-xl shadow-sm border p-6 hover:shadow-md transition">
                                         <div className="flex gap-6 flex-wrap">
-                                            <div className="bg-gradient-to-br from-blue-600 to-indigo-700 text-white w-20 h-20 rounded-lg flex flex-col items-center justify-center flex-shrink-0">
+                                            <div className="bg-linear-to-br from-blue-600 to-indigo-700 text-white w-20 h-20 rounded-lg flex flex-col items-center justify-center shrink-0">
                                                 <span className="text-xs font-semibold">{new Date(event.date).toLocaleDateString('en-US', { month: 'short' }).toUpperCase()}</span>
                                                 <span className="text-3xl font-bold">{new Date(event.date).getDate()}</span>
                                             </div>
@@ -524,7 +527,7 @@ const YouthDepartmentPage = () => {
                             onClick={(e) => e.stopPropagation()}
                             className="bg-white rounded-2xl shadow-2xl max-w-3xl w-full max-h-[90vh] overflow-y-auto my-8"
                         >
-                            <div className="sticky top-0 bg-gradient-to-r from-blue-600 to-indigo-700 text-white p-6 rounded-t-2xl">
+                            <div className="sticky top-0 bg-linear-to-r from-blue-600 to-indigo-700 text-white p-6 rounded-t-2xl">
                                 <div className="flex justify-between items-center">
                                     <div>
                                         <h2 className="text-2xl font-bold mb-1">Join Youth Ministry</h2>
@@ -758,7 +761,7 @@ const YouthDepartmentPage = () => {
                                     </button>
                                     <button
                                         type="submit"
-                                        className="flex-1 px-6 py-3 bg-gradient-to-r from-blue-600 to-indigo-700 text-white font-bold rounded-lg hover:shadow-lg transition flex items-center justify-center gap-2"
+                                        className="flex-1 px-6 py-3 bg-linear-to-r from-blue-600 to-indigo-700 text-white font-bold rounded-lg hover:shadow-lg transition flex items-center justify-center gap-2"
                                     >
                                         <FaCheckCircle />
                                         Submit Application

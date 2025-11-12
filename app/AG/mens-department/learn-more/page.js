@@ -1,6 +1,7 @@
 import React from 'react';
 import { Users, BookOpen, Heart, Award, Calendar, MapPin } from 'lucide-react';
 import Link from 'next/link';
+import Footer from '@/components/Footer/page';
 
 export default function MensDepartment() {
     return (
@@ -209,9 +210,9 @@ export default function MensDepartment() {
                 <div className="max-w-6xl mx-auto text-center">
                     <p className="text-lg mb-2">Assemblies of God Church - Gbazango District</p>
                     <p className="text-blue-200">Men's Department | Building Champions for Christ</p>
-                    <p className="mt-4 text-sm text-blue-300">&copy; 2025 All Rights Reserved</p>
                 </div>
             </footer>
+            <Footer />
         </div>
     );
 }

@@ -745,7 +745,9 @@ const AGChurchLanding = () => {
             { name: 'Leadership', path: '/AG/deacons' },
             { name: 'Ministers', path: '/ministers' },
             { name: 'Events Calendar', path: '/events' },
-            { name: 'Sermons', path: '/sermons' }
+            { name: 'Sermons', path: '/sermons' },
+            { name: 'Departments', path: '/departments' },
+
         ].map((link, i) => (
             <li key={i}>
                 <Link 
@@ -792,26 +794,35 @@ const AGChurchLanding = () => {
                         <div>
                             <h3 className="text-white font-bold text-lg mb-6">Service Times</h3>
                             <ul className="space-y-4">
-                                <li className="bg-gray-800 rounded-lg p-4">
+                                  <li className="bg-gray-800/30 rounded-lg p-4">
+                                                    <div className="flex items-center gap-2 mb-2">
+                                                      <Clock className="w-4 h-4 text-amber-400" />
+                                                      <p className="text-white font-semibold">Sunday School lesson</p>
+                                                    </div>
+                                                    <p className="text-amber-400 font-bold">
+                                                      8:00 AM - 9:00 AM
+                                                    </p>
+                                                  </li>
+                                <li className="bg-gray-800/30 rounded-lg p-4">
                                     <div className="flex items-center gap-2 mb-2">
                                         <Clock className="w-4 h-4 text-amber-400" />
-                                        <p className="text-white font-semibold">Sunday Service</p>
+                                        <p className="text-white font-semibold">Main Service</p>
                                     </div>
-                                    <p className="text-amber-400 font-bold">9:00 AM & 11:00 AM</p>
+                                    <p className="text-amber-400 font-bold">9:30 AM - 12:00 AM</p>
                                 </li>
-                                <li className="bg-gray-800 rounded-lg p-4">
+                                <li className="bg-gray-800/30 rounded-lg p-4">
                                     <div className="flex items-center gap-2 mb-2">
                                         <Clock className="w-4 h-4 text-amber-400" />
                                         <p className="text-white font-semibold">Bible Study</p>
                                     </div>
-                                    <p className="text-amber-400 font-bold">Wednesday 7:00 PM</p>
+                                    <p className="text-amber-400 font-bold">Tuesday 6:00 PM</p>
                                 </li>
-                                <li className="bg-gray-800 rounded-lg p-4">
+                                <li className="bg-gray-800/30 rounded-lg p-4">
                                     <div className="flex items-center gap-2 mb-2">
                                         <Clock className="w-4 h-4 text-amber-400" />
                                         <p className="text-white font-semibold">Youth Service</p>
                                     </div>
-                                    <p className="text-amber-400 font-bold">Friday 7:00 PM</p>
+                                    <p className="text-amber-400 font-bold">Thursday 6:00 PM</p>
                                 </li>
                             </ul>
                         </div>

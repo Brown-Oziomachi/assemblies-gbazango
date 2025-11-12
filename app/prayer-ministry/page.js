@@ -4,6 +4,7 @@ import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { Church, Clock, MapPin, Users, Heart, ChevronRight, ArrowRight, CheckCircle, Calendar, Phone, Mail, BookOpen, Flame, Shield, Globe, HandHeart, Utensils, GraduationCap, Stethoscope, Home, Baby, Book, Cross } from 'lucide-react';
 import Link from 'next/link';
+import Footer from '@/components/Footer/page';
 
 const PrayerMinistry = () => {
     const [activeTab, setActiveTab] = useState('overview');
@@ -358,6 +359,7 @@ const PrayerMinistry = () => {
                     </motion.div>
                 </div>
             </section>
+            <Footer />
         </div>
     );
 };

@@ -1,6 +1,7 @@
 import React from 'react';
 import { Users, BookOpen, Heart, Award, Calendar, MapPin, Zap, Music, Target } from 'lucide-react';
 import Link from 'next/link';
+import Footer from '@/components/Footer/page';
 
 export default function YouthDepartment() {
     return (
@@ -155,23 +156,23 @@ export default function YouthDepartment() {
                             <h3 className="text-xl font-bold mb-4" style={{ color: '#6B21A8' }}>Our Activities</h3>
                             <ul className="space-y-3 text-gray-700">
                                 <li className="flex items-center">
-                                    <Calendar className="mr-3 flex-shrink-0" style={{ color: '#9333EA' }} size={20} />
-                                    <span>Weekly youth service - Every Friday, 5:00 PM</span>
+                                    <Calendar className="mr-3 shrink-0" style={{ color: '#9333EA' }} size={20} />
+                                    <span>Weekly youth service - Every Thursday, 6:00 PM</span>
                                 </li>
                                 <li className="flex items-center">
-                                    <Calendar className="mr-3 flex-shrink-0" style={{ color: '#9333EA' }} size={20} />
+                                    <Calendar className="mr-3 shrink-0" style={{ color: '#9333EA' }} size={20} />
                                     <span>Monthly leadership training and mentorship</span>
                                 </li>
                                 <li className="flex items-center">
-                                    <Calendar className="mr-3 flex-shrink-0" style={{ color: '#9333EA' }} size={20} />
+                                    <Calendar className="mr-3 shrink-0" style={{ color: '#9333EA' }} size={20} />
                                     <span>Quarterly youth conferences and rallies</span>
                                 </li>
                                 <li className="flex items-center">
-                                    <Calendar className="mr-3 flex-shrink-0" style={{ color: '#9333EA' }} size={20} />
+                                    <Calendar className="mr-3 shrink-0" style={{ color: '#9333EA' }} size={20} />
                                     <span>Annual youth camp and retreat</span>
                                 </li>
                                 <li className="flex items-center">
-                                    <Calendar className="mr-3 flex-shrink-0" style={{ color: '#9333EA' }} size={20} />
+                                    <Calendar className="mr-3 shrink-0" style={{ color: '#9333EA' }} size={20} />
                                     <span>Campus ministry and school outreach</span>
                                 </li>
                             </ul>
@@ -212,13 +213,13 @@ export default function YouthDepartment() {
                     }}>
                         <h3 className="text-2xl font-bold mb-3">Join the Movement!</h3>
                         <p className="text-lg mb-4">
-                            Whether you're 13 or 25, single or married, in school or working - there's a place for you
+                            Whether you're 19 or 25, single or married, in school or working - there's a place for you
                             in the Gbazango Youth Department. Come experience authentic worship, life-changing teaching,
                             and genuine friendship.
                         </p>
                         <p className="text-lg">
-                            <strong>Youth Service:</strong> Every Friday | 5:00 PM<br />
-                            <strong>Age Range:</strong> 13-25 years
+                            <strong>Youth Service:</strong> Every Thursday | 6:00 PM<br />
+                            <strong>Age Range:</strong> 19-25 years
                         </p>
                     </div>
                 </section>
@@ -281,9 +282,9 @@ export default function YouthDepartment() {
                 <div className="max-w-6xl mx-auto text-center">
                     <p className="text-lg mb-2">Assemblies of God Church - Gbazango District</p>
                     <p style={{ color: '#C4B5FD' }}>Youth Department | Empowering the Next Generation</p>
-                    <p className="mt-4 text-sm" style={{ color: '#A78BFA' }}>&copy; 2025 All Rights Reserved</p>
                 </div>
             </footer>
+            <Footer />
         </div>
     );
 }

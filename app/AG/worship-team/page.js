@@ -1,6 +1,8 @@
 "use client"
 import React, { useState } from 'react';
 import Image from 'next/image';
+import Footer from '@/components/Footer/page';
+import Link from 'next/link';
 
 export default function WorshipTeam() {
     const [activeTab, setActiveTab] = useState('about');
@@ -47,7 +49,9 @@ export default function WorshipTeam() {
                     <p className="text-xl italic opacity-90 mb-8">"Worship the Lord in the splendor of His holiness" - Psalm 29:2</p>
                     <div className="flex gap-4 justify-center flex-wrap">
                         <button onClick={() => setActiveTab('about')} className="px-8 py-3 bg-linear-to-r from-purple-600 to-pink-600 rounded-full font-semibold hover:shadow-2xl hover:scale-105 transition-all">
-                            Learn More
+                          <Link href="/AG/worship-team/learn-more">
+                          Learn More
+                            </Link>
                         </button>
                         <button className="px-8 py-3 border-2 border-white rounded-full font-semibold hover:bg-white hover:text-purple-900 transition-all">
                             Join The Team
@@ -218,7 +222,7 @@ export default function WorshipTeam() {
                                 <div key={index} className="bg-linear-to-r from-slate-800 to-slate-900 rounded-2xl p-6 border border-purple-500/20 hover:border-purple-500/60 transition-all hover:shadow-xl hover:shadow-purple-500/20">
                                     <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
                                         <div className="flex items-center gap-6">
-                                            <div className="w-16 h-16 bg-linear-to-br from-purple-600 to-pink-600 rounded-xl flex items-center justify-center text-white font-bold text-sm flex-shrink-0">
+                                            <div className="w-16 h-16 bg-linear-to-br from-purple-600 to-pink-600 rounded-xl flex items-center justify-center text-white font-bold text-sm shrink-0">
                                                 {schedule.day.substring(0, 3).toUpperCase()}
                                             </div>
                                             <div>
@@ -264,7 +268,7 @@ export default function WorshipTeam() {
                 {activeTab === 'join' && (
                     <div className="animate-fadeIn">
                         <div className="text-center mb-16">
-                            <div className="w-24 h-1 bg-gradient-to-r from-purple-400 to-pink-400 mx-auto mb-6"></div>
+                            <div className="w-24 h-1 bg-linear-to-r from-purple-400 to-pink-400 mx-auto mb-6"></div>
                             <h2 className="text-5xl font-bold text-white mb-6">Join Our Team</h2>
                             <p className="text-xl text-gray-300 max-w-3xl mx-auto">
                                 Do you have a passion for worship? We'd love to have you serve with us!
@@ -273,7 +277,7 @@ export default function WorshipTeam() {
 
                         <div className="max-w-4xl mx-auto">
                             <div className="grid md:grid-cols-2 gap-8 mb-12">
-                                <div className="bg-gradient-to-br from-slate-800 to-slate-900 rounded-3xl p-8 border border-purple-500/20">
+                                <div className="bg-linear-to-br from-slate-800 to-slate-900 rounded-3xl p-8 border border-purple-500/20">
                                     <div className="w-16 h-16 bg-linear-to-br from-purple-600 to-pink-600 rounded-2xl flex items-center justify-center mb-6 text-3xl">
                                         🎤
                                     </div>
@@ -380,7 +384,7 @@ export default function WorshipTeam() {
                     <p className="text-gray-400">&copy; 2025 AG Church Gbazango | Leading God's People into His Presence</p>
                 </div>
             </footer>
-
+            <Footer />
             <style jsx>{`
         @keyframes fadeIn {
           from { opacity: 0; transform: translateY(20px); }

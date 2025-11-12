@@ -177,20 +177,23 @@ const TeensDepartmentPage = () => {
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                     <div className="flex justify-between items-center h-16">
                         <div className="flex items-center gap-3">
-                            <div className="h-10 w-10 bg-gradient-to-br from-purple-600 to-indigo-700 rounded-lg flex items-center justify-center">
-                                <span className="text-lg font-bold text-white">AG</span>
-                            </div>
+                            <div className="h-10 w-10 bg-linear-to-br from-purple-600 to-indigo-700 flex items-center justify-center">
+                                <img
+                                    src="/AG.jpeg"
+                                    alt="AG Church"
+                                    className="w-10 h-10"
+                                />                            </div>
                             <div>
                                 <p className="font-bold text-gray-900 text-sm">Assemblies of God</p>
                                 <p className="text-xs text-purple-600">Teens Ministry</p>
                             </div>
                         </div>
-                        <div className="hidden md:flex items-center gap-6">
-                            <a href="/" className="text-gray-600 hover:text-purple-600 text-sm font-medium transition">Home</a>
-                            <a href="/departments" className="text-gray-600 hover:text-purple-600 text-sm font-medium transition">Departments</a>
+                        <div className=" md:flex items-center gap-6">
+                            <a href="/" className="text-gray-600 hover:text-purple-600 text-sm font-medium transition max-md:hidden">Home</a>
+                            <a href="/departments" className="text-gray-600 hover:text-purple-600 text-sm font-medium transition max-md:text-purple-600">Departments</a>
                             <button
                                 onClick={() => setShowJoinModal(true)}
-                                className="bg-purple-600 text-white px-4 py-2 rounded-lg text-sm font-semibold hover:bg-purple-700 transition"
+                                className="bg-purple-600 text-white px-4 py-2 rounded-lg text-sm font-semibold hover:bg-purple-700 transition max-md:hidden"
                             >
                                 Join Us
                             </button>

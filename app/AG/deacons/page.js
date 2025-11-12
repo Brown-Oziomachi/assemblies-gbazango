@@ -1,4 +1,5 @@
 "use client";
+import Footer from '@/components/Footer/page';
 import { motion } from 'framer-motion';
 import { Users, Award, Heart, ChevronRight, Home, ArrowLeft } from 'lucide-react';
 import Link from 'next/link';
@@ -234,6 +235,7 @@ export default function LeadershipPage() {
                     </button>
                 </div>
             </motion.div>
+            <Footer />
         </div>
     );
 }

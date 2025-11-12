@@ -1,4 +1,5 @@
 "use client";
+import Footer from '@/components/Footer/page';
 import { motion } from 'framer-motion';
 import { Book, Cross, Heart, Flame, Users, Globe, Shield, ArrowLeft } from 'lucide-react';
 import Link from 'next/link';
@@ -327,6 +328,7 @@ export default function BeliefsPage() {
                     </div>
                 </div>
             </motion.div>
+            <Footer />
         </div>
     );
 }
