@@ -1,7 +1,7 @@
 {
   "name": "Assemblies of God Gbazango",
   "short_name": "AG Church",
-  "description": "All The Gospel",
+  "description": "Assemblies of God Gbazango | All The Gospel",
   "start_url": "/",
   "display": "standalone",
   "background_color": "#f59e0b",
@@ -9,13 +9,13 @@
   "orientation": "portrait",
   "icons": [
     {
-      "src": "/icon-192.png",
+      "src": "/logo.png",
       "sizes": "192x192",
       "type": "image/png",
       "purpose": "any maskable"
     },
     {
-      "src": "/icon-512.png",
+      "src": "/logo.png",
       "sizes": "512x512",
       "type": "image/png",
       "purpose": "any maskable"

@@ -2,8 +2,8 @@ const CACHE_NAME = 'ag-church-v1';
 const urlsToCache = [
   '/',
   '/install',
-  '/icon-192.png',
-  '/icon-512.png'
+  '/logo.png',
+  '/logo.png'
 ];
 
 self.addEventListener('install', (event) => {
