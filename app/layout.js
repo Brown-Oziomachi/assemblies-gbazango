@@ -13,8 +13,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata = {
-  title: "Assemblies of God",
-  description: "All The Gospel",
+  title: "Assemblies of God | Gbazango",
+  description: "Assemblies of God Gbazango | All The Gospel",
   manifest: "/manifest.json",
   appleWebApp: {
     capable: true,
@@ -22,8 +22,8 @@ export const metadata = {
     title: "AG Church",
   },
   icons: {
-    icon: "/icon-192.png",
-    apple: "/icon-192.png",
+    icon: "/logo.png",
+    apple: "/logo.png",
   },
 };
 
@@ -33,7 +33,7 @@ export default function RootLayout({ children }) {
       <head>
         <link rel="manifest" href="/manifest.json" />
         <meta name="theme-color" content="#f59e0b" />
-        <link rel="apple-touch-icon" href="/icon-192.png" />
+        <link rel="apple-touch-icon" href="/logo.png" />
       </head>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
