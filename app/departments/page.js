@@ -1,9 +1,8 @@
 "use client"
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
-import { Users, Heart, Sparkles, Zap, Baby, Music, HandHeart, Church, ChevronRight, ArrowRight, CheckCircle, Calendar, Clock, MapPin, Mail, Phone } from 'lucide-react';
+import { Users, Heart, Sparkles, Zap, Baby, Music, HandHeart, Church, ChevronRight, ArrowRight, CheckCircle, Calendar, Clock, MapPin, Mail, Phone, X } from 'lucide-react';
 import Link from 'next/link';
-import Footer from '@/components/Footer/page';
 
 const MinistriesPage = () => {
     const [selectedMinistry, setSelectedMinistry] = useState(null);
@@ -155,7 +154,7 @@ const MinistriesPage = () => {
             color: 'from-red-500 to-red-600',
             bgColor: 'bg-red-50',
             borderColor: 'border-red-200',
-            link: '/AG/outreach',
+            link: '/outreach',
             meetingTime: 'Every 1st Saturday, 8:00 AM',
             leader: 'Deacon Paul Okonkwo',
             activities: [
@@ -190,9 +189,9 @@ const MinistriesPage = () => {
     ];
 
     return (
-        <div className="min-h-screen bg-linear-to-b from-amber-50 via-white to-amber-50">
+        <div className="min-h-screen bg-gradient-to-b from-amber-50 via-white to-amber-50">
             {/* Hero Section */}
-            <section className="relative bg-linear-to-r from-amber-900 via-amber-800 to-amber-700 py-32 overflow-hidden">
+            <section className="relative bg-gradient-to-r from-amber-900 via-amber-800 to-amber-700 py-20 md:py-32 overflow-hidden">
                 {/* Animated Background */}
                 <div className="absolute inset-0 opacity-10">
                     {[...Array(30)].map((_, i) => (
@@ -225,21 +224,22 @@ const MinistriesPage = () => {
                         variants={staggerContainer}
                         className="space-y-6"
                     >
-                        <motion.div variants={scaleIn} className="mx-auto w-24 h-24  backdrop-blur-md rounded-full flex items-center justify-center mb-6">
+                        <motion.div variants={scaleIn} className="mx-auto w-32 h-32 md:w-40 md:h-40 flex items-center justify-center mb-6">
                             <img
                                 src="/logo.png"
                                 alt="AG Church"
-                                className="w-80 h-70"
-                            />                        </motion.div>
+                                className="w-full h-full object-contain"
+                            />
+                        </motion.div>
                         <motion.h1
                             variants={fadeInUp}
-                            className="text-5xl md:text-7xl font-bold text-white mb-6 leading-tight"
+                            className="text-4xl md:text-7xl font-bold text-white mb-4 md:mb-6 leading-tight px-4"
                         >
                             Our Ministries
                         </motion.h1>
                         <motion.p
                             variants={fadeInUp}
-                            className="text-xl md:text-2xl text-amber-100 max-w-3xl mx-auto leading-relaxed"
+                            className="text-lg md:text-2xl text-amber-100 max-w-3xl mx-auto leading-relaxed px-4"
                         >
                             Discover your place to serve, grow, and make a difference in the body of Christ.
                             Every member is a minister with a unique calling and purpose.
@@ -260,7 +260,7 @@ const MinistriesPage = () => {
             </section>
 
             {/* Ministry Cards Section */}
-            <section className="py-24">
+            <section className="py-12 md:py-24">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                     <motion.div
                         initial="hidden"
@@ -268,18 +268,18 @@ const MinistriesPage = () => {
                         viewport={{ once: true, amount: 0.3 }}
                         variants={staggerContainer}
                     >
-                        <motion.div variants={fadeInUp} className="text-center mb-16">
+                        <motion.div variants={fadeInUp} className="text-center mb-12 md:mb-16">
                             <span className="text-amber-600 font-bold text-sm tracking-wider uppercase">Get Involved</span>
                             <div className="w-24 h-1 bg-gradient-to-r from-amber-500 to-amber-600 mx-auto mt-2 mb-4" />
-                            <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
+                            <h2 className="text-3xl md:text-5xl font-bold text-gray-900 mb-4 px-4">
                                 Find Your Ministry
                             </h2>
-                            <p className="text-xl text-gray-600 max-w-2xl mx-auto">
+                            <p className="text-lg md:text-xl text-gray-600 max-w-2xl mx-auto px-4">
                                 Click on any ministry to learn more about how you can get involved and serve
                             </p>
                         </motion.div>
 
-                        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
                             {ministries.map((ministry, index) => {
                                 const IconComponent = ministry.icon;
                                 return (
@@ -287,31 +287,32 @@ const MinistriesPage = () => {
                                         key={index}
                                         variants={fadeInUp}
                                         whileHover={{ scale: 1.03, y: -8 }}
+                                        whileTap={{ scale: 0.98 }}
                                         onClick={() => setSelectedMinistry(ministry)}
-                                        className={`group relative ${ministry.bgColor} p-8 rounded-2xl shadow-lg border-2 ${ministry.borderColor} hover:shadow-2xl transition-all cursor-pointer overflow-hidden`}
+                                        className={`group relative ${ministry.bgColor} p-6 md:p-8 rounded-2xl shadow-lg border-2 ${ministry.borderColor} hover:shadow-2xl transition-all cursor-pointer overflow-hidden`}
                                     >
                                         {/* Background Gradient Effect */}
                                         <div className={`absolute inset-0 bg-gradient-to-br ${ministry.color} opacity-0 group-hover:opacity-10 transition-opacity duration-300`}></div>
 
                                         <div className="relative z-10">
-                                            <div className={`w-20 h-20 bg-gradient-to-br ${ministry.color} rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform shadow-lg`}>
-                                                <IconComponent className="w-10 h-10 text-white" />
+                                            <div className={`w-16 h-16 md:w-20 md:h-20 bg-gradient-to-br ${ministry.color} rounded-2xl flex items-center justify-center mb-4 md:mb-6 group-hover:scale-110 transition-transform shadow-lg`}>
+                                                <IconComponent className="w-8 h-8 md:w-10 md:h-10 text-white" />
                                             </div>
-                                            <h3 className="text-2xl font-bold text-gray-900 mb-3">{ministry.title}</h3>
-                                            <p className="text-gray-700 mb-4 leading-relaxed">{ministry.shortDesc}</p>
+                                            <h3 className="text-xl md:text-2xl font-bold text-gray-900 mb-2 md:mb-3">{ministry.title}</h3>
+                                            <p className="text-gray-700 mb-4 leading-relaxed text-sm md:text-base">{ministry.shortDesc}</p>
 
-                                            <div className="space-y-2 mb-6">
-                                                <div className="flex items-center gap-2 text-sm text-gray-600">
-                                                    <Clock className="w-4 h-4" />
-                                                    <span>{ministry.meetingTime}</span>
+                                            <div className="space-y-2 mb-4 md:mb-6">
+                                                <div className="flex items-center gap-2 text-xs md:text-sm text-gray-600">
+                                                    <Clock className="w-4 h-4 flex-shrink-0" />
+                                                    <span className="line-clamp-1">{ministry.meetingTime}</span>
                                                 </div>
-                                                <div className="flex items-center gap-2 text-sm text-gray-600">
-                                                    <Users className="w-4 h-4" />
-                                                    <span>Led by {ministry.leader}</span>
+                                                <div className="flex items-center gap-2 text-xs md:text-sm text-gray-600">
+                                                    <Users className="w-4 h-4 flex-shrink-0" />
+                                                    <span className="line-clamp-1">Led by {ministry.leader}</span>
                                                 </div>
                                             </div>
 
-                                            <span className="text-amber-700 font-semibold flex items-center gap-1 group-hover:gap-2 transition-all">
+                                            <span className="text-amber-700 font-semibold flex items-center gap-1 group-hover:gap-2 transition-all text-sm md:text-base">
                                                 Learn More <ChevronRight className="w-4 h-4" />
                                             </span>
                                         </div>
@@ -339,78 +340,78 @@ const MinistriesPage = () => {
                         onClick={(e) => e.stopPropagation()}
                         className={`${selectedMinistry.bgColor} rounded-3xl max-w-4xl w-full max-h-[90vh] overflow-y-auto shadow-2xl`}
                     >
-                        <div className={`bg-gradient-to-r ${selectedMinistry.color} p-8 text-white relative`}>
+                        <div className={`bg-gradient-to-r ${selectedMinistry.color} p-6 md:p-8 text-white relative`}>
                             <button
                                 onClick={() => setSelectedMinistry(null)}
                                 className="absolute top-4 right-4 w-10 h-10 bg-white/20 hover:bg-white/30 rounded-full flex items-center justify-center transition-all"
                             >
-                                <span className="text-2xl">×</span>
+                                <X className="w-6 h-6" />
                             </button>
 
-                            <div className="flex items-center gap-4 mb-4">
-                                <div className="w-16 h-16 bg-white/20 rounded-2xl flex items-center justify-center">
-                                    <selectedMinistry.icon className="w-8 h-8" />
+                            <div className="flex items-center gap-3 md:gap-4 mb-4 pr-12">
+                                <div className="w-12 h-12 md:w-16 md:h-16 bg-white/20 rounded-2xl flex items-center justify-center flex-shrink-0">
+                                    <selectedMinistry.icon className="w-6 h-6 md:w-8 md:h-8" />
                                 </div>
-                                <h2 className="text-4xl font-bold">{selectedMinistry.title}</h2>
+                                <h2 className="text-2xl md:text-4xl font-bold">{selectedMinistry.title}</h2>
                             </div>
-                            <p className="text-lg opacity-90">{selectedMinistry.shortDesc}</p>
+                            <p className="text-base md:text-lg opacity-90">{selectedMinistry.shortDesc}</p>
                         </div>
 
-                        <div className="p-8 space-y-8">
+                        <div className="p-6 md:p-8 space-y-6 md:space-y-8">
                             {/* About Section */}
                             <div>
-                                <h3 className="text-2xl font-bold text-gray-900 mb-4">About This Ministry</h3>
-                                <p className="text-gray-700 text-lg leading-relaxed">{selectedMinistry.fullDesc}</p>
+                                <h3 className="text-xl md:text-2xl font-bold text-gray-900 mb-3 md:mb-4">About This Ministry</h3>
+                                <p className="text-gray-700 text-base md:text-lg leading-relaxed">{selectedMinistry.fullDesc}</p>
                             </div>
 
                             {/* Meeting Details */}
-                            <div className="grid md:grid-cols-2 gap-6">
-                                <div className={`${selectedMinistry.bgColor} border-2 ${selectedMinistry.borderColor} rounded-xl p-6`}>
+                            <div className="grid md:grid-cols-2 gap-4 md:gap-6">
+                                <div className={`${selectedMinistry.bgColor} border-2 ${selectedMinistry.borderColor} rounded-xl p-4 md:p-6`}>
                                     <div className="flex items-center gap-3 mb-3">
-                                        <Clock className="w-6 h-6 text-gray-700" />
-                                        <h4 className="font-bold text-gray-900 text-lg">Meeting Time</h4>
+                                        <Clock className="w-5 h-5 md:w-6 md:h-6 text-gray-700 flex-shrink-0" />
+                                        <h4 className="font-bold text-gray-900 text-base md:text-lg">Meeting Time</h4>
                                     </div>
-                                    <p className="text-gray-700 font-semibold">{selectedMinistry.meetingTime}</p>
+                                    <p className="text-gray-700 font-semibold text-sm md:text-base">{selectedMinistry.meetingTime}</p>
                                 </div>
-                                <div className={`${selectedMinistry.bgColor} border-2 ${selectedMinistry.borderColor} rounded-xl p-6`}>
+                                <div className={`${selectedMinistry.bgColor} border-2 ${selectedMinistry.borderColor} rounded-xl p-4 md:p-6`}>
                                     <div className="flex items-center gap-3 mb-3">
-                                        <Users className="w-6 h-6 text-gray-700" />
-                                        <h4 className="font-bold text-gray-900 text-lg">Ministry Leader</h4>
+                                        <Users className="w-5 h-5 md:w-6 md:h-6 text-gray-700 flex-shrink-0" />
+                                        <h4 className="font-bold text-gray-900 text-base md:text-lg">Ministry Leader</h4>
                                     </div>
-                                    <p className="text-gray-700 font-semibold">{selectedMinistry.leader}</p>
+                                    <p className="text-gray-700 font-semibold text-sm md:text-base">{selectedMinistry.leader}</p>
                                 </div>
                             </div>
 
                             {/* Activities */}
                             <div>
-                                <h3 className="text-2xl font-bold text-gray-900 mb-4">What We Do</h3>
+                                <h3 className="text-xl md:text-2xl font-bold text-gray-900 mb-3 md:mb-4">What We Do</h3>
                                 <ul className="space-y-3">
                                     {selectedMinistry.activities.map((activity, idx) => (
                                         <li key={idx} className="flex items-start gap-3">
-                                            <CheckCircle className={`w-6 h-6 text-green-600 shrink-0 mt-0.5`} />
-                                            <span className="text-gray-700 text-lg">{activity}</span>
+                                            <CheckCircle className={`w-5 h-5 md:w-6 md:h-6 text-green-600 shrink-0 mt-0.5`} />
+                                            <span className="text-gray-700 text-sm md:text-lg">{activity}</span>
                                         </li>
                                     ))}
                                 </ul>
                             </div>
 
                             {/* CTA Buttons */}
-                            <div className="flex flex-col sm:flex-row gap-4 pt-6">
+                            <div className="flex flex-col sm:flex-row gap-3 md:gap-4 pt-4 md:pt-6">
                                 <Link href={selectedMinistry.link} className="flex-1">
                                     <motion.button
                                         whileHover={{ scale: 1.02 }}
                                         whileTap={{ scale: 0.98 }}
-                                        className={`w-full bg-gradient-to-r ${selectedMinistry.color} text-white px-8 py-4 rounded-full font-bold text-lg shadow-lg hover:shadow-xl transition-all flex items-center justify-center gap-2`}
+                                        className={`w-full bg-gradient-to-r ${selectedMinistry.color} text-white px-6 md:px-8 py-3 md:py-4 rounded-full font-bold text-base md:text-lg shadow-lg hover:shadow-xl transition-all flex items-center justify-center gap-2`}
                                     >
                                         Visit Ministry Page
-                                        <ArrowRight className="w-5 h-5" />
+                                        <ArrowRight className="w-4 h-4 md:w-5 md:h-5" />
                                     </motion.button>
                                 </Link>
                                 <Link href="/contact" className="flex-1">
                                     <motion.button
                                         whileHover={{ scale: 1.02 }}
                                         whileTap={{ scale: 0.98 }}
-                                        className={`w-full border-2 ${selectedMinistry.borderColor} text-gray-900 px-8 py-4 rounded-full font-bold text-lg hover:bg-gray-50 transition-all`}
+                                        className={`w-full border-2 ${selectedMinistry.borderColor} text-gray-900 px-6 md:px-8 py-3 md:py-4 rounded-full font-bold text-base md:text-lg hover:bg-gray-50 transition-all`}
                                     >
                                         Get Involved
                                     </motion.button>
@@ -422,7 +423,7 @@ const MinistriesPage = () => {
             )}
 
             {/* Call to Action Section */}
-            <section className="py-24 bg-gradient-to-r from-amber-900 via-amber-800 to-amber-700 relative overflow-hidden">
+            <section className="py-16 md:py-24 bg-gradient-to-r from-amber-900 via-amber-800 to-amber-700 relative overflow-hidden">
                 <div className="absolute inset-0 opacity-10">
                     {[...Array(20)].map((_, i) => (
                         <motion.div
@@ -452,48 +453,43 @@ const MinistriesPage = () => {
                         whileInView="visible"
                         viewport={{ once: true }}
                         variants={staggerContainer}
-                        className="space-y-8"
+                        className="space-y-6 md:space-y-8"
                     >
                         <motion.h2
                             variants={fadeInUp}
-                            className="text-4xl md:text-5xl font-bold text-white mb-6 leading-tight"
+                            className="text-3xl md:text-5xl font-bold text-white mb-4 md:mb-6 leading-tight px-4"
                         >
                             Ready to Serve?
                         </motion.h2>
                         <motion.p
                             variants={fadeInUp}
-                            className="text-xl text-amber-100 mb-8 leading-relaxed"
+                            className="text-lg md:text-xl text-amber-100 mb-6 md:mb-8 leading-relaxed px-4"
                         >
                             God has given you unique gifts and talents. Join a ministry today and start making an eternal impact!
                         </motion.p>
                         <motion.div
                             variants={fadeInUp}
-                            className="flex flex-col sm:flex-row gap-4 justify-center"
+                            className="flex flex-col sm:flex-row gap-4 justify-center px-4"
                         >
-                            <Link href="/contact">
-                                <motion.button
-                                    whileHover={{ scale: 1.05, y: -5 }}
-                                    whileTap={{ scale: 0.95 }}
-                                    className="bg-white text-amber-900 px-10 py-5 max-md:mx-auto rounded-full font-bold text-xl shadow-2xl hover:shadow-white/50 transition-all flex items-center justify-center gap-2 group"
-                                >
-                                    Join a Ministry
-                                    <ChevronRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
-                                </motion.button>
-                            </Link>
-                            <Link href="/">
-                                <motion.button
-                                    whileHover={{ scale: 1.05, y: -5 }}
-                                    whileTap={{ scale: 0.95 }}
-                                    className="bg-white/10 backdrop-blur-md border-2 border-white text-white px-10 py-5 rounded-full font-bold text-xl hover:bg-white hover:text-amber-900 transition-all"
-                                >
-                                    Back to Home
-                                </motion.button>
-                            </Link>
+                            <motion.button
+                                whileHover={{ scale: 1.05, y: -5 }}
+                                whileTap={{ scale: 0.95 }}
+                                className="bg-white text-amber-900 px-8 md:px-10 py-4 md:py-5 rounded-full font-bold text-lg md:text-xl shadow-2xl hover:shadow-white/50 transition-all flex items-center justify-center gap-2 group w-full sm:w-auto"
+                            >
+                               <Link href="/contact">Join a Ministry</Link>
+                                <ChevronRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+                            </motion.button>
+                            <motion.button
+                                whileHover={{ scale: 1.05, y: -5 }}
+                                whileTap={{ scale: 0.95 }}
+                                className="bg-white/10 backdrop-blur-md border-2 border-white text-white px-8 md:px-10 py-4 md:py-5 rounded-full font-bold text-lg md:text-xl hover:bg-white hover:text-amber-900 transition-all w-full sm:w-auto"
+                            >
+                               <Link href="/">Back to Home</Link>
+                            </motion.button>
                         </motion.div>
                     </motion.div>
                 </div>
             </section>
-            <Footer />
         </div>
     );
 };

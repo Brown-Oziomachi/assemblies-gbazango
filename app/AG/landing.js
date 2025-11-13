@@ -137,7 +137,9 @@ const AGChurchLanding = () => {
                                 { label: 'Leaders', href: '/AG/deacons' },
                                 { label: 'Events', href: '/events' },
                                 { label: 'Sermons', href: '/sermons' },
-                                { label: 'Contact', href: '/contact' }
+                                { label: 'Departments', href: '/departments' },
+                                { label: 'Contact', href: '/contact' },
+                                {label: 'Install App', href: '/our-app' }
                             ].map((item) => (
                                 <Link
                                     key={item.label}
@@ -148,15 +150,18 @@ const AGChurchLanding = () => {
                                     {item.label}
                                 </Link>
                             ))}
-                            <Link href="/give-online">
-                                <motion.button
-                                    whileHover={{ scale: 1.05 }}
-                                    whileTap={{ scale: 0.95 }}
-                                    className="bg-linear-to-r from-amber-500 to-amber-600 text-white px-6 py-2 rounded-full font-bold shadow-lg hover:shadow-xl transition-all"
-                                >
-                                    Give Online
-                                </motion.button>
-                            </Link>
+                           <div className="flex justify-center mt-6">
+  <Link href="/give-online">
+    <motion.button
+      whileHover={{ scale: 1.05 }}
+      whileTap={{ scale: 0.95 }}
+      className="bg-gradient-to-r from-amber-500 to-amber-600 text-white px-30 py-3 rounded-full font-bold shadow-lg hover:shadow-xl transition-all"
+    >
+      Give Online
+    </motion.button>
+  </Link>
+</div>
+
                         </div>
                     </motion.div>
                 )}
@@ -554,7 +559,7 @@ const AGChurchLanding = () => {
                                     title: 'Community Outreach',
                                     desc: 'Serving our neighbors with love',
                                     color: 'from-red-500 to-red-600',
-                                    link: '/AG/outreach'
+                                    link: '/outreach'
                                 },
                                 {
                                     icon: Church,
@@ -741,12 +746,14 @@ const AGChurchLanding = () => {
     <ul className="space-y-3">
         {[
             { name: 'About Us', path: '/about' },
+            { name: 'Contact Us', path: '/contact' },
             { name: 'Our Beliefs', path: '/AG/belief' },
             { name: 'Leadership', path: '/AG/deacons' },
             { name: 'Ministers', path: '/ministers' },
             { name: 'Events Calendar', path: '/events' },
             { name: 'Sermons', path: '/sermons' },
             { name: 'Departments', path: '/departments' },
+            { name: 'Install App', path: '/our-app' }
 
         ].map((link, i) => (
             <li key={i}>

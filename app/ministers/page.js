@@ -90,8 +90,11 @@ export default function MinistersPage() {
                             Back to Home
                         </a>
                         <div className="flex items-center gap-3">
-                            <Church className="w-8 h-8 text-amber-600" />
-                            <div className="hidden sm:block">
+                            <img
+                                src="/AG.jpeg"
+                                alt="AG Church"
+                                className="w-10 h-10"
+                            />                             <div className="hidden sm:block">
                                 <p className="text-sm font-bold text-gray-900">Assemblies of God</p>
                                 <p className="text-xs text-amber-600">Gbazango District</p>
                             </div>
@@ -282,7 +285,6 @@ export default function MinistersPage() {
             <footer className="bg-gray-900 text-gray-300 py-12">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
                     <Church className="w-12 h-12 text-amber-500 mx-auto mb-4" />
-                    <p className="text-sm mb-2">&copy; 2025 Assemblies of God Church - Gbazango District. All rights reserved.</p>
                     <p className="text-amber-400 font-semibold">A Community of Faith, Hope, and Love</p>
                 </div>
             </footer>

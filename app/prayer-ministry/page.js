@@ -1,12 +1,10 @@
-
 "use client"
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { Church, Clock, MapPin, Users, Heart, ChevronRight, ArrowRight, CheckCircle, Calendar, Phone, Mail, BookOpen, Flame, Shield, Globe, HandHeart, Utensils, GraduationCap, Stethoscope, Home, Baby, Book, Cross } from 'lucide-react';
 import Link from 'next/link';
-import Footer from '@/components/Footer/page';
 
-const PrayerMinistry = () => {
+export default function PrayerMinistry() {
     const [activeTab, setActiveTab] = useState('overview');
 
     const fadeInUp = {
@@ -83,6 +81,24 @@ const PrayerMinistry = () => {
         'Protection & Safety'
     ];
 
+    const testimonials = [
+        {
+            name: 'John Doe',
+            role: 'Church Member',
+            story: 'Through the Prayer Ministry, I received prayer for healing and God miraculously healed my broken leg. My family now attends every prayer session!'
+        },
+        {
+            name: 'Mary Johnson',
+            role: 'Prayer Warrior',
+            story: 'I was delivered from depression through the Wednesday Night Vigil prayers. Now I lead the prayer chain network and help others find hope in Jesus.'
+        },
+        {
+            name: 'Samuel Obi',
+            role: 'Community Member',
+            story: 'The hospital visitation team came to see me during my darkest hour. Their prayers and encouragement reminded me that God cares. I gave my life to Christ!'
+        }
+    ];
+
     return (
         <div className="min-h-screen bg-gradient-to-b from-teal-50 via-white to-teal-50">
             {/* Hero Section */}
@@ -134,7 +150,7 @@ const PrayerMinistry = () => {
                             "The effectual fervent prayer of a righteous man availeth much" - James 5:16
                         </motion.p>
                         <motion.div variants={fadeInUp} className="pt-4">
-                            <Link href="/ministries">
+                            <Link href="/departments">
                                 <button className="text-white/80 hover:text-white transition-colors flex items-center gap-2 mx-auto">
                                     <ChevronRight className="w-5 h-5 rotate-180" />
                                     Back to All Ministries
@@ -238,12 +254,11 @@ const PrayerMinistry = () => {
                                         <div className={`w-16 h-16 bg-gradient-to-br ${program.color} rounded-2xl flex items-center justify-center mb-6 shadow-lg`}>
                                             <IconComponent className="w-8 h-8 text-white" />
                                         </div>
-                                        <h3 className="text-2xl font-bold text-gray-900 mb-3">{program.title}</h3>
-                                        <div className="flex items-center gap-2 text-teal-600 font-semibold mb-4">
-                                            <Clock className="w-5 h-5" />
-                                            <span className="text-sm">{program.time}</span>
+                                        <h3 className="text-xl font-bold text-gray-900 mb-3">{program.title}</h3>
+                                        <p className="text-gray-600 mb-4 leading-relaxed">{program.description}</p>
+                                        <div className="bg-white rounded-lg p-3 border border-red-200">
+                                            <p className="text-sm font-semibold text-red-600">{program.impact}</p>
                                         </div>
-                                        <p className="text-gray-600 leading-relaxed">{program.description}</p>
                                     </motion.div>
                                 );
                             })}
@@ -252,7 +267,7 @@ const PrayerMinistry = () => {
                 </div>
             </section>
 
-            {/* Prayer Focus Areas */}
+            {/* Schedule Section */}
             <section className="py-24 bg-white">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                     <motion.div
@@ -263,23 +278,131 @@ const PrayerMinistry = () => {
                     >
                         <motion.div variants={fadeInUp} className="text-center mb-16">
                             <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
-                                What We Pray For
+                                Monthly Outreach Schedule
                             </h2>
                             <p className="text-xl text-gray-600 max-w-2xl mx-auto">
-                                Our intercession covers every aspect of life and ministry
+                                Join us in making a difference every month
                             </p>
                         </motion.div>
 
-                        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-                            {prayerRequests.map((request, index) => (
+                        <div className="grid md:grid-cols-2 gap-8">
+                            <motion.div
+                                variants={fadeInUp}
+                                className="bg-gradient-to-br from-red-50 to-white p-8 rounded-2xl border-2 border-red-200 shadow-lg"
+                            >
+                                <div className="flex items-center gap-4 mb-6">
+                                    <div className="w-16 h-16 bg-gradient-to-br from-red-500 to-red-600 rounded-2xl flex items-center justify-center">
+                                        <Calendar className="w-8 h-8 text-white" />
+                                    </div>
+                                    <h3 className="text-2xl font-bold text-gray-900">Weekly Activities</h3>
+                                </div>
+                                <ul className="space-y-4">
+                                    <li className="flex items-start gap-3">
+                                        <CheckCircle className="w-6 h-6 text-red-600 shrink-0 mt-0.5" />
+                                        <div>
+                                            <p className="font-bold text-gray-900">Every Saturday, 8:00 AM</p>
+                                            <p className="text-gray-600">Street Evangelism & Distribution</p>
+                                        </div>
+                                    </li>
+                                    <li className="flex items-start gap-3">
+                                        <CheckCircle className="w-6 h-6 text-red-600 shrink-0 mt-0.5" />
+                                        <div>
+                                            <p className="font-bold text-gray-900">Every Sunday, 2:00 PM</p>
+                                            <p className="text-gray-600">Hospital Visitation Teams</p>
+                                        </div>
+                                    </li>
+                                    <li className="flex items-start gap-3">
+                                        <CheckCircle className="w-6 h-6 text-red-600 shrink-0 mt-0.5" />
+                                        <div>
+                                            <p className="font-bold text-gray-900">Every Wednesday, 10:00 AM</p>
+                                            <p className="text-gray-600">Prison Ministry Visits</p>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </motion.div>
+
+                            <motion.div
+                                variants={fadeInUp}
+                                className="bg-gradient-to-br from-red-50 to-white p-8 rounded-2xl border-2 border-red-200 shadow-lg"
+                            >
+                                <div className="flex items-center gap-4 mb-6">
+                                    <div className="w-16 h-16 bg-gradient-to-br from-orange-500 to-orange-600 rounded-2xl flex items-center justify-center">
+                                        <Clock className="w-8 h-8 text-white" />
+                                    </div>
+                                    <h3 className="text-2xl font-bold text-gray-900">Special Events</h3>
+                                </div>
+                                <ul className="space-y-4">
+                                    <li className="flex items-start gap-3">
+                                        <CheckCircle className="w-6 h-6 text-orange-600 shrink-0 mt-0.5" />
+                                        <div>
+                                            <p className="font-bold text-gray-900">First Saturday</p>
+                                            <p className="text-gray-600">Food Bank Distribution Day</p>
+                                        </div>
+                                    </li>
+                                    <li className="flex items-start gap-3">
+                                        <CheckCircle className="w-6 h-6 text-orange-600 shrink-0 mt-0.5" />
+                                        <div>
+                                            <p className="font-bold text-gray-900">Quarterly</p>
+                                            <p className="text-gray-600">Free Medical Outreach</p>
+                                        </div>
+                                    </li>
+                                    <li className="flex items-start gap-3">
+                                        <CheckCircle className="w-6 h-6 text-orange-600 shrink-0 mt-0.5" />
+                                        <div>
+                                            <p className="font-bold text-gray-900">Last Saturday</p>
+                                            <p className="text-gray-600">Skills Training Sessions</p>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </motion.div>
+                        </div>
+                    </motion.div>
+                </div>
+            </section>
+
+            {/* Testimonials */}
+            <section className="py-24 bg-gradient-to-b from-red-50 to-white">
+                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <motion.div
+                        initial="hidden"
+                        whileInView="visible"
+                        viewport={{ once: true, amount: 0.3 }}
+                        variants={staggerContainer}
+                    >
+                        <motion.div variants={fadeInUp} className="text-center mb-16">
+                            <span className="text-red-600 font-bold text-sm tracking-wider uppercase">Lives Transformed</span>
+                            <div className="w-24 h-1 bg-gradient-to-r from-red-500 to-red-600 mx-auto mt-2 mb-4" />
+                            <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
+                                Stories of Hope
+                            </h2>
+                            <p className="text-xl text-gray-600 max-w-2xl mx-auto">
+                                Real people, real impact, real transformation
+                            </p>
+                        </motion.div>
+
+                        <div className="grid md:grid-cols-3 gap-8">
+                            {testimonials.map((testimonial, index) => (
                                 <motion.div
                                     key={index}
                                     variants={scaleIn}
-                                    whileHover={{ scale: 1.05 }}
-                                    className="bg-teal-50 border-2 border-teal-200 rounded-xl p-6 flex items-center gap-4 hover:shadow-lg transition-all"
+                                    whileHover={{ y: -10 }}
+                                    className="bg-white p-8 rounded-2xl shadow-lg border-2 border-red-100 hover:border-red-300 transition-all"
                                 >
-                                    <CheckCircle className="w-8 h-8 text-teal-600 shrink-0" />
-                                    <span className="font-semibold text-gray-900">{request}</span>
+                                    <div className="mb-6">
+                                        <div className="text-red-600 text-5xl mb-4">"</div>
+                                        <p className="text-gray-700 italic leading-relaxed">
+                                            {testimonial.story}
+                                        </p>
+                                    </div>
+                                    <div className="flex items-center gap-4">
+                                        <div className="w-12 h-12 bg-gradient-to-br from-red-500 to-red-600 rounded-full flex items-center justify-center text-white font-bold text-xl">
+                                            {testimonial.name.charAt(0)}
+                                        </div>
+                                        <div>
+                                            <p className="font-bold text-gray-900">{testimonial.name}</p>
+                                            <p className="text-sm text-red-600">{testimonial.role}</p>
+                                        </div>
+                                    </div>
                                 </motion.div>
                             ))}
                         </div>
@@ -287,8 +410,80 @@ const PrayerMinistry = () => {
                 </div>
             </section>
 
+            {/* Ways to Help */}
+            <section className="py-24 bg-white">
+                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <motion.div
+                        initial="hidden"
+                        whileInView="visible"
+                        viewport={{ once: true, amount: 0.3 }}
+                        variants={staggerContainer}
+                    >
+                        <motion.div variants={fadeInUp} className="text-center mb-16">
+                            <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
+                                Ways You Can Help
+                            </h2>
+                            <p className="text-xl text-gray-600 max-w-2xl mx-auto">
+                                Everyone can make a difference - find your way to serve
+                            </p>
+                        </motion.div>
+
+                        <div className="grid md:grid-cols-3 gap-8">
+                            <motion.div
+                                variants={fadeInUp}
+                                whileHover={{ scale: 1.05 }}
+                                className="bg-gradient-to-br from-green-50 to-white p-8 rounded-2xl border-2 border-green-200 shadow-lg text-center"
+                            >
+                                <div className="w-20 h-20 bg-gradient-to-br from-green-500 to-green-600 rounded-full flex items-center justify-center mx-auto mb-6">
+                                    <Users className="w-10 h-10 text-white" />
+                                </div>
+                                <h3 className="text-2xl font-bold text-gray-900 mb-4">Volunteer Your Time</h3>
+                                <p className="text-gray-600 mb-6">Join our outreach teams and serve directly in the community</p>
+                                <Link href="/contact">
+                                    <button className="bg-green-600 text-white px-6 py-3 rounded-full font-bold hover:bg-green-700 transition-all">
+                                        Sign Up to Volunteer
+                                    </button>
+                                </Link>
+                            </motion.div>
+
+                            <motion.div
+                                variants={fadeInUp}
+                                whileHover={{ scale: 1.05 }}
+                                className="bg-gradient-to-br from-blue-50 to-white p-8 rounded-2xl border-2 border-blue-200 shadow-lg text-center"
+                            >
+                                <div className="w-20 h-20 bg-gradient-to-br from-blue-500 to-blue-600 rounded-full flex items-center justify-center mx-auto mb-6">
+                                    <Heart className="w-10 h-10 text-white" />
+                                </div>
+                                <h3 className="text-2xl font-bold text-gray-900 mb-4">Donate Resources</h3>
+                                <p className="text-gray-600 mb-6">Contribute food, clothing, medical supplies, or financial support</p>
+                                <Link href="/give-online">
+                                    <button className="bg-blue-600 text-white px-6 py-3 rounded-full font-bold hover:bg-blue-700 transition-all">
+                                        Make a Donation
+                                    </button>
+                                </Link>
+                            </motion.div>
+
+                            <motion.div
+                                variants={fadeInUp}
+                                whileHover={{ scale: 1.05 }}
+                                className="bg-gradient-to-br from-purple-50 to-white p-8 rounded-2xl border-2 border-purple-200 shadow-lg text-center"
+                            >
+                                <div className="w-20 h-20 bg-gradient-to-br from-purple-500 to-purple-600 rounded-full flex items-center justify-center mx-auto mb-6">
+                                    <Globe className="w-10 h-10 text-white" />
+                                </div>
+                                <h3 className="text-2xl font-bold text-gray-900 mb-4">Spread the Word</h3>
+                                <p className="text-gray-600 mb-6">Share our mission and help us reach more people in need</p>
+                                <button className="bg-purple-600 text-white px-6 py-3 rounded-full font-bold hover:bg-purple-700 transition-all">
+                                    Share Our Story
+                                </button>
+                            </motion.div>
+                        </div>
+                    </motion.div>
+                </div>
+            </section>
+
             {/* Call to Action */}
-            <section className="py-24 bg-gradient-to-r from-teal-900 via-teal-800 to-teal-700 relative overflow-hidden">
+            <section className="py-24 bg-gradient-to-r from-red-900 via-red-800 to-red-700 relative overflow-hidden">
                 <div className="absolute inset-0 opacity-10">
                     {[...Array(20)].map((_, i) => (
                         <motion.div
@@ -320,17 +515,20 @@ const PrayerMinistry = () => {
                         variants={staggerContainer}
                         className="space-y-8"
                     >
+                        <motion.div variants={scaleIn} className="mx-auto w-24 h-24 bg-white/20 backdrop-blur-md rounded-full flex items-center justify-center mb-6">
+                            <HandHeart className="w-12 h-12 text-white" />
+                        </motion.div>
                         <motion.h2
                             variants={fadeInUp}
                             className="text-4xl md:text-5xl font-bold text-white mb-6 leading-tight"
                         >
-                            Need Prayer? We're Here for You
+                            Be the Change You Want to See
                         </motion.h2>
                         <motion.p
                             variants={fadeInUp}
-                            className="text-xl text-teal-100 mb-8 leading-relaxed"
+                            className="text-xl text-red-100 mb-8 leading-relaxed"
                         >
-                            Submit your prayer request and our team will stand with you in faith
+                            Join our community outreach team and experience the joy of serving others in Jesus' name
                         </motion.p>
                         <motion.div
                             variants={fadeInUp}
@@ -340,28 +538,25 @@ const PrayerMinistry = () => {
                                 <motion.button
                                     whileHover={{ scale: 1.05, y: -5 }}
                                     whileTap={{ scale: 0.95 }}
-                                    className="bg-white text-teal-900 px-10 py-5 rounded-full font-bold text-xl shadow-2xl hover:shadow-white/50 transition-all flex items-center justify-center gap-2 group"
+                                    className="bg-white text-red-900 mx-auto px-10 py-5 rounded-full font-bold text-xl shadow-2xl hover:shadow-white/50 transition-all flex items-center justify-center gap-2 group"
                                 >
-                                    Submit Prayer Request
+                                    Join Our Team
                                     <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
                                 </motion.button>
                             </Link>
-                            <Link href="/ministries">
+                            <Link href="/departments">
                                 <motion.button
                                     whileHover={{ scale: 1.05, y: -5 }}
                                     whileTap={{ scale: 0.95 }}
-                                    className="bg-white/10 backdrop-blur-md border-2 border-white text-white px-10 py-5 rounded-full font-bold text-xl hover:bg-white hover:text-teal-900 transition-all"
+                                    className="bg-white/10 backdrop-blur-md border-2 border-white text-white px-10 py-5 rounded-full font-bold text-xl hover:bg-white hover:text-red-900 transition-all"
                                 >
-                                    Join Prayer Team
+                                    Explore Other Ministries
                                 </motion.button>
                             </Link>
                         </motion.div>
                     </motion.div>
                 </div>
             </section>
-            <Footer />
         </div>
     );
 };
-
-export default PrayerMinistry;

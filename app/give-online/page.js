@@ -491,7 +491,7 @@ const GiveOnlinePage = () => {
               <FaUniversity className="w-12 h-12 text-amber-600 mx-auto mb-4" />
               <h3 className="text-xl font-bold text-gray-900 mb-3">In Person</h3>
               <p className="text-gray-600 mb-4">Drop your offering in the collection box during any service</p>
-              <a href="/plan-your-visit" className="text-amber-600 font-semibold hover:text-amber-700">
+              <a href="/AG/visitors" className="text-amber-600 font-semibold hover:text-amber-700">
                 Service Times →
               </a>
             </div>
@@ -500,7 +500,7 @@ const GiveOnlinePage = () => {
               <FaMobileAlt className="w-12 h-12 text-amber-600 mx-auto mb-4" />
               <h3 className="text-xl font-bold text-gray-900 mb-3">Mobile App</h3>
               <p className="text-gray-600 mb-4">Download our church app for easy giving on the go</p>
-              <a href="#" className="text-amber-600 font-semibold hover:text-amber-700">
+              <a href="our-app" className="text-amber-600 font-semibold hover:text-amber-700">
                 Download App →
               </a>
             </div>

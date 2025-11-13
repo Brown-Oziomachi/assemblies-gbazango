@@ -167,6 +167,7 @@ export default function BeliefsPage() {
                     <ArrowLeft className="w-5 h-5 group-hover:-translate-x-1 transition-transform" />
                     <span className="font-semibold">Back to Home</span>
                 </motion.button>
+                
             </Link>
 
             {/* Hero Section */}

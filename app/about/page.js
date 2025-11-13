@@ -7,6 +7,8 @@ import {
     FaQuoteLeft, FaPhone, FaEnvelope, FaMapMarkerAlt, FaChevronRight
 } from 'react-icons/fa';
 import Footer from '@/components/Footer/page';
+import Link from 'next/link';
+import { ArrowRight } from 'lucide-react';
 
 const AboutUsPage = () => {
     const fadeInUp = {
@@ -375,6 +377,14 @@ const AboutUsPage = () => {
                             ))}
                         </div>
                     </motion.div>
+
+                    <motion.div>
+                    <Link href="/AG/belief" className="mt-8  text-center text-amber-600 font-semibold hover:underline flex gap-5 items-center justify-center">
+                        <h1 className=''>Read On</h1>
+                        <ArrowRight className=" w-4 h-4 " />
+                    </Link>
+                    </motion.div>
+
                 </div>
             </section>
 
@@ -413,11 +423,17 @@ const AboutUsPage = () => {
                                     <div className="p-6">
                                         <h3 className="text-2xl font-bold text-gray-900 mb-1">{leader.name}</h3>
                                         <p className="text-amber-600 font-semibold mb-4">{leader.position}</p>
-                                        <p className="text-gray-600 leading-relaxed">{leader.bio}</p>
                                     </div>
                                 </motion.div>
                             ))}
                         </div>
+                    </motion.div>
+                    
+                    <motion.div>
+                    <Link href="/ministers" className="mt-8  text-center text-amber-600 font-semibold hover:underline flex gap-5 items-center justify-center">
+                        <h1 className=''>Discover More Leaders</h1>
+                        <ArrowRight className=" w-4 h-4 " />
+                    </Link>
                     </motion.div>
                 </div>
             </section>
