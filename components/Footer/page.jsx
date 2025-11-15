@@ -93,6 +93,8 @@ export default function Footer () {
                     { name: "Events Calendar", path: "/events" },
                     { name: "Sermons", path: "/sermons" },
                     { name: "Departments", path: "/departments" },
+                    { name: 'Install App', path: '/our-app' }
+
                   ].map((link, i) => (
                     <li key={i}>
                       <Link

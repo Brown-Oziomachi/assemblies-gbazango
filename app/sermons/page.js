@@ -26,6 +26,86 @@ export default function SermonsPage() {
         }
     };
 
+    // Extract YouTube video ID from URL
+    const getYouTubeVideoId = (url) => {
+        if (!url) return null;
+        const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|&v=)([^#&?]*).*/;
+        const match = url.match(regExp);
+        return (match && match[2].length === 11) ? match[2] : null;
+    };
+
+    // Extract Facebook video ID from URL
+    const getFacebookVideoId = (url) => {
+        if (!url) return null;
+        // Facebook watch URLs: fb.watch, facebook.com/watch, facebook.com/video
+        const patterns = [
+            /facebook\.com\/watch\/?\?v=(\d+)/,
+            /facebook\.com\/.*\/videos\/(\d+)/,
+            /fb\.watch\/([a-zA-Z0-9_-]+)/,
+            /facebook\.com\/video\.php\?v=(\d+)/
+        ];
+        
+        for (const pattern of patterns) {
+            const match = url.match(pattern);
+            if (match) return match[1];
+        }
+        return null;
+    };
+
+    // Extract Vimeo video ID from URL
+    const getVimeoVideoId = (url) => {
+        if (!url) return null;
+        const regExp = /vimeo\.com\/(\d+)/;
+        const match = url.match(regExp);
+        return match ? match[1] : null;
+    };
+
+    // Determine video platform and get embed info
+    const getVideoEmbedInfo = (url) => {
+        if (!url) return null;
+
+        const youtubeId = getYouTubeVideoId(url);
+        if (youtubeId) {
+            return {
+                platform: 'youtube',
+                id: youtubeId,
+                embedUrl: `https://www.youtube.com/embed/${youtubeId}`,
+                thumbnailUrl: `https://img.youtube.com/vi/${youtubeId}/maxresdefault.jpg`
+            };
+        }
+
+        const facebookId = getFacebookVideoId(url);
+        if (facebookId) {
+            return {
+                platform: 'facebook',
+                id: facebookId,
+                embedUrl: `https://www.facebook.com/plugins/video.php?href=${encodeURIComponent(url)}`,
+                thumbnailUrl: null
+            };
+        }
+
+        const vimeoId = getVimeoVideoId(url);
+        if (vimeoId) {
+            return {
+                platform: 'vimeo',
+                id: vimeoId,
+                embedUrl: `https://player.vimeo.com/video/${vimeoId}`,
+                thumbnailUrl: null
+            };
+        }
+
+        // Direct video file
+        if (url.match(/\.(mp4|webm|ogg)$/i)) {
+            return {
+                platform: 'direct',
+                embedUrl: url,
+                thumbnailUrl: null
+            };
+        }
+
+        return null;
+    };
+
     // Fetch sermons from Firebase
     useEffect(() => {
         const fetchSermons = async () => {
@@ -59,6 +139,7 @@ export default function SermonsPage() {
         if (searchTerm) {
             filtered = filtered.filter(sermon =>
                 sermon.title?.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                sermon.preacher?.toLowerCase().includes(searchTerm.toLowerCase()) ||
                 sermon.speaker?.toLowerCase().includes(searchTerm.toLowerCase()) ||
                 sermon.description?.toLowerCase().includes(searchTerm.toLowerCase())
             );
@@ -85,6 +166,11 @@ export default function SermonsPage() {
         } catch {
             return dateString;
         }
+    };
+
+    // Get preacher name (handles both 'preacher' and 'speaker' fields)
+    const getPreacherName = (sermon) => {
+        return sermon.preacher || sermon.speaker || 'Unknown Speaker';
     };
 
     return (
@@ -205,85 +291,95 @@ export default function SermonsPage() {
                             variants={staggerContainer}
                             className="grid md:grid-cols-2 lg:grid-cols-3 gap-8"
                         >
-                            {filteredSermons.map((sermon) => (
-                                <motion.div
-                                    key={sermon.id}
-                                    variants={fadeInUp}
-                                    whileHover={{ y: -10, boxShadow: "0 20px 40px rgba(0,0,0,0.15)" }}
-                                    className="bg-white rounded-2xl shadow-lg overflow-hidden border-2 border-gray-100 hover:border-amber-300 transition-all"
-                                >
-                                    {/* Thumbnail */}
-                                    <div className="relative h-56 bg-gradient-to-br from-amber-400 to-amber-600 overflow-hidden">
-                                        {sermon.thumbnailUrl ? (
-                                            <img
-                                                src={sermon.thumbnailUrl}
-                                                alt={sermon.title}
-                                                className="w-full h-full object-cover"
-                                            />
-                                        ) : (
-                                            <div className="w-full h-full flex items-center justify-center">
+                            {filteredSermons.map((sermon) => {
+                                const videoId = getYouTubeVideoId(sermon.videoUrl);
+                                const thumbnailUrl = videoId 
+                                    ? `https://img.youtube.com/vi/${videoId}/maxresdefault.jpg`
+                                    : sermon.thumbnailUrl;
+
+                                return (
+                                    <motion.div
+                                        key={sermon.id}
+                                        variants={fadeInUp}
+                                        whileHover={{ y: -10, boxShadow: "0 20px 40px rgba(0,0,0,0.15)" }}
+                                        className="bg-white rounded-2xl shadow-lg overflow-hidden border-2 border-gray-100 hover:border-amber-300 transition-all"
+                                    >
+                                        {/* Thumbnail */}
+                                        <div className="relative h-56 bg-gradient-to-br from-amber-400 to-amber-600 overflow-hidden">
+                                            {thumbnailUrl ? (
+                                                <img
+                                                    src={thumbnailUrl}
+                                                    alt={sermon.title}
+                                                    className="w-full h-full object-cover"
+                                                    onError={(e) => {
+                                                        e.target.style.display = 'none';
+                                                        e.target.nextSibling.style.display = 'flex';
+                                                    }}
+                                                />
+                                            ) : null}
+                                            <div className="w-full h-full flex items-center justify-center" style={{ display: thumbnailUrl ? 'none' : 'flex' }}>
                                                 <Video className="w-20 h-20 text-white opacity-50" />
                                             </div>
-                                        )}
-                                        <div className="absolute inset-0 bg-black bg-opacity-30 flex items-center justify-center opacity-0 hover:opacity-100 transition-opacity">
-                                            <button
-                                                onClick={() => setSelectedSermon(sermon)}
-                                                className="bg-white text-amber-600 w-16 h-16 rounded-full flex items-center justify-center hover:bg-amber-50 transition"
-                                            >
-                                                <Play className="w-8 h-8 ml-1" />
-                                            </button>
-                                        </div>
-                                        {sermon.category && (
-                                            <div className="absolute top-4 left-4">
-                                                <span className="bg-amber-600 text-white px-3 py-1 rounded-full text-sm font-semibold">
-                                                    {sermon.category}
-                                                </span>
-                                            </div>
-                                        )}
-                                    </div>
-
-                                    {/* Content */}
-                                    <div className="p-6">
-                                        <h3 className="text-xl font-bold text-gray-900 mb-3 line-clamp-2">
-                                            {sermon.title || 'Untitled Sermon'}
-                                        </h3>
-
-                                        <div className="flex items-center gap-4 text-sm text-gray-600 mb-4">
-                                            <div className="flex items-center gap-2">
-                                                <User className="w-4 h-4" />
-                                                <span>{sermon.speaker || 'Unknown'}</span>
-                                            </div>
-                                            <div className="flex items-center gap-2">
-                                                <Calendar className="w-4 h-4" />
-                                                <span>{formatDate(sermon.date)}</span>
-                                            </div>
-                                        </div>
-
-                                        <p className="text-gray-700 mb-6 line-clamp-3">
-                                            {sermon.description || 'No description available.'}
-                                        </p>
-
-                                        <div className="flex gap-3">
-                                            <button
-                                                onClick={() => setSelectedSermon(sermon)}
-                                                className="flex-1 bg-amber-600 text-white px-4 py-3 rounded-lg hover:bg-amber-700 transition font-semibold flex items-center justify-center gap-2"
-                                            >
-                                                <Play className="w-4 h-4" />
-                                                Watch
-                                            </button>
-                                            {sermon.audioUrl && (
-                                                <a
-                                                    href={sermon.audioUrl}
-                                                    download
-                                                    className="bg-gray-100 text-gray-700 px-4 py-3 rounded-lg hover:bg-gray-200 transition font-semibold flex items-center justify-center"
+                                            <div className="absolute inset-0 bg-black bg-opacity-30 flex items-center justify-center opacity-0 hover:opacity-100 transition-opacity">
+                                                <button
+                                                    onClick={() => setSelectedSermon(sermon)}
+                                                    className="bg-white text-amber-600 w-16 h-16 rounded-full flex items-center justify-center hover:bg-amber-50 transition"
                                                 >
-                                                    <Download className="w-5 h-5" />
-                                                </a>
+                                                    <Play className="w-8 h-8 ml-1" />
+                                                </button>
+                                            </div>
+                                            {sermon.category && (
+                                                <div className="absolute top-4 left-4">
+                                                    <span className="bg-amber-600 text-white px-3 py-1 rounded-full text-sm font-semibold">
+                                                        {sermon.category}
+                                                    </span>
+                                                </div>
                                             )}
                                         </div>
-                                    </div>
-                                </motion.div>
-                            ))}
+
+                                        {/* Content */}
+                                        <div className="p-6">
+                                            <h3 className="text-xl font-bold text-gray-900 mb-3 line-clamp-2">
+                                                {sermon.title || 'Untitled Sermon'}
+                                            </h3>
+
+                                            <div className="flex items-center gap-4 text-sm text-gray-600 mb-4">
+                                                <div className="flex items-center gap-2">
+                                                    <User className="w-4 h-4" />
+                                                    <span>{getPreacherName(sermon)}</span>
+                                                </div>
+                                                <div className="flex items-center gap-2">
+                                                    <Calendar className="w-4 h-4" />
+                                                    <span>{formatDate(sermon.date)}</span>
+                                                </div>
+                                            </div>
+
+                                            <p className="text-gray-700 mb-6 line-clamp-3">
+                                                {sermon.description || 'No description available.'}
+                                            </p>
+
+                                            <div className="flex gap-3">
+                                                <button
+                                                    onClick={() => setSelectedSermon(sermon)}
+                                                    className="flex-1 bg-amber-600 text-white px-4 py-3 rounded-lg hover:bg-amber-700 transition font-semibold flex items-center justify-center gap-2"
+                                                >
+                                                    <Play className="w-4 h-4" />
+                                                    Watch
+                                                </button>
+                                                {sermon.audioUrl && (
+                                                    <a
+                                                        href={sermon.audioUrl}
+                                                        download
+                                                        className="bg-gray-100 text-gray-700 px-4 py-3 rounded-lg hover:bg-gray-200 transition font-semibold flex items-center justify-center"
+                                                    >
+                                                        <Download className="w-5 h-5" />
+                                                    </a>
+                                                )}
+                                            </div>
+                                        </div>
+                                    </motion.div>
+                                );
+                            })}
                         </motion.div>
                     )}
                 </div>
@@ -300,14 +396,32 @@ export default function SermonsPage() {
                     >
                         <div className="relative">
                             {selectedSermon.videoUrl ? (
-                                <video
-                                    controls
-                                    autoPlay
-                                    className="w-full h-[400px] bg-black rounded-t-2xl"
-                                    src={selectedSermon.videoUrl}
-                                >
-                                    Your browser does not support the video tag.
-                                </video>
+                                (() => {
+                                    const videoId = getYouTubeVideoId(selectedSermon.videoUrl);
+                                    if (videoId) {
+                                        return (
+                                            <iframe
+                                                className="w-full h-[400px] rounded-t-2xl"
+                                                src={`https://www.youtube.com/embed/${videoId}?autoplay=1`}
+                                                title={selectedSermon.title}
+                                                frameBorder="0"
+                                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                                allowFullScreen
+                                            />
+                                        );
+                                    } else {
+                                        return (
+                                            <video
+                                                controls
+                                                autoPlay
+                                                className="w-full h-[400px] bg-black rounded-t-2xl"
+                                                src={selectedSermon.videoUrl}
+                                            >
+                                                Your browser does not support the video tag.
+                                            </video>
+                                        );
+                                    }
+                                })()
                             ) : (
                                 <div className="w-full h-[400px] bg-gradient-to-br from-amber-400 to-amber-600 flex items-center justify-center rounded-t-2xl">
                                     <Video className="w-32 h-32 text-white opacity-50" />
@@ -322,18 +436,20 @@ export default function SermonsPage() {
                         </div>
 
                         <div className="p-8">
-                            <div className="mb-6">
-                                <span className="bg-amber-100 text-amber-700 px-3 py-1 rounded-full text-sm font-semibold">
-                                    {selectedSermon.category}
-                                </span>
-                            </div>
+                            {selectedSermon.category && (
+                                <div className="mb-6">
+                                    <span className="bg-amber-100 text-amber-700 px-3 py-1 rounded-full text-sm font-semibold">
+                                        {selectedSermon.category}
+                                    </span>
+                                </div>
+                            )}
 
-                            <h2 className="text-3xl font-bold text-gray-900 mb-4">{selectedSermon.title}</h2>
+                            <h2 className="text-3xl font-bold text-gray-900 mb-4">{selectedSermon.title || 'Untitled Sermon'}</h2>
 
                             <div className="flex flex-wrap items-center gap-6 text-gray-600 mb-6">
                                 <div className="flex items-center gap-2">
                                     <User className="w-5 h-5" />
-                                    <span className="font-semibold">{selectedSermon.speaker}</span>
+                                    <span className="font-semibold">{getPreacherName(selectedSermon)}</span>
                                 </div>
                                 <div className="flex items-center gap-2">
                                     <Calendar className="w-5 h-5" />
@@ -341,9 +457,11 @@ export default function SermonsPage() {
                                 </div>
                             </div>
 
-                            <p className="text-lg text-gray-700 leading-relaxed mb-6">
-                                {selectedSermon.description}
-                            </p>
+                            {selectedSermon.description && (
+                                <p className="text-lg text-gray-700 leading-relaxed mb-6">
+                                    {selectedSermon.description}
+                                </p>
+                            )}
 
                             {selectedSermon.audioUrl && (
                                 <div className="mt-6">

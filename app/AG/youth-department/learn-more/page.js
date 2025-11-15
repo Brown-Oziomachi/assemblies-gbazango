@@ -1,10 +1,35 @@
 import React from 'react';
-import { Users, BookOpen, Heart, Award, Calendar, MapPin, Zap, Music, Target } from 'lucide-react';
+import { Users, BookOpen, Heart, Award, Calendar, MapPin, Zap, Music, Target, ArrowLeft } from 'lucide-react';
 import Link from 'next/link';
 import Footer from '@/components/Footer/page';
 
 export default function YouthDepartment() {
     return (
+        <>
+          <nav className="bg-white shadow-sm sticky top-0 z-50 border-b">
+                    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                        <div className="flex justify-between items-center h-16">
+                            <a
+                                href="/"
+                                className="flex items-center gap-2 text-amber-600 hover:text-amber-700 font-semibold transition-colors"
+                            >
+                                <ArrowLeft className="w-5 h-5" />
+                                Back to Home
+                            </a>
+                            <div className="flex items-center gap-3">
+                                <img
+                                    src="/AG.jpeg"
+                                    alt="AG Church"
+                                    className="w-10 h-10"
+                                />
+                                <div className="hidden sm:block">
+                                    <p className="text-sm font-bold text-gray-900">Assemblies of God</p>
+                                    <p className="text-xs text-amber-600">Gbazango District</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </nav>
         <div className="min-h-screen bg-white">
             {/* Header */}
             <header className="text-white py-16 px-4 shadow-2xl relative overflow-hidden bg-linear-to-br from-purple-600 to-indigo-800 bg-transparent">
@@ -286,5 +311,6 @@ export default function YouthDepartment() {
             </footer>
             <Footer />
         </div>
+        </>
     );
 }

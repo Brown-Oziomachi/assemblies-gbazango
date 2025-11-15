@@ -156,19 +156,32 @@ export default function BeliefsPage() {
     ];
 
     return (
+        <>
+          <nav className="bg-white shadow-sm sticky top-0 z-50 border-b">
+                    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                        <div className="flex justify-between items-center h-16">
+                            <a
+                                href="/"
+                                className="flex items-center gap-2 text-amber-600 hover:text-amber-700 font-semibold transition-colors"
+                            >
+                                <ArrowLeft className="w-5 h-5" />
+                                Back to Home
+                            </a>
+                            <div className="flex items-center gap-3">
+                                <img
+                                    src="/AG.jpeg"
+                                    alt="AG Church"
+                                    className="w-10 h-10"
+                                />
+                                <div className="hidden sm:block">
+                                    <p className="text-sm font-bold text-gray-900">Assemblies of God</p>
+                                    <p className="text-xs text-amber-600">Gbazango District</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </nav>
         <div className="min-h-screen bg-gradient-to-b from-gray-900 via-gray-800 to-gray-900">
-            {/* Back to Home Button */}
-            <Link href="/">
-                <motion.button
-                    initial={{ opacity: 0, x: -20 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    className="fixed top-6 left-6 z-50 flex items-center gap-2 bg-gray-800/80 backdrop-blur-sm text-white px-6 py-3 rounded-full border border-amber-500/30 hover:border-amber-500 hover:bg-amber-500/20 transition-all group"
-                >
-                    <ArrowLeft className="w-5 h-5 group-hover:-translate-x-1 transition-transform" />
-                    <span className="font-semibold">Back to Home</span>
-                </motion.button>
-                
-            </Link>
 
             {/* Hero Section */}
             <motion.div
@@ -331,5 +344,6 @@ export default function BeliefsPage() {
             </motion.div>
             <Footer />
         </div>
+        </>
     );
 }

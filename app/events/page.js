@@ -1,7 +1,7 @@
 "use client";
 import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { Church, ArrowLeft, Calendar, MapPin, Clock, Users, Tag, Share2, Bell } from 'lucide-react';
+import { Church, ArrowLeft, Calendar, MapPin, Clock, Users, Tag, Share2, Bell, X, Mail, Phone, User } from 'lucide-react';
 import { collection, query, orderBy, getDocs, where } from 'firebase/firestore';
 import { db } from '@/lib/firebaseConfig';
 
@@ -10,6 +10,13 @@ export default function EventsPage() {
     const [loading, setLoading] = useState(true);
     const [filter, setFilter] = useState('upcoming');
     const [selectedEvent, setSelectedEvent] = useState(null);
+    const [showRegistrationModal, setShowRegistrationModal] = useState(false);
+    const [registrationData, setRegistrationData] = useState({
+        name: '',
+        email: '',
+        phone: '',
+        message: ''
+    });
 
     const fadeInUp = {
         hidden: { opacity: 0, y: 60 },
@@ -37,6 +44,7 @@ export default function EventsPage() {
                     id: doc.id,
                     ...doc.data()
                 }));
+                console.log('Fetched events:', eventsData); // Debug log
                 setEvents(eventsData);
                 setLoading(false);
             } catch (error) {
@@ -91,8 +99,40 @@ export default function EventsPage() {
         return true;
     });
 
+    const handleRegistration = (e) => {
+        e.preventDefault();
+        
+        if (!registrationData.name || !registrationData.email || !registrationData.phone) {
+            alert('Please fill all required fields');
+            return;
+        }
+
+        // Here you can add Firebase logic to save registration
+        console.log('Registration data:', {
+            ...registrationData,
+            eventId: selectedEvent.id,
+            eventTitle: selectedEvent.title
+        });
+
+        alert(`Thank you for registering for "${selectedEvent.title}"! We'll send you confirmation via email.`);
+        setShowRegistrationModal(false);
+        setRegistrationData({ name: '', email: '', phone: '', message: '' });
+    };
+
+    const handleShare = () => {
+        if (navigator.share) {
+            navigator.share({
+                title: selectedEvent.title,
+                text: selectedEvent.description,
+                url: window.location.href
+            }).catch(err => console.log('Error sharing:', err));
+        } else {
+            alert('Share link: ' + window.location.href);
+        }
+    };
+
     return (
-        <div className="min-h-screen bg-linear-to-b from-amber-50 to-white">
+        <div className="min-h-screen bg-gradient-to-b from-amber-50 to-white">
             {/* Navigation */}
             <nav className="bg-white shadow-sm sticky top-0 z-50 border-b">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -123,7 +163,7 @@ export default function EventsPage() {
                         alt="Events"
                         className="w-full h-full object-cover"
                     />
-                    <div className="absolute inset-0 bg-linear-to-r from-amber-900/90 to-amber-800/70" />
+                    <div className="absolute inset-0 bg-gradient-to-r from-amber-900/90 to-amber-800/70" />
                 </div>
 
                 <div className="relative h-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center">
@@ -171,7 +211,7 @@ export default function EventsPage() {
             </section>
 
             {/* Events Grid */}
-            <section className="py-20 bg-linear-to-b from-gray-50 to-white">
+            <section className="py-20 bg-gradient-to-b from-gray-50 to-white">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                     {loading ? (
                         <div className="text-center py-20">
@@ -207,12 +247,16 @@ export default function EventsPage() {
                                     onClick={() => setSelectedEvent(event)}
                                 >
                                     {/* Event Image */}
-                                    <div className="relative h-56 bg-linear-to-br from-amber-400 to-amber-600 overflow-hidden">
-                                        {event.imageUrl ? (
+                                    <div className="relative h-56 bg-gradient-to-br from-amber-400 to-amber-600 overflow-hidden">
+                                        {event.image ? (
                                             <img
-                                                src={event.imageUrl}
+                                                src={event.image}
                                                 alt={event.title}
                                                 className="w-full h-full object-cover"
+                                                onError={(e) => {
+                                                    console.log('Image failed to load:', event.image);
+                                                    e.target.style.display = 'none';
+                                                }}
                                             />
                                         ) : (
                                             <div className="w-full h-full flex items-center justify-center">
@@ -227,10 +271,10 @@ export default function EventsPage() {
                                                 </span>
                                             </div>
                                         )}
-                                        {event.category && (
+                                        {event.department && (
                                             <div className="absolute top-4 left-4">
                                                 <span className="bg-amber-600 text-white px-3 py-1 rounded-full text-sm font-semibold">
-                                                    {event.category}
+                                                    {event.department}
                                                 </span>
                                             </div>
                                         )}
@@ -279,7 +323,7 @@ export default function EventsPage() {
             </section>
 
             {/* Event Details Modal */}
-            {selectedEvent && (
+            {selectedEvent && !showRegistrationModal && (
                 <div className="fixed inset-0 bg-black bg-opacity-75 z-50 flex items-center justify-center p-4" onClick={() => setSelectedEvent(null)}>
                     <motion.div
                         initial={{ opacity: 0, scale: 0.9 }}
@@ -289,20 +333,26 @@ export default function EventsPage() {
                     >
                         {/* Event Image */}
                         <div className="relative h-80">
-                            {selectedEvent.imageUrl ? (
+                            {selectedEvent.image ? (
                                 <img
-                                    src={selectedEvent.imageUrl}
+                                    src={selectedEvent.image}
                                     alt={selectedEvent.title}
                                     className="w-full h-full object-cover rounded-t-2xl"
+                                    onError={(e) => {
+                                        e.target.style.display = 'none';
+                                        e.target.nextSibling.style.display = 'flex';
+                                    }}
                                 />
-                            ) : (
-                                <div className="w-full h-full bg-linear-to-br from-amber-400 to-amber-600 flex items-center justify-center rounded-t-2xl">
-                                    <Calendar className="w-32 h-32 text-white opacity-50" />
-                                </div>
-                            )}
+                            ) : null}
+                            <div 
+                                className="w-full h-full bg-gradient-to-br from-amber-400 to-amber-600 flex items-center justify-center rounded-t-2xl"
+                                style={{ display: selectedEvent.image ? 'none' : 'flex' }}
+                            >
+                                <Calendar className="w-32 h-32 text-white opacity-50" />
+                            </div>
                             <button
                                 onClick={() => setSelectedEvent(null)}
-                                className="absolute top-4 right-4 bg-white text-gray-600 hover:text-gray-800 w-10 h-10 rounded-full flex items-center justify-center text-2xl shadow-lg"
+                                className="absolute top-4 right-4 bg-white text-gray-600 hover:text-gray-800 w-10 h-10 rounded-full flex items-center justify-center text-2xl shadow-lg z-10"
                             >
                                 ×
                             </button>
@@ -318,11 +368,11 @@ export default function EventsPage() {
 
                         {/* Event Details */}
                         <div className="p-8">
-                            {selectedEvent.category && (
+                            {selectedEvent.department && (
                                 <div className="mb-4">
-                                    <span className="bg-amber-100 text-amber-700 px-3 py-1 rounded-full text-sm font-semibold flex items-center gap-2">
+                                    <span className="bg-amber-100 text-amber-700 px-3 py-1 rounded-full text-sm font-semibold inline-flex items-center gap-2">
                                         <Tag className="w-4 h-4" />
-                                        {selectedEvent.category}
+                                        {selectedEvent.department}
                                     </span>
                                 </div>
                             )}
@@ -367,14 +417,129 @@ export default function EventsPage() {
                             </div>
 
                             <div className="flex flex-wrap gap-4">
-                                <button className="flex-1 bg-amber-600 text-white px-6 py-4 rounded-lg hover:bg-amber-700 transition font-bold text-lg flex items-center justify-center gap-2">
+                                <button 
+                                    onClick={() => setShowRegistrationModal(true)}
+                                    className="flex-1 bg-amber-600 text-white px-6 py-4 rounded-lg hover:bg-amber-700 transition font-bold text-lg flex items-center justify-center gap-2">
                                     <Bell className="w-5 h-5" />
                                     Register for Event
                                 </button>
-                                <button className="bg-gray-100 text-gray-700 px-6 py-4 rounded-lg hover:bg-gray-200 transition font-bold flex items-center justify-center gap-2">
+                                <button 
+                                    onClick={handleShare}
+                                    className="bg-gray-100 text-gray-700 px-6 py-4 rounded-lg hover:bg-gray-200 transition font-bold flex items-center justify-center gap-2">
                                     <Share2 className="w-5 h-5" />
                                     Share
                                 </button>
+                            </div>
+                        </div>
+                    </motion.div>
+                </div>
+            )}
+
+            {/* Registration Modal */}
+            {showRegistrationModal && selectedEvent && (
+                <div className="fixed inset-0 bg-black bg-opacity-75 z-[60] flex items-center justify-center p-4">
+                    <motion.div
+                        initial={{ opacity: 0, scale: 0.9 }}
+                        animate={{ opacity: 1, scale: 1 }}
+                        className="bg-white rounded-2xl shadow-2xl max-w-2xl w-full"
+                        onClick={(e) => e.stopPropagation()}
+                    >
+                        <div className="p-8">
+                            <div className="flex justify-between items-center mb-6">
+                                <h2 className="text-3xl font-bold text-gray-900">Register for Event</h2>
+                                <button
+                                    onClick={() => setShowRegistrationModal(false)}
+                                    className="text-gray-500 hover:text-gray-700"
+                                >
+                                    <X size={24} />
+                                </button>
+                            </div>
+
+                            <div className="mb-6 p-4 bg-amber-50 rounded-lg border-2 border-amber-200">
+                                <h3 className="font-bold text-lg text-gray-900 mb-1">{selectedEvent.title}</h3>
+                                <p className="text-sm text-gray-600">{formatDate(selectedEvent.date)} at {formatTime(selectedEvent.time)}</p>
+                            </div>
+
+                            <div onSubmit={handleRegistration} className="space-y-4">
+                                <div>
+                                    <label className="block text-sm font-semibold text-gray-700 mb-2">
+                                        Full Name *
+                                    </label>
+                                    <div className="relative">
+                                        <User className="absolute left-3 top-3.5 w-5 h-5 text-gray-400" />
+                                        <input
+                                            type="text"
+                                            required
+                                            value={registrationData.name}
+                                            onChange={(e) => setRegistrationData({...registrationData, name: e.target.value})}
+                                            className="w-full pl-11 pr-4 py-3 border-2 border-gray-300 rounded-lg focus:border-amber-600 focus:outline-none"
+                                            placeholder="Enter your full name"
+                                        />
+                                    </div>
+                                </div>
+
+                                <div>
+                                    <label className="block text-sm font-semibold text-gray-700 mb-2">
+                                        Email Address *
+                                    </label>
+                                    <div className="relative">
+                                        <Mail className="absolute left-3 top-3.5 w-5 h-5 text-gray-400" />
+                                        <input
+                                            type="email"
+                                            required
+                                            value={registrationData.email}
+                                            onChange={(e) => setRegistrationData({...registrationData, email: e.target.value})}
+                                            className="w-full pl-11 pr-4 py-3 border-2 border-gray-300 rounded-lg focus:border-amber-600 focus:outline-none"
+                                            placeholder="your.email@example.com"
+                                        />
+                                    </div>
+                                </div>
+
+                                <div>
+                                    <label className="block text-sm font-semibold text-gray-700 mb-2">
+                                        Phone Number *
+                                    </label>
+                                    <div className="relative">
+                                        <Phone className="absolute left-3 top-3.5 w-5 h-5 text-gray-400" />
+                                        <input
+                                            type="tel"
+                                            required
+                                            value={registrationData.phone}
+                                            onChange={(e) => setRegistrationData({...registrationData, phone: e.target.value})}
+                                            className="w-full pl-11 pr-4 py-3 border-2 border-gray-300 rounded-lg focus:border-amber-600 focus:outline-none"
+                                            placeholder="+234 xxx xxx xxxx"
+                                        />
+                                    </div>
+                                </div>
+
+                                <div>
+                                    <label className="block text-sm font-semibold text-gray-700 mb-2">
+                                        Additional Message (Optional)
+                                    </label>
+                                    <textarea
+                                        value={registrationData.message}
+                                        onChange={(e) => setRegistrationData({...registrationData, message: e.target.value})}
+                                        className="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:border-amber-600 focus:outline-none h-24"
+                                        placeholder="Any special requests or questions?"
+                                    />
+                                </div>
+
+                                <div className="flex gap-4 pt-4">
+                                    <button
+                                        type="button"
+                                        onClick={() => setShowRegistrationModal(false)}
+                                        className="flex-1 px-6 py-3 border-2 border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition font-semibold"
+                                    >
+                                        Cancel
+                                    </button>
+                                    <button
+                                        type="button"
+                                        onClick={handleRegistration}
+                                        className="flex-1 px-6 py-3 bg-amber-600 text-white rounded-lg hover:bg-amber-700 transition font-semibold"
+                                    >
+                                        Complete Registration
+                                    </button>
+                                </div>
                             </div>
                         </div>
                     </motion.div>

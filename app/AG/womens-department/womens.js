@@ -9,6 +9,8 @@ import {
   FaBirthdayCake, FaHome, FaRing, FaChild
 } from 'react-icons/fa';
 import Link from 'next/link';
+import { db } from '@/lib/firebaseConfig';
+import { collection, addDoc, getDocs, deleteDoc, doc, updateDoc, onSnapshot, Timestamp, query, orderBy, where } from 'firebase/firestore';
 
 const WomensDepartmentPage = () => {
     const [searchTerm, setSearchTerm] = useState('');
@@ -160,7 +162,8 @@ const WomensDepartmentPage = () => {
         };
 
         console.log('Membership Request:', membershipRequest);
-        
+        await addDoc(collection(db, 'membershipRequests'), membershipRequest);
+
         alert('Your application has been submitted successfully! Our team will review and contact you soon.');
         setShowJoinModal(false);
         setFormData({

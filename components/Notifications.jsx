@@ -2,76 +2,168 @@
 
 import { useState, useEffect, useRef } from "react";
 import Link from "next/link";
-import { Bell, X, Clock } from "lucide-react";
+import { Bell, X, Clock, Calendar, Video, Megaphone } from "lucide-react";
 import {
   collection,
   query,
   orderBy,
   limit,
   onSnapshot,
+  where,
 } from "firebase/firestore";
 import { db } from "@/lib/firebaseConfig";
 
 export default function NotificationBell({ setShowNav, scrolled }) {
   const [isOpen, setIsOpen] = useState(false);
   const [notifications, setNotifications] = useState([]);
-  const [viewedPosts, setViewedPosts] = useState([]);
+  const [viewedItems, setViewedItems] = useState([]);
   const [unreadCount, setUnreadCount] = useState(0);
   const [showHistory, setShowHistory] = useState(false);
+  const [activeTab, setActiveTab] = useState('all'); // all, events, sermons, announcements
   const dropdownRef = useRef(null);
 
-  // 🧠 Get viewed posts from localStorage
-  const getViewedPosts = () => {
+  // 🧠 Get viewed items from localStorage
+  const getViewedItems = () => {
     if (typeof window === "undefined") return [];
-    const viewed = localStorage.getItem("viewedPosts");
+    const viewed = localStorage.getItem("viewedItems");
     return viewed ? JSON.parse(viewed) : [];
   };
 
-
-
-  // 🧠 Mark post as viewed
-  const markAsViewed = (postId) => {
-    const viewed = getViewedPosts();
-    if (!viewed.includes(postId)) {
-      viewed.push(postId);
-      localStorage.setItem("viewedPosts", JSON.stringify(viewed));
-      setViewedPosts(viewed);
+  // 🧠 Mark item as viewed
+  const markAsViewed = (itemId) => {
+    const viewed = getViewedItems();
+    if (!viewed.includes(itemId)) {
+      viewed.push(itemId);
+      localStorage.setItem("viewedItems", JSON.stringify(viewed));
+      setViewedItems(viewed);
     }
   };
 
-  // 🔥 Fetch latest posts (live)
+  // 🔥 Fetch all content types (events, sermons, announcements)
   useEffect(() => {
-    const q = query(
-      collection(db, "blogs"),
-      orderBy("createdAt", "desc"),
-      limit(10)
-    );
+    const unsubscribers = [];
+    let allNotifications = [];
 
-    const unsubscribe = onSnapshot(q, (snapshot) => {
-      if (!snapshot.empty) {
-        const docs = snapshot.docs.map((doc) => ({
-          id: doc.id,
+    // Fetch Events
+    const eventsQuery = query(
+      collection(db, "events"),
+      orderBy("createdAt", "desc"),
+      limit(15)
+    );
+    unsubscribers.push(
+      onSnapshot(eventsQuery, (snapshot) => {
+        const events = snapshot.docs.map((doc) => ({
+          id: `event-${doc.id}`,
+          type: 'event',
+          icon: Calendar,
+          color: '#10B981',
+          link: '/events',
+          title: doc.data().title,
+          subtitle: doc.data().description || `${doc.data().date} at ${doc.data().time}`,
+          imageUrl: doc.data().image,
+          createdAt: doc.data().createdAt,
+          category: 'Event',
           ...doc.data(),
         }));
+        updateNotifications('events', events);
+      }, (error) => {
+        console.error('Error fetching events:', error);
+      })
+    );
 
-        const viewed = getViewedPosts();
+    // Fetch Sermons
+    const sermonsQuery = query(
+      collection(db, "sermons"),
+      orderBy("date", "desc"),
+      limit(15)
+    );
+    unsubscribers.push(
+      onSnapshot(sermonsQuery, (snapshot) => {
+        const sermons = snapshot.docs.map((doc) => ({
+          id: `sermon-${doc.id}`,
+          type: 'sermon',
+          icon: Video,
+          color: '#EF4444',
+          link: '/sermons',
+          title: doc.data().title,
+          subtitle: `by ${doc.data().preacher || 'Unknown'}`,
+          createdAt: doc.data().createdAt || { toDate: () => new Date(doc.data().date) },
+          category: doc.data().category || 'Sermon',
+          ...doc.data(),
+        }));
+        updateNotifications('sermons', sermons);
+      }, (error) => {
+        console.error('Error fetching sermons:', error);
+      })
+    );
 
-        const unviewedDocs = docs.filter((doc) => !viewed.includes(doc.id));
-        const viewedDocs = docs.filter((doc) => viewed.includes(doc.id));
+    // Fetch Announcements (Active only)
+    const announcementsQuery = query(
+      collection(db, "announcements"),
+      orderBy("createdAt", "desc"),
+      limit(15)
+    );
+    unsubscribers.push(
+      onSnapshot(announcementsQuery, (snapshot) => {
+        const announcements = snapshot.docs
+          .map((doc) => ({
+            id: `announcement-${doc.id}`,
+            type: 'announcement',
+            icon: Megaphone,
+            color: '#F59E0B',
+            link: '/anouncements',
+            title: doc.data().title,
+            subtitle: doc.data().message?.substring(0, 100),
+            createdAt: doc.data().createdAt,
+            category: doc.data().priority || 'Announcement',
+            status: doc.data().status,
+            ...doc.data(),
+          }))
+          .filter(item => item.status === 'active'); // Only active announcements
+        updateNotifications('announcements', announcements);
+      }, (error) => {
+        console.error('Error fetching announcements:', error);
+      })
+    );
 
-        setNotifications(unviewedDocs);
-        setViewedPosts(viewedDocs);
+    // Function to update notifications state
+    const notificationsByType = {};
+    const updateNotifications = (type, items) => {
+      notificationsByType[type] = items;
+      
+      // Combine all notifications
+      const combined = [
+        ...(notificationsByType.events || []),
+        ...(notificationsByType.sermons || []),
+        ...(notificationsByType.announcements || []),
+      ];
 
-        const now = new Date();
-        const oneDayAgo = new Date(now.getTime() - 24 * 60 * 60 * 1000);
-        const unread = unviewedDocs.filter(
-          (doc) => doc.createdAt?.toDate() > oneDayAgo
-        ).length;
-        setUnreadCount(unread);
-      }
-    });
+      // Sort by creation date
+      combined.sort((a, b) => {
+        const dateA = a.createdAt?.toDate?.() || new Date(0);
+        const dateB = b.createdAt?.toDate?.() || new Date(0);
+        return dateB - dateA;
+      });
 
-    return () => unsubscribe();
+      const viewed = getViewedItems();
+      const unviewedItems = combined.filter((item) => !viewed.includes(item.id));
+      const viewedItemsList = combined.filter((item) => viewed.includes(item.id));
+
+      setNotifications(unviewedItems);
+      setViewedItems(viewedItemsList);
+
+      // Calculate unread count (items from last 7 days)
+      const now = new Date();
+      const sevenDaysAgo = new Date(now.getTime() - 7 * 24 * 60 * 60 * 1000);
+      const unread = unviewedItems.filter(
+        (item) => (item.createdAt?.toDate?.() || new Date(0)) > sevenDaysAgo
+      ).length;
+      setUnreadCount(unread);
+    };
+
+    return () => {
+      unsubscribers.forEach(unsubscribe => unsubscribe());
+    };
   }, []);
 
   // 🧩 Close dropdown when clicking outside
@@ -94,9 +186,9 @@ export default function NotificationBell({ setShowNav, scrolled }) {
 
   const createSlug = (title) => {
     return title
-      .toLowerCase()
+      ?.toLowerCase()
       .replace(/[^a-z0-9]+/g, "-")
-      .replace(/^-+|-+$/g, "");
+      .replace(/^-+|-+$/g, "") || '';
   };
 
   const createFullSlug = (title, id) => `${createSlug(title)}--${id}`;
@@ -104,7 +196,7 @@ export default function NotificationBell({ setShowNav, scrolled }) {
   const getTimeAgo = (date) => {
     if (!date) return "Just now";
     const now = new Date();
-    const postDate = date.toDate();
+    const postDate = date.toDate?.() || new Date(date);
     const diffInSeconds = Math.floor((now - postDate) / 1000);
     if (diffInSeconds < 60) return "Just now";
     if (diffInSeconds < 3600) return `${Math.floor(diffInSeconds / 60)}m ago`;
@@ -118,15 +210,15 @@ export default function NotificationBell({ setShowNav, scrolled }) {
   const isNew = (date) => {
     if (!date) return false;
     const now = new Date();
-    const postDate = date.toDate();
-    const oneDayAgo = new Date(now.getTime() - 24 * 60 * 60 * 1000);
-    return postDate > oneDayAgo;
+    const postDate = date.toDate?.() || new Date(date);
+    const sevenDaysAgo = new Date(now.getTime() - 7 * 24 * 60 * 60 * 1000);
+    return postDate > sevenDaysAgo;
   };
 
   // 🖱️ When a notification is clicked
-  const handleNotificationClick = (postId) => {
-    markAsViewed(postId);
-    setNotifications((prev) => prev.filter((n) => n.id !== postId)); // remove immediately
+  const handleNotificationClick = (itemId) => {
+    markAsViewed(itemId);
+    setNotifications((prev) => prev.filter((n) => n.id !== itemId));
     setUnreadCount((prev) => (prev > 0 ? prev - 1 : 0));
     setIsOpen(false);
     if (setShowNav) setShowNav(false);
@@ -137,6 +229,24 @@ export default function NotificationBell({ setShowNav, scrolled }) {
     setShowHistory(false);
     if (!isOpen && setShowNav) setShowNav(false);
   };
+
+  // Filter notifications by active tab
+  const filteredNotifications = showHistory 
+    ? viewedItems.filter(n => activeTab === 'all' || n.type === activeTab)
+    : notifications.filter(n => activeTab === 'all' || n.type === activeTab);
+
+  // Get counts for each type
+  const getCounts = () => {
+    const items = showHistory ? viewedItems : notifications;
+    return {
+      all: items.length,
+      event: items.filter(n => n.type === 'event').length,
+      sermon: items.filter(n => n.type === 'sermon').length,
+      announcement: items.filter(n => n.type === 'announcement').length,
+    };
+  };
+
+  const counts = getCounts();
 
   return (
     <div className="relative" ref={dropdownRef}>
@@ -166,12 +276,12 @@ export default function NotificationBell({ setShowNav, scrolled }) {
           <div className="bg-[#0c0b0bfa] px-6 py-4 flex items-center justify-between border-b border-gray-700">
             <div>
               <h3 className="text-white font-bold text-lg p-2">
-                {showHistory ? "Viewed Announcements" : "Church Announcements"}
+                {showHistory ? "Viewed Items" : "Church Updates"}
               </h3>
               <p className="text-white/80 text-xs p-1">
                 {showHistory
-                  ? `${viewedPosts.length} Viewed`
-                  : `${notifications.length} New`}
+                  ? `${counts.all} Viewed`
+                  : `${counts.all} New Updates`}
               </p>
             </div>
             <button
@@ -182,79 +292,125 @@ export default function NotificationBell({ setShowNav, scrolled }) {
             </button>
           </div>
 
+          {/* Tabs */}
+          <div className="flex gap-2 px-4 py-3 bg-gray-900/50 overflow-x-auto">
+            <button
+              onClick={() => setActiveTab('all')}
+              className={`px-3 py-1.5 rounded-full text-xs font-semibold whitespace-nowrap transition ${
+                activeTab === 'all'
+                  ? 'bg-cyan-500 text-white'
+                  : 'bg-gray-800 text-gray-300 hover:bg-gray-700'
+              }`}
+            >
+              All ({counts.all})
+            </button>
+            <button
+              onClick={() => setActiveTab('event')}
+              className={`px-3 py-1.5 rounded-full text-xs font-semibold whitespace-nowrap transition ${
+                activeTab === 'event'
+                  ? 'bg-green-500 text-white'
+                  : 'bg-gray-800 text-gray-300 hover:bg-gray-700'
+              }`}
+            >
+              Events ({counts.event})
+            </button>
+            <button
+              onClick={() => setActiveTab('sermon')}
+              className={`px-3 py-1.5 rounded-full text-xs font-semibold whitespace-nowrap transition ${
+                activeTab === 'sermon'
+                  ? 'bg-red-500 text-white'
+                  : 'bg-gray-800 text-gray-300 hover:bg-gray-700'
+              }`}
+            >
+              Sermons ({counts.sermon})
+            </button>
+            <button
+              onClick={() => setActiveTab('announcement')}
+              className={`px-3 py-1.5 rounded-full text-xs font-semibold whitespace-nowrap transition ${
+                activeTab === 'announcement'
+                  ? 'bg-orange-500 text-white'
+                  : 'bg-gray-800 text-gray-300 hover:bg-gray-700'
+              }`}
+            >
+              Announcements ({counts.announcement})
+            </button>
+          </div>
+
           {/* List */}
           <div className="max-h-[500px] overflow-y-auto">
-            {(
-              !showHistory
-                ? notifications.length === 0
-                : viewedPosts.length === 0
-            ) ? (
+            {filteredNotifications.length === 0 ? (
               <div className="text-center py-12 text-gray-400">
-                <Bell
-                  size={48}
-                  className={`mx-auto mb-3 opacity-50 font-extrabold text-lg lg:hidden ${
-                    scrolled ? "text-amber-900" : "text-black"
-                  }`}
-                />
+                <Bell size={48} className="mx-auto mb-3 opacity-50" />
                 <p>
                   {showHistory
-                    ? "No viewed posts yet"
-                    : "No new announcements yet"}
+                    ? `No viewed ${activeTab === 'all' ? 'items' : activeTab + 's'} yet`
+                    : `No new ${activeTab === 'all' ? 'updates' : activeTab + 's'} yet`}
                 </p>
               </div>
             ) : (
               <div className="divide-y divide-gray-800">
-                {(showHistory ? viewedPosts : notifications).map((n) => (
-                  <Link
-                    key={n.id}
-                    href={`/news/${createFullSlug(n.title, n.id)}`}
-                    onClick={() =>
-                      !showHistory && handleNotificationClick(n.id)
-                    }
-                    className="block hover:bg-gray-800/50 transition-colors"
-                  >
-                    <div className="p-4 flex gap-3">
-                      {n.imageUrl && (
+                {filteredNotifications.map((n) => {
+                  const Icon = n.icon;
+                  return (
+                    <Link
+                      key={n.id}
+                      href={n.link}
+                      onClick={() => !showHistory && handleNotificationClick(n.id)}
+                      className="block hover:bg-gray-800/50 transition-colors"
+                    >
+                      <div className="p-4 flex gap-3">
+                        {/* Icon or Image */}
                         <div className="shrink-0">
-                          <img
-                            src={n.imageUrl}
-                            alt={n.title}
-                            className="w-16 h-16 object-cover rounded-lg"
-                          />
-                        </div>
-                      )}
-                      <div className="flex-1 min-w-0">
-                        <div className="flex items-start justify-between gap-2 mb-1">
-                          <h4 className="text-white font-semibold text-sm line-clamp-2">
-                            {n.title}
-                          </h4>
-                          {!showHistory && isNew(n.createdAt) && (
-                            <span className="shrink-0 w-2 h-2 bg-red-500 rounded-full mt-1"></span>
+                          {n.imageUrl || n.thumbnailUrl ? (
+                            <img
+                              src={n.imageUrl || n.thumbnailUrl}
+                              alt={n.title}
+                              className="w-16 h-16 object-cover rounded-lg"
+                            />
+                          ) : (
+                            <div 
+                              className="w-16 h-16 rounded-lg flex items-center justify-center"
+                              style={{ backgroundColor: n.color + '20' }}
+                            >
+                              <Icon size={28} style={{ color: n.color }} />
+                            </div>
                           )}
                         </div>
-                        {n.subtitle && (
-                          <p className="text-gray-400 text-xs line-clamp-1 mb-2">
-                            {n.subtitle}
-                          </p>
-                        )}
-                        <div className="flex items-center gap-3 text-xs">
-                          <span
-                            className={`px-2 py-1 rounded-md font-semibold ${
-                              n.category
-                                ? "bg-red-600 text-white"
-                                : "bg-gray-700 text-gray-300"
-                            }`}
-                          >
-                            {n.category || "Other"}
-                          </span>
-                          <span className="text-gray-500">
-                            {getTimeAgo(n.createdAt)}
-                          </span>
+
+                        {/* Content */}
+                        <div className="flex-1 min-w-0">
+                          <div className="flex items-start justify-between gap-2 mb-1">
+                            <h4 className="text-white font-semibold text-sm line-clamp-2">
+                              {n.title}
+                            </h4>
+                            {!showHistory && isNew(n.createdAt) && (
+                              <span className="shrink-0 w-2 h-2 bg-red-500 rounded-full mt-1"></span>
+                            )}
+                          </div>
+                          {n.subtitle && (
+                            <p className="text-gray-400 text-xs line-clamp-1 mb-2">
+                              {n.subtitle}
+                            </p>
+                          )}
+                          <div className="flex items-center gap-3 text-xs">
+                            <span
+                              className="px-2 py-1 rounded-md font-semibold"
+                              style={{ 
+                                backgroundColor: n.color + '30',
+                                color: n.color 
+                              }}
+                            >
+                              {n.category || n.type}
+                            </span>
+                            <span className="text-gray-500">
+                              {getTimeAgo(n.createdAt)}
+                            </span>
+                          </div>
                         </div>
                       </div>
-                    </div>
-                  </Link>
-                ))}
+                    </Link>
+                  );
+                })}
               </div>
             )}
           </div>
@@ -263,21 +419,20 @@ export default function NotificationBell({ setShowNav, scrolled }) {
           <div className="bg-gray-800/50 px-6 py-3 text-center border-t border-gray-700 flex items-center justify-between">
             {!showHistory ? (
               <>
-                <Link
-                  href="/anouncements"
+                <button
                   onClick={() => {
                     setIsOpen(false);
                     if (setShowNav) setShowNav(false);
                   }}
                   className="text-cyan-400 hover:text-cyan-300 text-sm font-semibold transition-colors"
                 >
-                  View All Announcements →
-                </Link>
+                  Close
+                </button>
                 <button
                   onClick={() => setShowHistory(true)}
                   className="flex items-center gap-1 text-gray-300 text-sm hover:text-white transition"
                 >
-                  <Clock size={14} /> Viewed
+                  <Clock size={14} /> View History
                 </button>
               </>
             ) : (

@@ -1,6 +1,6 @@
 "use client"
 import React, { useState, useEffect } from 'react';
-import { Download, X } from 'lucide-react';
+import { ArrowLeft, Download, X } from 'lucide-react';
 
 export default function AppInstallPage() {
     const [deferredPrompt, setDeferredPrompt] = useState(null);
@@ -62,13 +62,38 @@ export default function AppInstallPage() {
     }
 
     return (
+        <>
+          <nav className="bg-white shadow-sm sticky top-0 z-50 border-b">
+                    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                        <div className="flex justify-between items-center h-16">
+                            <a
+                                href="/"
+                                className="flex items-center gap-2 text-amber-600 hover:text-amber-700 font-semibold transition-colors"
+                            >
+                                <ArrowLeft className="w-5 h-5" />
+                                Back to Home
+                            </a>
+                            <div className="flex items-center gap-3">
+                                <img
+                                    src="/AG.jpeg"
+                                    alt="AG Church"
+                                    className="w-10 h-10"
+                                />
+                                <div className="hidden sm:block">
+                                    <p className="text-sm font-bold text-gray-900">Assemblies of God</p>
+                                    <p className="text-xs text-amber-600">Gbazango District</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </nav>
         <div className="min-h-screen bg-gradient-to-br from-amber-500 via-yellow-400 to-orange-500 flex items-center justify-center p-4">
             <div className="text-center">
                 <div className="w-40 h-40 mx-auto mb-6 rounded-3xl shadow-2xl flex items-center justify-center">
                     <img
                         src="/logo.png"
                         alt="AG Church"
-                        className="w-40 h-70"
+                        className="w-50 h-70"
                     />                </div>
 
                 <h1 className="text-4xl font-bold text-amber-900 mb-4">
@@ -90,7 +115,7 @@ export default function AppInstallPage() {
 
             {/* Install Modal */}
             {showModal && (
-                <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
+                <div className="fixed inset-0 bg-gradient-to-br from-amber-500 to-orange-500 bg-opacity-50 flex items-center justify-center p-4 z-50">
                     <div className="bg-white rounded-3xl p-8 max-w-md w-full shadow-2xl relative animate-in fade-in zoom-in duration-300">
                         <button
                             onClick={handleDismiss}
@@ -99,9 +124,12 @@ export default function AppInstallPage() {
                             <X className="w-6 h-6" />
                         </button>
 
-                        <div className="w-24 h-24 mx-auto mb-6 bg-gradient-to-br from-amber-500 to-orange-500 rounded-2xl flex items-center justify-center shadow-lg">
-                            <div className="text-4xl">✝️</div>
-                        </div>
+                        <div className="w-24 h-24 mx-auto mb-6 rounded-2xl flex items-center justify-center ">
+                            <img
+                                src="/logo.png"
+                                alt="AG Church"
+                                className="w-50 h-70"
+                            />                        </div>
 
                         <h2 className="text-2xl font-bold text-amber-900 mb-3 text-center">
                             Install AG Gbazango
@@ -143,6 +171,7 @@ export default function AppInstallPage() {
                     </div>
                 </div>
             )}
-        </div>
+            </div>
+            </>
     );
 }

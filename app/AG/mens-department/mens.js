@@ -9,6 +9,7 @@ import {
   FaBirthdayCake, FaHome, FaBriefcase, FaChurch
 } from 'react-icons/fa';
 import Link from 'next/link';
+import { db } from '@/lib/firebaseConfig';
 
 const MensDepartmentPage = () => {
     const [searchTerm, setSearchTerm] = useState('');
@@ -162,7 +163,7 @@ const MensDepartmentPage = () => {
         console.log('Membership Request:', membershipRequest);
         
         // TODO: Send to Firebase/Backend
-        // await addDoc(collection(db, 'membershipRequests'), membershipRequest);
+        await addDoc(collection(db, 'membershipRequests'), membershipRequest);
         
         alert('Your application has been submitted successfully! Our team will review and contact you soon.');
         setShowJoinModal(false);

@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import Image from 'next/image';
 import Footer from '@/components/Footer/page';
 import Link from 'next/link';
+import {ArrowLeft} from 'lucide-react'
 
 export default function WorshipTeam() {
     const [activeTab, setActiveTab] = useState('about');
@@ -26,6 +27,31 @@ export default function WorshipTeam() {
     ];
 
     return (
+        <>
+          <nav className="bg-white shadow-sm sticky top-0 z-50 border-b">
+                    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                        <div className="flex justify-between items-center h-16">
+                            <a
+                                href="/"
+                                className="flex items-center gap-2 text-amber-600 hover:text-amber-700 font-semibold transition-colors"
+                            >
+                                <ArrowLeft className="w-5 h-5" />
+                                Back to Home
+                            </a>
+                            <div className="flex items-center gap-3">
+                                <img
+                                    src="/AG.jpeg"
+                                    alt="AG Church"
+                                    className="w-10 h-10"
+                                />
+                                <div className="hidden sm:block">
+                                    <p className="text-sm font-bold text-gray-900">Assemblies of God</p>
+                                    <p className="text-xs text-amber-600">Gbazango District</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </nav>
         <div className="min-h-screen bg-linear-to-b from-slate-900 via-purple-900 to-slate-900">
             {/* Hero Section */}
             <div className="relative h-screen flex items-center justify-center overflow-hidden">
@@ -370,7 +396,6 @@ export default function WorshipTeam() {
                     </div>
                 )}
             </div>
-
             {/* Footer */}
             <footer className="bg-slate-950 border-t border-purple-500/30 py-12 mt-20">
                 <div className="max-w-7xl mx-auto px-4 text-center">
@@ -389,11 +414,12 @@ export default function WorshipTeam() {
         @keyframes fadeIn {
           from { opacity: 0; transform: translateY(20px); }
           to { opacity: 1; transform: translateY(0); }
-        }
-        .animate-fadeIn {
-          animation: fadeIn 0.6s ease-out;
+          }
+          .animate-fadeIn {
+            animation: fadeIn 0.6s ease-out;
         }
       `}</style>
         </div>
+        </>
     );
 }

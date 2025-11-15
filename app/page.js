@@ -1,9 +1,9 @@
 import { redirect } from "next/navigation";
 
 export const metadata = {
-  title: "Tupskills | Learning & Growth Platform",
+  title: "Assemblies of God Church Gbazango",
   description:
-    "Join Tupskills — the social learning platform that connects learners, creators, and mentors. Build skills, share knowledge, and grow together in a community designed for success.",
+    "Welcome to Assemblies of God Church Gbazango — a place of worship, spiritual growth, and community. Join us to experience God's presence and grow in faith together.",
   referrer: "origin-when-cross-origin",
 };
 

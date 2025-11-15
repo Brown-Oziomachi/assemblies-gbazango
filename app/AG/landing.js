@@ -171,17 +171,17 @@ const AGChurchLanding = () => {
             {/* Hero Section with Video */}
             <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
                 <div className="absolute inset-0 z-0">
-                    <div className="relative w-full h-full bg-gray-900">
+                    <div className="relative w-full h-full bg-gray-900/20">
                         {/* Video would go here */}
                         <video
-                            className="w-full h-full object-cover opacity-20"
+                            className="w-full h-full object-cover brightness-50"
                             autoPlay
                             loop
                             muted={isMuted}
                             playsInline
-                            poster="https://images.unsplash.com/photo-1438032005730-c779502df39b?w=1920"
+                            poster="/gba.png"
                         >
-                            <source src="/get.mp4" type="video/mp4" />
+                            {/* <source src="/get.mp4" type="video/mp4" /> */}
                         </video>
 
                         <div className="absolute inset-0 bg-linear-to-b from-black/50 via-transparent to-black/70" />
@@ -679,7 +679,7 @@ const AGChurchLanding = () => {
             <footer className="relative bg-gray-900 text-gray-300 py-16 overflow-hidden">
                 {/* Background video (plays in the footer) */}
                 <video
-                    className="absolute inset-0 w-full h-full object-cover opacity-30"
+                    className="absolute inset-0 w-full h-full object-cover opacity-50"
                     autoPlay
                     loop
                     muted={isMuted}

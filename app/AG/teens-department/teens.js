@@ -9,6 +9,8 @@ import {
     FaBirthdayCake, FaHome, FaGraduationCap, FaGamepad
 } from 'react-icons/fa';
 import Link from 'next/link';
+import { db } from '@/lib/firebaseConfig';
+import { collection, addDoc, getDocs, deleteDoc, doc, updateDoc, onSnapshot, Timestamp, query, orderBy, where } from 'firebase/firestore';
 
 const TeensDepartmentPage = () => {
     const [searchTerm, setSearchTerm] = useState('');
@@ -160,6 +162,7 @@ const TeensDepartmentPage = () => {
         };
 
         console.log('Membership Request:', membershipRequest);
+        await addDoc(collection(db, 'membershipRequests'), membershipRequest);
 
         alert('Your application has been submitted successfully! Our team will review and contact you soon.');
         setShowJoinModal(false);

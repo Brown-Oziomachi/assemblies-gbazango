@@ -6,6 +6,8 @@ import {
     ChevronLeft, Share2, Heart, Bookmark
 } from 'lucide-react';
 import Footer from '@/components/Footer/page';
+import { collection, query, orderBy, getDocs, where, updateDoc, doc, increment } from 'firebase/firestore';
+import { db } from '@/lib/firebaseConfig';
 
 export default function AnnouncementsPage() {
     const [announcements, setAnnouncements] = useState([]);
@@ -16,134 +18,41 @@ export default function AnnouncementsPage() {
     const [selectedAnnouncement, setSelectedAnnouncement] = useState(null);
     const [showFilters, setShowFilters] = useState(false);
 
-    // Simulated Firebase data - Replace with actual Firebase fetch
+    // Fetch announcements from Firebase
     useEffect(() => {
-        // Simulate Firebase fetch
         const fetchAnnouncements = async () => {
             setLoading(true);
-            
-            // Simulate API delay
-            await new Promise(resolve => setTimeout(resolve, 1000));
-            
-            // Sample data - Replace with actual Firebase call
-            const sampleData = [
-                {
-                    id: '1',
-                    title: 'Sunday Service Time Change',
-                    description: 'Starting next week, our Sunday service will begin at 9:00 AM instead of 10:00 AM. Please adjust your schedules accordingly.',
-                    fullContent: 'Dear beloved congregation, we are making a temporary adjustment to our Sunday service schedule. Starting from November 17th, 2025, our main service will begin at 9:00 AM and end at 11:30 AM. This change is to accommodate our upcoming building renovation project. We appreciate your understanding and flexibility during this transition period. God bless you!',
-                    category: 'Service',
-                    date: '2025-11-15',
-                    time: '09:00 AM',
-                    location: 'Main Sanctuary',
-                    priority: 'high',
-                    author: 'Pastor John Okafor',
-                    views: 234,
-                    image: 'https://images.unsplash.com/photo-1438232992991-995b7058bbb3?w=800'
-                },
-                {
-                    id: '2',
-                    title: 'Youth Conference 2025',
-                    description: 'Join us for our annual Youth Conference! Theme: "Arise and Shine" - Three days of powerful worship, teaching, and fellowship.',
-                    fullContent: 'We are excited to announce our Annual Youth Conference 2025 with the theme "Arise and Shine" based on Isaiah 60:1. This three-day event will feature renowned speakers, powerful worship sessions, workshops, and networking opportunities. Registration is now open. Early bird discount available until November 30th. Don\'t miss this life-changing experience!',
-                    category: 'Event',
-                    date: '2025-12-15',
-                    time: '06:00 PM',
-                    location: 'Church Grounds',
-                    priority: 'medium',
-                    author: 'Youth Department',
-                    views: 567,
-                    image: 'https://images.unsplash.com/photo-1511578314322-379afb476865?w=800'
-                },
-                {
-                    id: '3',
-                    title: 'Prayer & Fasting Week',
-                    description: 'Corporate prayer and fasting from Monday to Friday. Join us daily at 6:00 AM and 6:00 PM for powerful prayer sessions.',
-                    fullContent: 'The Lord has laid it on our hearts to embark on a week of corporate prayer and fasting. We will gather twice daily - morning session at 6:00 AM and evening session at 6:00 PM. This is a time to seek God\'s face for our church, families, and nation. Prayer points will be provided daily. Let us come together in unity and faith!',
-                    category: 'Prayer',
-                    date: '2025-11-20',
-                    time: '06:00 AM & 06:00 PM',
-                    location: 'Prayer Hall',
-                    priority: 'high',
-                    author: 'Prayer Ministry',
-                    views: 432,
-                    image: 'https://images.unsplash.com/photo-1518282566050-2f0c3d73eafd?w=800'
-                },
-                {
-                    id: '4',
-                    title: 'New Members Class',
-                    description: 'Are you new to our church? Join our orientation class to learn about our vision, mission, and how you can get involved.',
-                    fullContent: 'Welcome to the family! Our New Members Class is designed to help you integrate into our church community. You will learn about our church history, doctrine, ministries, and opportunities for service. The class runs for 4 weeks every Saturday. Light refreshments will be served. Please register at the information desk.',
-                    category: 'General',
-                    date: '2025-11-23',
-                    time: '10:00 AM',
-                    location: 'Conference Room A',
-                    priority: 'medium',
-                    author: 'Admin Office',
-                    views: 189,
-                    image: 'https://images.unsplash.com/photo-1523050854058-8df90110c9f1?w=800'
-                },
-                {
-                    id: '5',
-                    title: 'Christmas Carol Service',
-                    description: 'Join us for a beautiful evening of Christmas carols, drama, and celebration. Invite your friends and family!',
-                    fullContent: 'Celebrate the birth of our Savior with us at our annual Christmas Carol Service. The evening will feature traditional and contemporary carols, a nativity drama by our children\'s department, special performances, and a powerful message. This is a perfect opportunity to invite your unsaved friends and family. Admission is free. Light refreshments will be served after the service.',
-                    category: 'Event',
-                    date: '2025-12-24',
-                    time: '06:00 PM',
-                    location: 'Main Sanctuary',
-                    priority: 'high',
-                    author: 'Music Ministry',
-                    views: 892,
-                    image: 'https://images.unsplash.com/photo-1543589077-47d81606c1bf?w=800'
-                },
-                {
-                    id: '6',
-                    title: 'Offering Envelopes Available',
-                    description: 'New offering envelopes for 2025 are now available at the church office. Please collect yours this Sunday.',
-                    fullContent: 'Dear members, the 2025 offering envelopes are now ready for collection. These envelopes help us maintain accurate records of your giving for tax purposes. Please visit the church office after any service to collect your personalized envelope. If you are new and would like to get envelopes, please fill out the form at the information desk.',
-                    category: 'General',
-                    date: '2025-11-13',
-                    time: 'All Day',
-                    location: 'Church Office',
-                    priority: 'low',
-                    author: 'Finance Department',
-                    views: 156,
-                    image: 'https://images.unsplash.com/photo-1579621970563-ebec7560ff3e?w=800'
-                },
-                {
-                    id: '7',
-                    title: 'Women\'s Fellowship Meeting',
-                    description: 'All women are invited to our monthly fellowship. Theme: "The Proverbs 31 Woman in Modern Times"',
-                    fullContent: 'Ladies, join us for our monthly Women\'s Fellowship meeting. This month, we will be discussing "The Proverbs 31 Woman in Modern Times" - how to balance faith, family, and career. There will be testimonies, worship, and a time of fellowship. Bring a friend! Light refreshments will be provided. For more information, contact Sister Mary at the women\'s ministry desk.',
-                    category: 'Ministry',
-                    date: '2025-11-16',
-                    time: '10:00 AM',
-                    location: 'Fellowship Hall',
-                    priority: 'medium',
-                    author: 'Women\'s Ministry',
-                    views: 312,
-                    image: 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=800'
-                },
-                {
-                    id: '8',
-                    title: 'Building Fund Appeal',
-                    description: 'Support our church expansion project. Every seed counts! Let\'s build together for God\'s glory.',
-                    fullContent: 'Beloved, as we continue to grow, we need to expand our facilities to accommodate more people. We are launching a building fund campaign to raise funds for our expansion project. We are trusting God for ₦50 million. You can give one-time or pledge monthly. All donations are tax-deductible. Let us build a house for the Lord together. May God richly bless you as you give!',
-                    category: 'General',
-                    date: '2025-11-10',
-                    time: 'Ongoing',
-                    location: 'All Services',
-                    priority: 'medium',
-                    author: 'Building Committee',
-                    views: 678,
-                    image: 'https://images.unsplash.com/photo-1487958449943-2429e8be8625?w=800'
-                }
-            ];
-            
-            setAnnouncements(sampleData);
-            setFilteredAnnouncements(sampleData);
-            setLoading(false);
+            try {
+                // Fetch all announcements first, then filter in JavaScript
+                const announcementsQuery = query(
+                    collection(db, 'announcements'),
+                    orderBy('createdAt', 'desc')
+                );
+                
+                const querySnapshot = await getDocs(announcementsQuery);
+                const fetchedAnnouncements = querySnapshot.docs
+                    .map(doc => {
+                        const data = doc.data();
+                        return {
+                            id: doc.id,
+                            ...data,
+                            // Convert Firestore Timestamp to Date if needed
+                            createdAt: data.createdAt?.toDate?.() || new Date(),
+                            views: data.views || 0
+                        };
+                    })
+                    // Filter for active announcements in JavaScript
+                    .filter(announcement => announcement.status === 'active');
+                
+                console.log('Fetched announcements:', fetchedAnnouncements); // Debug log
+                setAnnouncements(fetchedAnnouncements);
+                setFilteredAnnouncements(fetchedAnnouncements);
+            } catch (error) {
+                console.error('Error fetching announcements:', error);
+                alert('Error loading announcements: ' + error.message);
+            } finally {
+                setLoading(false);
+            }
         };
 
         fetchAnnouncements();
@@ -153,50 +62,78 @@ export default function AnnouncementsPage() {
     useEffect(() => {
         let filtered = announcements;
 
-        // Filter by category
+        // Filter by category (targetAudience in Firebase)
         if (selectedCategory !== 'all') {
-            filtered = filtered.filter(a => a.category === selectedCategory);
+            filtered = filtered.filter(a => a.targetAudience === selectedCategory);
         }
 
         // Filter by search term
         if (searchTerm) {
             filtered = filtered.filter(a => 
-                a.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                a.description.toLowerCase().includes(searchTerm.toLowerCase())
+                a.title?.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                a.message?.toLowerCase().includes(searchTerm.toLowerCase())
             );
         }
 
         setFilteredAnnouncements(filtered);
     }, [selectedCategory, searchTerm, announcements]);
 
-    const categories = ['all', 'Service', 'Event', 'Prayer', 'Ministry', 'General'];
+    // Get unique categories from announcements
+    const categories = ['all', ...new Set(announcements.map(a => a.targetAudience).filter(Boolean))];
 
     const getPriorityColor = (priority) => {
         switch(priority) {
-            case 'high': return '#DC2626';
-            case 'medium': return '#F59E0B';
-            case 'low': return '#10B981';
+            case 'urgent': return '#DC2626';
+            case 'high': return '#F59E0B';
+            case 'normal': return '#10B981';
             default: return '#6B7280';
         }
     };
 
-    const getPriorityBg = (priority) => {
-        switch(priority) {
-            case 'high': return '#FEE2E2';
-            case 'medium': return '#FEF3C7';
-            case 'low': return '#D1FAE5';
-            default: return '#F3F4F6';
+    const formatDate = (date) => {
+        if (!date) return 'No date';
+        try {
+            const dateObj = date instanceof Date ? date : new Date(date);
+            return dateObj.toLocaleDateString('en-US', { 
+                weekday: 'long', 
+                year: 'numeric', 
+                month: 'long', 
+                day: 'numeric' 
+            });
+        } catch {
+            return 'Invalid date';
         }
     };
 
-    const formatDate = (dateString) => {
-        const date = new Date(dateString);
-        return date.toLocaleDateString('en-US', { 
-            weekday: 'long', 
-            year: 'numeric', 
-            month: 'long', 
-            day: 'numeric' 
-        });
+    // Increment view count when announcement is opened
+    const handleAnnouncementClick = async (announcement) => {
+        setSelectedAnnouncement(announcement);
+        
+        // Increment view count in Firebase
+        try {
+            const announcementRef = doc(db, 'announcements', announcement.id);
+            await updateDoc(announcementRef, {
+                views: increment(1)
+            });
+            
+            // Update local state
+            setAnnouncements(prev => prev.map(a => 
+                a.id === announcement.id ? { ...a, views: (a.views || 0) + 1 } : a
+            ));
+        } catch (error) {
+            console.error('Error updating views:', error);
+        }
+    };
+
+    const getDepartmentName = (targetAudience) => {
+        const departments = {
+            'all': 'All Members',
+            'mens': "Men's Fellowship",
+            'womens': "Women's Fellowship",
+            'youth': 'Youth Ministry',
+            'teens': 'Teens Ministry'
+        };
+        return departments[targetAudience] || targetAudience;
     };
 
     return (
@@ -233,8 +170,7 @@ export default function AnnouncementsPage() {
                                 placeholder="Search announcements..."
                                 value={searchTerm}
                                 onChange={(e) => setSearchTerm(e.target.value)}
-                                className="w-full pl-12 pr-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2"
-                                style={{ focusRingColor: '#B8860B' }}
+                                className="w-full pl-12 pr-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-yellow-600"
                             />
                         </div>
                         
@@ -262,11 +198,15 @@ export default function AnnouncementsPage() {
                                     }`}
                                     style={selectedCategory === cat ? { background: 'linear-gradient(135deg, #B8860B 0%, #8B6914 100%)' } : {}}
                                 >
-                                    {cat === 'all' ? 'All' : cat}
+                                    {cat === 'all' ? 'All' : getDepartmentName(cat)}
                                 </button>
                             ))}
                         </div>
                     )}
+                    
+                    <div className="mt-3 text-sm text-gray-600">
+                        Showing {filteredAnnouncements.length} announcement{filteredAnnouncements.length !== 1 ? 's' : ''}
+                    </div>
                 </div>
             </div>
 
@@ -281,7 +221,11 @@ export default function AnnouncementsPage() {
                     <div className="text-center py-20">
                         <Bell className="w-20 h-20 mx-auto mb-4 text-gray-400" />
                         <h3 className="text-2xl font-bold text-white mb-2">No announcements found</h3>
-                        <p className="text-gray-400">Try adjusting your search or filters</p>
+                        <p className="text-gray-400">
+                            {searchTerm || selectedCategory !== 'all' 
+                                ? 'Try adjusting your search or filters' 
+                                : 'Check back later for new announcements'}
+                        </p>
                     </div>
                 ) : (
                     <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -289,27 +233,23 @@ export default function AnnouncementsPage() {
                             <div
                                 key={announcement.id}
                                 className="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-2xl transition-all cursor-pointer transform hover:-translate-y-1"
-                                onClick={() => setSelectedAnnouncement(announcement)}
+                                onClick={() => handleAnnouncementClick(announcement)}
                             >
-                                {/* Image */}
-                                <div className="relative h-48 overflow-hidden">
-                                    <img 
-                                        src={announcement.image} 
-                                        alt={announcement.title}
-                                        className="w-full h-full object-cover"
-                                    />
+                                {/* Header with Priority */}
+                                <div className="relative bg-gradient-to-br from-yellow-400 to-yellow-600 h-32 flex items-center justify-center">
+                                    <Bell className="w-16 h-16 text-white opacity-50" />
                                     <div className="absolute top-3 right-3 px-3 py-1 rounded-full text-xs font-bold text-white"
                                         style={{ 
                                             background: getPriorityColor(announcement.priority),
                                         }}>
-                                        {announcement.priority.toUpperCase()}
+                                        {(announcement.priority || 'normal').toUpperCase()}
                                     </div>
                                     <div className="absolute top-3 left-3 px-3 py-1 rounded-full text-xs font-bold"
                                         style={{ 
                                             background: '#FFD700',
                                             color: '#654321'
                                         }}>
-                                        {announcement.category}
+                                        {getDepartmentName(announcement.targetAudience)}
                                     </div>
                                 </div>
 
@@ -319,28 +259,20 @@ export default function AnnouncementsPage() {
                                         {announcement.title}
                                     </h3>
                                     <p className="text-gray-600 mb-4 line-clamp-3">
-                                        {announcement.description}
+                                        {announcement.message}
                                     </p>
 
                                     <div className="space-y-2 mb-4 text-sm">
                                         <div className="flex items-center gap-2 text-gray-700">
                                             <Calendar className="w-4 h-4" style={{ color: '#B8860B' }} />
-                                            <span>{formatDate(announcement.date)}</span>
-                                        </div>
-                                        <div className="flex items-center gap-2 text-gray-700">
-                                            <Clock className="w-4 h-4" style={{ color: '#B8860B' }} />
-                                            <span>{announcement.time}</span>
-                                        </div>
-                                        <div className="flex items-center gap-2 text-gray-700">
-                                            <MapPin className="w-4 h-4" style={{ color: '#B8860B' }} />
-                                            <span>{announcement.location}</span>
+                                            <span>{formatDate(announcement.createdAt)}</span>
                                         </div>
                                     </div>
 
                                     <div className="flex items-center justify-between pt-4 border-t">
                                         <div className="flex items-center gap-2 text-sm text-gray-500">
                                             <Eye size={16} />
-                                            <span>{announcement.views} views</span>
+                                            <span>{announcement.views || 0} views</span>
                                         </div>
                                         <button className="flex items-center gap-2 text-sm font-semibold" style={{ color: '#B8860B' }}>
                                             Read More <ChevronRight size={16} />
@@ -364,12 +296,8 @@ export default function AnnouncementsPage() {
                         onClick={(e) => e.stopPropagation()}
                     >
                         {/* Modal Header */}
-                        <div className="relative">
-                            <img 
-                                src={selectedAnnouncement.image} 
-                                alt={selectedAnnouncement.title}
-                                className="w-full h-64 object-cover"
-                            />
+                        <div className="relative bg-gradient-to-br from-yellow-400 to-yellow-600 h-64 flex items-center justify-center">
+                            <Bell className="w-32 h-32 text-white opacity-30" />
                             <button
                                 onClick={() => setSelectedAnnouncement(null)}
                                 className="absolute top-4 right-4 w-10 h-10 bg-white rounded-full flex items-center justify-center shadow-lg hover:bg-gray-100 transition"
@@ -382,11 +310,11 @@ export default function AnnouncementsPage() {
                                         background: '#FFD700',
                                         color: '#654321'
                                     }}>
-                                    {selectedAnnouncement.category}
+                                    {getDepartmentName(selectedAnnouncement.targetAudience)}
                                 </span>
                                 <span className="px-4 py-2 rounded-full text-sm font-bold text-white"
                                     style={{ background: getPriorityColor(selectedAnnouncement.priority) }}>
-                                    {selectedAnnouncement.priority.toUpperCase()} PRIORITY
+                                    {(selectedAnnouncement.priority || 'normal').toUpperCase()} PRIORITY
                                 </span>
                             </div>
                         </div>
@@ -399,35 +327,37 @@ export default function AnnouncementsPage() {
 
                             <div className="flex flex-wrap gap-4 mb-6 text-sm text-gray-600">
                                 <div className="flex items-center gap-2">
-                                    <Users size={16} style={{ color: '#B8860B' }} />
-                                    <span>{selectedAnnouncement.author}</span>
-                                </div>
-                                <div className="flex items-center gap-2">
                                     <Calendar size={16} style={{ color: '#B8860B' }} />
-                                    <span>{formatDate(selectedAnnouncement.date)}</span>
+                                    <span>{formatDate(selectedAnnouncement.createdAt)}</span>
                                 </div>
                                 <div className="flex items-center gap-2">
-                                    <Clock size={16} style={{ color: '#B8860B' }} />
-                                    <span>{selectedAnnouncement.time}</span>
-                                </div>
-                                <div className="flex items-center gap-2">
-                                    <MapPin size={16} style={{ color: '#B8860B' }} />
-                                    <span>{selectedAnnouncement.location}</span>
+                                    <Users size={16} style={{ color: '#B8860B' }} />
+                                    <span>{getDepartmentName(selectedAnnouncement.targetAudience)}</span>
                                 </div>
                                 <div className="flex items-center gap-2">
                                     <Eye size={16} style={{ color: '#B8860B' }} />
-                                    <span>{selectedAnnouncement.views} views</span>
+                                    <span>{selectedAnnouncement.views || 0} views</span>
                                 </div>
                             </div>
 
                             <div className="prose max-w-none mb-6">
                                 <p className="text-gray-700 text-lg leading-relaxed whitespace-pre-line">
-                                    {selectedAnnouncement.fullContent}
+                                    {selectedAnnouncement.message}
                                 </p>
                             </div>
 
                             <div className="flex gap-3 pt-6 border-t">
-                                <button className="flex-1 flex items-center justify-center gap-2 px-6 py-3 rounded-lg font-semibold text-white transition"
+                                <button 
+                                    onClick={() => {
+                                        if (navigator.share) {
+                                            navigator.share({
+                                                title: selectedAnnouncement.title,
+                                                text: selectedAnnouncement.message,
+                                                url: window.location.href
+                                            });
+                                        }
+                                    }}
+                                    className="flex-1 flex items-center justify-center gap-2 px-6 py-3 rounded-lg font-semibold text-white transition"
                                     style={{ background: 'linear-gradient(135deg, #B8860B 0%, #8B6914 100%)' }}>
                                     <Share2 size={20} />
                                     Share

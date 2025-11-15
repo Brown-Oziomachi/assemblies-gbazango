@@ -10,6 +10,8 @@ import {
   FaGraduationCap, FaChurch
 } from 'react-icons/fa';
 import Link from 'next/link';
+import { db } from '@/lib/firebaseConfig';
+import { collection, addDoc, getDocs, deleteDoc, doc, updateDoc, onSnapshot, Timestamp, query, orderBy, where } from 'firebase/firestore';
 
 const YouthDepartmentPage = () => {
     const [searchTerm, setSearchTerm] = useState('');
@@ -162,7 +164,7 @@ const YouthDepartmentPage = () => {
         console.log('Membership Request:', membershipRequest);
         
         // TODO: Send to Firebase/Backend for admin approval
-        // await addDoc(collection(db, 'membershipRequests'), membershipRequest);
+        await addDoc(collection(db, 'membershipRequests'), membershipRequest);
         
         alert('Your application has been submitted successfully! Our team will review and contact you soon.');
         setShowJoinModal(false);
